@@ -1,36 +1,47 @@
 import React from 'react';
 import '../styles/Template.css';
 import Logo from "../assets/logo.jpeg";
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
     const location = useLocation();
 
-    const setHeaderStyle = () => {
+    function setHeaderStyle(){
+        const links = document.querySelectorAll('.nav_links');
+        links.forEach(element => {
+            element.style.textDecoration = 'none';
+        });
         switch (location.pathname) {
             case '/':
-                return 'Home';
-            case '/about':
-                return 'About Us';
-            case '/contact':
-                return 'Contact Us';
+                document.getElementById('home_nav').style.textDecoration = 'underline' ;
+                break;
+            case '/postings+applications':
+                document.getElementById('postings_nav').style.textDecoration = 'underline' ;
+                break;
+            case '/events':
+                document.getElementById('events_nav').style.textDecoration = 'underline' ;
+                break;
+            case '/myprofile':
+                document.getElementById('myprofile_nav').style.textDecoration = 'underline' ;
+                break;
             default:
-                return 'Page Not Found';
+                break;
         }
     };
     
     return (
         <header>
-            <div id="header">
+            <div id="header" onLoad={setHeaderStyle}>
                 <img src={Logo} alt="MyCareer"/>
                 <button id="logout">Log Out</button>
             </div>
             <hr style={{border: '1px solid black'}}/>
             <nav>
                 <ul>
-                    <li><a href="/" id="home_nav">Home</a></li>
-                    <li><a href="/postings+applications" id="postings_nav">Postings/Applications</a></li>
-                    <li><a href="/events" id="events_nav">Events</a></li>
-                    <li><a href="/myprofile" id="myprofile_nav">MyProfile</a></li>
+                    <li><a href="/" id="home_nav" className="nav_links">Home</a></li>
+                    <li><a href="/postings+applications" className="nav_links" id="postings_nav">Postings/Applications</a></li>
+                    <li><a href="/events" className="nav_links" id="events_nav">Events</a></li>
+                    <li><a href="/myprofile" className="nav_links" id="myprofile_nav">MyProfile</a></li>
                 </ul>
             </nav>
             <hr style={{border: '1px solid black'}}/>

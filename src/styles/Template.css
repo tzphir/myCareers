@@ -12,17 +12,18 @@ img{
     flex: 0 0 40%;
 }
 
-button{
+#logout{
     border: 1px solid black; 
     text-align: center;
     color: white;
     background-color: #e7191f;
-    padding: 0 2vw 0 2vw;
+    padding: 0 2vw;
     margin: 2vh 4vw 2vh 0;
 }
 
-button:hover{
+#logout:hover{
     background-color: #831717;
+    cursor: pointer;
 }
 
 .nav{
@@ -31,7 +32,7 @@ button:hover{
     justify-content: center;
 }
 
-ul{
+nav ul{
     display: flex;
     list-style: none;
     justify-content: space-between;
@@ -54,12 +55,12 @@ footer{
 footer > div{
     color: white;
     justify-content: space-between;
-    padding: 5vh 10vw;
-
+    padding: 5vh 8vw;
 }
 
 footer div h3{
     text-align: center;
+    flex-wrap: nowrap;
 }
 
 footer div p{
