@@ -5,7 +5,6 @@ import '../styles/Home.css'
 
 function Home(){
 
-
     return (
         <div id="homepage">
 
@@ -55,8 +54,7 @@ function Home(){
     
             </div>
         </div>  
-
-        
+  
     );  
 }
 export default Home;

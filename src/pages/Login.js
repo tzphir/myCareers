@@ -14,7 +14,7 @@ function Login(){
 
 
     const handleLogin = (event) => {
-        //error catching 
+        //backend stuff 
         navigate('/')
     }
 
