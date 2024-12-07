@@ -1,0 +1,36 @@
+.container{
+    border-radius: 25px;
+    background-color: #dfdfdf;
+    display: flex;
+    width: 30vw;
+    margin: 5vh 5vw;
+    padding: 0 1vw;
+}
+
+.documents-content{
+    line-height: 6vh;
+}
+
+.container ul{
+    list-style: none;
+    padding-left: 0%;
+}
+
+.documents-content li{
+    font-weight: normal;
+}
+
+h2{
+    margin-bottom: 0%;
+}
+
+.file-button{
+    color: white;
+    background-color: black;
+    border: none;
+}
+
+.file-button view{
+    padding: 100px;
+}
+
