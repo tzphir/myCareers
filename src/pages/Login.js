@@ -7,10 +7,10 @@ import { useState } from "react";
 
 function Login(){
 
-    const navigate =useNavigate(); 
-
+    // Set required fields
     const [email, setEmail] = useState(); 
     const [password, setPassword] = useState(); 
+    const navigate = useNavigate(); 
 
 
     const handleLogin = (event) => {
