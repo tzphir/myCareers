@@ -77,6 +77,7 @@ function Signin(){
                      type="text"
                      name="email"
                      placeholder="Enter McGill Email"
+                     value={email}
                      onChange={(e) => setEmail(e.target.value)}
                      />
 
@@ -85,6 +86,7 @@ function Signin(){
                      type="password" 
                      name="password"
                      placeholder="Enter Password"
+                     value={password}
                      onChange={(e) => setPassword(e.target.value)}
                    />
                    <label>Reenter Password</label>
@@ -92,6 +94,7 @@ function Signin(){
                      type="password" 
                      name="confirmPassword"
                      placeholder="Confirm Password"
+                     value={confirmPassword}
                      onChange={(e) => setConfirmPassword(e.target.value)}
                    />
 
