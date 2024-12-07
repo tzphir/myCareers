@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
+import Signin from './pages/Signin'; 
 import Login from './pages/Login';
 import Postings from './pages/Postings';
 import Events from './pages/Events';
@@ -16,6 +17,7 @@ root.render(
   <Routes>
       <Route path="/" element={<Layout />}>
           <Route path="login" element={<Login/>}></Route>
+          <Route path="signin" element={<Signin/>}></Route>
           <Route index element={<Home />} />
           <Route path="postings+applications" element={<Postings />} />
           <Route path="events" element={<Events />} />

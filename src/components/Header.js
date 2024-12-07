@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 const Header = () => {
     const location = useLocation();
 
-    const displayNavigation = location.pathname !== '/login';
+    const displayNavigation = location.pathname !== '/login' && location.pathname !== '/signin';
 
     function setHeaderStyle(){
         const links = document.querySelectorAll('.nav_links');

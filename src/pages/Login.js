@@ -21,6 +21,7 @@ function Login(){
     const handleSignin = (event) => {
         navigate('/signin'); 
     }
+
     
     return(
        <div className="login-page"id="Login ">
@@ -29,7 +30,7 @@ function Login(){
                 <h2>Login to myCareers</h2>
                 <p>McGill's Career Help System</p>
        
-                <form onSubmit={handleLogin} id="form-container" className="form-container"> 
+                <form id="form-container" className="form-container"> 
                     <label>McGill Email </label>
                     <input
                      type="text"
@@ -50,8 +51,8 @@ function Login(){
                     </div>
 
                     <div className="button-container"> 
-                        <button className="primary-button" type="submit" >Login</button>
-                        <button className="primary-button secondary-button">Sign in</button>
+                        <button className="primary-button" type="button" onClick={handleLogin}>Login</button>
+                        <button className="primary-button secondary-button" onClick={handleSignin}>Sign in</button>
                     </div>
                 </form>
         </div>
