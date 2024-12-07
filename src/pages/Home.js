@@ -5,11 +5,10 @@ import '../styles/Home.css'
 
 function Home(){
 
-    //add a media query so it all stacks when you make the screen size smaller 
+ 
     return (
         <div id="homepage">
 
-            {/*Buttons*/}
             <div className="nav-container"> 
                 <div id="button-container" className="button-container">
                     <button id="jobButton" className="nav-button"> Jobs</button>
