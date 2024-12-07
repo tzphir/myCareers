@@ -1,24 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Login.css'; 
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
 function Signin(){
 
+    // Declare all required fields here
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
     const navigate = useNavigate(); 
 
     const handleSignin = (event) => {
-        //error catching, backend 
-        navigate('/')
+        event.preventDefault();
+
+        // First, check that there are no empty fields
+        if (!email || !password || !confirmPassword) {
+            window.alert("All fields are required!");
+            return;
+        }
+
+        // First, check if passwords match
+        if (password !== confirmPassword) {
+            window.alert("Passwords don't match! Please try again.");
+            return;
+        }
+
+        // Check if the email is a mcgill one
+        if (!email.endsWith("mcgill.ca")) {
+
+            window.alert("Please use your McGill email when signing in.");
+            return;
+
+        }
+
+        // Proceed with POST request
+        axios.post("http://localhost:5000/signin", { email, password })
+            .then(result => {
+                console.log(result);
+
+                // Already a record with the same email inside the database
+                if (result.data.message === "User already exists") {
+                    window.alert("User already exists.");
+                } 
+
+                // When all succeeds, we can go to the home page for the user
+                else {
+                    navigate('/home');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            });
+
     }
+        
+        
     const handleLogin = (event) => {
         navigate('/login')
     }
 
     
     return(
-       <div className="login-page"id="Signin ">
+       <div className="login-page"id="Signin">
         <div className="login-container" id="signinform">
 
                 <h2>Sign in to myCareers</h2>
@@ -29,17 +76,23 @@ function Signin(){
                     <input
                      type="text"
                      name="email"
+                     placeholder="Enter McGill Email"
+                     onChange={(e) => setEmail(e.target.value)}
                      />
 
                     <label>New Password</label>
                     <input 
                      type="password" 
-                     name="password" 
+                     name="password"
+                     placeholder="Enter Password"
+                     onChange={(e) => setPassword(e.target.value)}
                    />
                    <label>Reenter Password</label>
                     <input 
                      type="password" 
-                     name="re-password" 
+                     name="confirmPassword"
+                     placeholder="Confirm Password"
+                     onChange={(e) => setConfirmPassword(e.target.value)}
                    />
 
                     <div className="separator">
@@ -48,7 +101,7 @@ function Signin(){
                     </div>
 
                     <div className="button-container"> 
-                        <button className="primary-button" type="submit" onClick={handleSignin}>Signin</button>
+                        <button className="primary-button" type="submit">Signin</button>
                         <button className="primary-button secondary-button" type="button" onClick={handleLogin}>Login</button>
                     </div>
                 </form>
@@ -58,5 +111,3 @@ function Signin(){
 }
 
 export default Signin;
-
-
