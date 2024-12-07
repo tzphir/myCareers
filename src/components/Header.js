@@ -6,6 +6,8 @@ import { useLocation } from 'react-router-dom';
 const Header = () => {
     const location = useLocation();
 
+    const displayNavigation = location.pathname !== '/login';
+
     function setHeaderStyle(){
         const links = document.querySelectorAll('.nav_links');
         links.forEach(element => {
@@ -36,15 +38,17 @@ const Header = () => {
                 <button id="logout">Log Out</button>
             </div>
             <hr style={{border: '1px solid black'}}/>
-            <nav>
-                <ul>
-                    <li><a href="/" id="home_nav" className="nav_links">Home</a></li>
-                    <li><a href="/postings+applications" className="nav_links" id="postings_nav">Postings/Applications</a></li>
-                    <li><a href="/events" className="nav_links" id="events_nav">Events</a></li>
-                    <li><a href="/myprofile" className="nav_links" id="myprofile_nav">MyProfile</a></li>
-                </ul>
-            </nav>
-            <hr style={{border: '1px solid black'}}/>
+            {displayNavigation && (
+                <nav>
+                    <ul>
+                        <li><a href="/" id="home_nav" className="nav_links">Home</a></li>
+                        <li><a href="/postings+applications" className="nav_links" id="postings_nav">Postings/Applications</a></li>
+                        <li><a href="/events" className="nav_links" id="events_nav">Events</a></li>
+                        <li><a href="/myprofile" className="nav_links" id="myprofile_nav">MyProfile</a></li>
+                    </ul>
+                    <hr style={{border: '1px solid black'}}/>
+                </nav>
+            )}
         </header>
     );
 };

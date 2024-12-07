@@ -1,0 +1,118 @@
+
+h2{
+    margin-bottom: 0%;
+}
+
+.nav-container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 7vh;  
+    width: 100%; 
+}
+
+.button-container{
+    text-align:center;
+    width: 33%; 
+    flex: 1;
+}
+
+
+.button-container p{
+    font-size: 13px;
+    margin-top:0; 
+    margin-right: 9vw; 
+    margin-left:9vw; 
+    font-weight: normal; 
+}
+
+
+.nav-button{
+    text-align: center;
+    border:none; 
+    color: white;
+    background-color: #e7191f;
+    font-size: x-large; 
+    width: 19rem;
+    height: 11rem;
+    border-radius: 50rem;
+    cursor: pointer;
+    display: inline-block;
+}
+
+
+.nav-button:hover{
+    background-color: #831717;
+    cursor: pointer;
+}
+
+
+.bottom-container{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around;
+    width:100%; 
+    margin-top:5vh; 
+    margin-bottom:7vh; 
+}
+
+
+/*Bottom left box with statistics */
+.stats-container{
+    border: solid #a2a2a2;
+    border-width:  medium; 
+    display:flex; 
+    width:65%;  
+    box-sizing: border-box;
+    border-radius:0.3rem;
+    padding: 3vh; 
+}
+
+/*Bottom left box with statistics */
+.numbers{
+    padding-bottom: 5vh; 
+    padding-left: 5vh; 
+    text-align:left; 
+    width: 55%; 
+}
+
+.numbers ul {
+  list-style: none;
+  padding: 0;
+    margin: 0;
+}
+
+.numbers li {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding-bottom: 0.5vh;
+  padding-top: 3vh;
+  border-bottom: 3px dotted #a2a2a2;
+  font-weight: normal;
+  font-size: 13px;
+}
+.numbers p{
+    text-align: right;
+    font-size: 20px; 
+    font-weight:normal; 
+    margin:0; 
+    padding:0; 
+
+}
+
+.pie-chart{
+    width: 45%; 
+    align-items: center;
+    text-align: center;
+    padding-left:5vw; 
+}
+
+.calender-container{
+    padding-top:10vh;  
+    width:25%; 
+    align-items: center;
+    text-align: center;
+}
+
+
