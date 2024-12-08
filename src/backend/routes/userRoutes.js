@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Get User by ID
 router.get('/:userId', (req, res) => {
-    const { userId } = req.params;
+    const { userId } = req.params.id;
 
     UserModel.findById(userId)
         .then(user => {
