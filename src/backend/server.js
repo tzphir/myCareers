@@ -4,6 +4,12 @@ const cors = require('cors')
 const app = express();
 app.use(cors());
 
+mongoose.connect("mongodb://localhost:27017/MyCareersDatabase", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => console.log('Database connected'))
+  .catch(err => console.error('Database connection error:', err));
+
 app.use('/home', homeRoute);
 app.use('/job-postings', jobPostingRoutes);
 app.use('/events', eventRoutes);
