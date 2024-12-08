@@ -29,6 +29,8 @@ function Login(){
 
             if (result.data.message === "Success") {
                 const id = result.data.id;
+                // store the id for the home page
+                localStorage.setItem("id", id);
                 navigate(`/home/${id}`);
             } else {
                 window.alert("Login failed. Please try again.");
