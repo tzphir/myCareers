@@ -1,6 +1,9 @@
-const { Schema } = require('mongoose'); // Importing Schema constructor from mongoose
+const mongoose = require('mongoose'); // Importing Schema constructor from mongoose
 
 const UserSchema = new mongoose.Schema({
+
+  // mcgill id
+  id: {type: String, required: false},
   
   name: { type: String, required: false },
   
@@ -11,12 +14,6 @@ const UserSchema = new mongoose.Schema({
     unique: true,
   },
 
-  // ID is also unique but not required during sign-in
-  id: { 
-    type: String, 
-    unique: true,
-    required: false, 
-  },
 
   // Password is required during sign-in
   password: { 
@@ -43,7 +40,7 @@ const UserSchema = new mongoose.Schema({
   // Events: Array of events the user is associated with, each event has an 'id' and a 'status'
   events: [
     {
-      id: { 
+      _id: { 
         type: String, 
         required: true, // Each event needs an 'id'
       },
@@ -58,7 +55,7 @@ const UserSchema = new mongoose.Schema({
   // Job Postings: Similar to events, the user can have job postings with an 'id' and 'status'
   jobPostings: [
     {
-      id: { 
+      _id: { 
         type: String, 
         required: true, // Each job posting needs an 'id'
       },
