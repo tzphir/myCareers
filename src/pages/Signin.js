@@ -49,7 +49,7 @@ function Signin(){
 
                 // When all succeeds, we can go to the redirect page
                 else {
-                    navigate('/usersigninsucess');
+                    navigate('/usersigninsuccess');
                 }
             })
             .catch(err => {
