@@ -1,25 +1,19 @@
 const mongoose = require('mongoose');
 
-const connectToDatabase = (uri) => {
-  const connection = mongoose.createConnection(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+mongoose.set("strictQuery", false);
 
-  connection.on('connected', () => {
-    console.log(`Connected to database: ${uri}`);
-  });
+const connectToDatabase = async () => {
+  try {
+    // Database URI (From MongoDB Atlas)
+    const uri = "mongodb+srv://shushihuang:xWIk0b1SRWOR1PYU@mycareers.1eh0t.mongodb.net/myCareers";
+    await mongoose.connect(uri);
 
-  connection.on('error', (error) => {
-    console.error(`Error connecting to database: ${uri}`, error);
-  });
-
-  return connection;
+    console.log("Connected to myCareers' server");
+  } catch (error) {
+    console.error("Error connecting to myCareers' server:", error);
+    process.exit(1);
+  }
 };
 
-// Export connections
-module.exports = {
-  usersDB: connectToDatabase('mongodb://localhost:27017/usersDB'),
-  jobPostingsDB: connectToDatabase('mongodb://localhost:27017/jobPostingsDB'),
-  eventsDB: connectToDatabase('mongodb://localhost:27017/eventsDB'),
-};
+// Export database connection 
+module.exports = connectToDatabase;
