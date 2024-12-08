@@ -10,7 +10,7 @@ const jobPostingSchema = new Schema({
     province: { type: String, required: true },  
     city: { type: String, required: true },  
   },
-  type: {  // Job type, should be a single string value (not an array)
+  type: {  // Job type
     type: String,
     enum: ['job', 'internship', 'volunteer'], 
     default: 'job', 
