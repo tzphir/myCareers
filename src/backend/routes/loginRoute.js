@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-const UserModel = require('./models/User.js');
+const UserModel = require('../models/User.js');
 
 const router = express.Router();
 router.use(express.json());
