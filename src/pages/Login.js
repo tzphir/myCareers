@@ -61,7 +61,7 @@ function Login(){
                      type="text"
                      name="email"
                      value={email}
-                     onChange={(e) => e.target.value}
+                     onChange={(e) => setEmail(e.target.value)}
                      />
 
                     <label>Password</label>
@@ -69,7 +69,7 @@ function Login(){
                      type="password" 
                      name="password" 
                      value={password}
-                     onChange={(e) => e.target.value}
+                     onChange={(e) => setPassword(e.target.value)}
                    />
 
                     <div className="separator">
