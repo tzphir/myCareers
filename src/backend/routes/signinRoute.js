@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const UserModel = require('../models/User');  // Corrected import for UserModel
+const UserModel = require('../models/User');
 const router = express.Router();
 
 mongoose.connect("mongodb://localhost:27017/MyCareersDatabase", {
