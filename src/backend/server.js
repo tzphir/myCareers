@@ -11,8 +11,8 @@ mongoose.connect("mongodb://localhost:27017/MyCareersDatabase", {
   .catch(err => console.error('Database connection error:', err));
 
 app.use('/home', homeRoute);
-app.use('/job-postings', jobPostingRoutes);
-app.use('/events', eventRoutes);
+app.use('/signin', signinRoute);
+app.use('/login', loginRoute);
 
 
 app.listen(5000, () => {
