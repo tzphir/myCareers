@@ -5,12 +5,9 @@ import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-
+import PieChart from ../components/PieChart';
 
 function Home() {
-
-    // Backend stuff here
 
     // Define variables for the user data
     const [userData, setUserData] = useState(null);
@@ -81,8 +78,8 @@ function Home() {
                         </ul>
                     </div>  
                     <div id="pieChart" className="pie-chart"> 
-                        // Here, I will make a chart using chart.js. I'll start with only two parts: applied jobs and the other jobs. 
-                        
+                        // Here, I will make a chart using chart.js. I'll start with only two parts: applied jobs and the other jobs.
+                        <PieChart data={} />
                         
                     </div>
                 </div>
