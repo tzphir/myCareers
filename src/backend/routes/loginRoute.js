@@ -1,12 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/User.js');
 
 const router = express.Router();
-router.use(express.json());
-router.use(cors());
 
 mongoose.connect("mongodb://localhost:27017/MyCareersDatabase", {
     useNewUrlParser: true,
