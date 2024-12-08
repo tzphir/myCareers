@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const userModel = require('../models/User');
+const bcrypt = require('bcrypt');
+const UserModel = require('../models/User');  // Corrected import for UserModel
 const router = express.Router();
 
 mongoose.connect("mongodb://localhost:27017/MyCareersDatabase", {
@@ -20,11 +21,23 @@ router.post('/', (req, res) => {
                 return res.status(409).json({ message: "User already exists" });
             }
 
-            // Create the new user
-            return UserModel.create({ email, password })
-                .then(newUser => {
-                    res.status(201).json(newUser);
-                });
+            // Hash the password before storing it in the database
+            bcrypt.hash(password, 10, (err, hashedPassword) => {
+                if (err) {
+                    console.error('Error hashing password:', err);
+                    return res.status(500).json({ message: "Internal server error" });
+                }
+
+                // Create the new user with the hashed password
+                UserModel.create({ email, password: hashedPassword })
+                    .then(newUser => {
+                        res.status(201).json({ message: "User created successfully", user: newUser });
+                    })
+                    .catch(err => {
+                        console.error('Error during user creation:', err);
+                        res.status(500).json({ message: "Error creating user" });
+                    });
+            });
         })
         .catch(err => {
             console.error('Error during signin:', err);
