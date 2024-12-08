@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react'
+import '../styles/Login.css'; 
+import { useNavigate } from 'react-router-dom';
 
 
 function UserSigninSucess() {
@@ -8,7 +9,8 @@ function UserSigninSucess() {
 
     <div className="login-page"id="Signin">
 
-    <p> You have sucessfully created your profile! Please click on the following link to login </p>
+      <p> You have sucessfully created your profile! Please click on the following link to login </p>
+      
     
 
     </div>
