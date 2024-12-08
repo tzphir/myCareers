@@ -26,3 +26,7 @@ function UserSigninSucess() {
     </div>
 
     );
+
+}
+
+export default UserSigninSucess;
