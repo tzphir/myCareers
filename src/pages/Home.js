@@ -1,33 +1,46 @@
+// for chart.js, type this in the command line: npm i react-chartjs-2 chart.js
+
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
-function Home(){
+function Home() {
 
     // Backend stuff here
 
     // Define variables for the user data
     const [userData, setUserData] = useState(null);
-
     const navigate = useNavigate();
 
     // Get the id of the specific user
     const id = localStorage.getItem("id");
 
     // If no id exists, we should redirect to the login
-    useEffect( () => {
-        if (!id) {
-            navigate('login');
-            return;
-        }
+    useEffect(() => {
+    if (!userId) {
+      navigate('/login');
+      return;
     }
 
-              
+    // Fetch user-specific data using the userId
+    axios.get(`http://localhost:5000/user/${id}`)
+      .then(response => {
+        setUserData(response.data);  // Store user data
+        setLoading(false);
+      })
+      .catch(err => {
+        setError('Error loading user data');
+        setLoading(false);
+      });
+  }, [userId, navigate]);
 
-    // Make a GET request to obtain information about the specific logged in user
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+    
     
 
     return (
@@ -68,7 +81,9 @@ function Home(){
                         </ul>
                     </div>  
                     <div id="pieChart" className="pie-chart"> 
-                        <p>Pie Chart goes here</p>
+                        // Here, I will make a chart using chart.js. I'll start with only two parts: applied jobs and the other jobs. 
+                        
+                        
                     </div>
                 </div>
         
