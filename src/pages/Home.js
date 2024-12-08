@@ -1,9 +1,34 @@
 import React from 'react';
-import '../styles/Home.css'
+import { useState, useEffect } from 'react';
+import '../styles/Home.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Home(){
+
+    // Backend stuff here
+
+    // Define variables for the user data
+    const [userData, setUserData] = useState(null);
+
+    const navigate = useNavigate();
+
+    // Get the id of the specific user
+    const id = localStorage.getItem("id");
+
+    // If no id exists, we should redirect to the login
+    useEffect( () => {
+        if (!id) {
+            navigate('login');
+            return;
+        }
+    }
+
+              
+
+    // Make a GET request to obtain information about the specific logged in user
+    
 
     return (
         <div id="homepage">
