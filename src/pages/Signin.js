@@ -38,7 +38,7 @@ function Signin(){
         }
 
         // Proceed with POST request
-        axios.post("http://localhost:5000/signin", { email, password })
+        axios.post("http://localhost:5000/user/signin", { email, password })
             .then(result => {
                 console.log(result);
 
