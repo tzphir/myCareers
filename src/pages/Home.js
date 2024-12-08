@@ -5,12 +5,14 @@ import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import PieChart from ../components/PieChart';
+import PieChart from '../components/PieChart';
 
 function Home() {
 
     // Define variables for the user data
     const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     // Get the id of the specific user
@@ -18,7 +20,7 @@ function Home() {
 
     // If no id exists, we should redirect to the login
     useEffect(() => {
-    if (!userId) {
+    if (!id) {
       navigate('/login');
       return;
     }
@@ -38,23 +40,17 @@ function Home() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  // Prepare Pie Chart data
   const pieChartData = {
-      labels: ["Applied Jobs", "All Other Jobs"],
-      datasets: [
-          {
-              label: "Number"
-              data: [${userData.jobPostings.applied}, ${jobData.length}],
-              backgroundColor: [
-                  "rgb(128, 128, 128)",
-                  "rgb(255, 0, 0)",
-                ],
-              hoverOffset: 4,
-                  
-
-          },
-
+    labels: ["Applied Jobs", "All Other Jobs"],
+    datasets: [
+      {
+        label: "Number",
+        data: [userData.jobPostings.applied, userData.jobPostings.total - userData.jobPostings.applied],
+        backgroundColor: ["rgb(128, 128, 128)", "rgb(255, 0, 0)"],
+        hoverOffset: 4,
+      },
     ],
-
   };
     
     
@@ -97,7 +93,6 @@ function Home() {
                         </ul>
                     </div>  
                     <div id="pieChart" className="pie-chart"> 
-                        // Here, I will make a chart using chart.js. I'll start with only two parts: applied jobs and the other jobs.
                         <PieChart data={pieChartData} />
                         
                     </div>
