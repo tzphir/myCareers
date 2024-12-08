@@ -16,7 +16,7 @@ function Login(){
 
     const handleLogin = (event) => {
 
-         event.preventDefault();
+        event.preventDefault();
 
         // Basic validation
         if (!email || !password) {
@@ -43,7 +43,8 @@ function Login(){
         
     };
 
-    const handleSignin = (event) => {
+    const handleSignin = (e) => {
+        e.preventDefault();
         navigate('/signin'); 
     }
 
@@ -61,7 +62,7 @@ function Login(){
                      type="text"
                      name="email"
                      value={email}
-                     onChange={(e) => setEmail(e.target.value)}
+                     onChange={(e) => setEmail(e.target.value)} 
                      />
 
                     <label>Password</label>
@@ -77,16 +78,21 @@ function Login(){
                         <p>For assistance please contact the <a href="#">ICS Service Desk</a></p>
                     </div>
 
+
                     <div className="button-container"> 
                         <button className="primary-button" type="submit">Login</button>
                         <button className="primary-button secondary-button" onClick={handleSignin}>Sign in</button>
                     </div>
+
                 </form>
+
+                    
+                
+
+
         </div>
        </div>
     ); 
 }
 
 export default Login;
-
-
