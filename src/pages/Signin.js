@@ -47,9 +47,9 @@ function Signin(){
                     window.alert("User already exists.");
                 } 
 
-                // When all succeeds, we can go to the home page for the user
+                // When all succeeds, we can go to the redirect page
                 else {
-                    navigate('/home');
+                    navigate('/UserSigninSucess');
                 }
             })
             .catch(err => {
