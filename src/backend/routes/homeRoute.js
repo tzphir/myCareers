@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const UserModel = require
+const UserModel = require("../models/User");
 
 // Get User by ID
 router.get('/:userId', (req, res) => {
