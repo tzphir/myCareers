@@ -4,9 +4,6 @@ const bcrypt = require('bcrypt');
 const UserModel = require('../models/User');  // Corrected import for UserModel
 const router = express.Router();
 
-router.use(express.json());
-router.use(cors());
-
 mongoose.connect("mongodb://localhost:27017/MyCareersDatabase", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
