@@ -28,7 +28,8 @@ function Login(){
             console.log(result);
 
             if (result.data.message === "Success") {
-                navigate('/home');
+                const id = result.data.id;
+                navigate(`/home/${id}`);
             } else {
                 window.alert("Login failed. Please try again.");
             }
