@@ -37,6 +37,25 @@ function Home() {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
+
+  const pieChartData = {
+      labels: ["Applied Jobs", "All Other Jobs"],
+      datasets: [
+          {
+              label: "Number"
+              data: [${userData.jobPostings.applied}, ${jobData.length}],
+              backgroundColor: [
+                  "rgb(128, 128, 128)",
+                  "rgb(255, 0, 0)",
+                ],
+              hoverOffset: 4,
+                  
+
+          },
+
+    ],
+
+  };
     
     
 
@@ -79,7 +98,7 @@ function Home() {
                     </div>  
                     <div id="pieChart" className="pie-chart"> 
                         // Here, I will make a chart using chart.js. I'll start with only two parts: applied jobs and the other jobs.
-                        <PieChart data={} />
+                        <PieChart data={pieChartData} />
                         
                     </div>
                 </div>
