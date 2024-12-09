@@ -32,7 +32,7 @@ const jobPostingSchema = new mongoose.Schema({
         '12-month'
       ], default: '4-month' },
   }],
-  format: [{                                      // Working format
+  format: [{                                      // Work format
     status: { type: String, enum: [
         'hybrid', 
         'remote', 
