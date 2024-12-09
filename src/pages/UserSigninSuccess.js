@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function UserSigninSucess() {
+function UserSigninSuccess() {
 
   const navigate = useNavigate();
 
@@ -29,4 +29,4 @@ function UserSigninSucess() {
 
 }
 
-export default UserSigninSucess;
+export default UserSigninSuccess;
