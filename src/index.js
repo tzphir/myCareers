@@ -19,7 +19,7 @@ root.render(
       <Route path="/" element={<Layout />}>
           <Route path="login" element={<Login/>}></Route>
           <Route path="signin" element={<Signin/>}></Route>
-          <Route index element={<Home />} />
+          <Route path="home:/id" element={<Home />} />
           <Route path="usersigninsuccess" element={<UserSigninSuccess />} />
           <Route path="postings+applications" element={<Postings />} />
           <Route path="events" element={<Events />} />
