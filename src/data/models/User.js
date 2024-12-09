@@ -3,12 +3,12 @@ const { Event } = require('./Event');
 const { JobPosting } = require('./JobPosting');
 
 const userSchema = new mongoose.Schema({
-  fname: { type: String, required: true },                          // First name
-  lname: { type: String, required: true },                          // Last name
+  fname: { type: String},                                           // First name
+  lname: { type: String},                                           // Last name
   email: { type: String, required: true, unique: true },            // School email
-  id: { type: String, required: true, unique: true },               // Student id
+  id: { type: String, unique: true },                               // Student id
   password: { type: String, required: true, unique: true },         // Account password
-  faculty: { type: String, required: true },                        // Student faculty
+  faculty: { type: String,},                                        // Student faculty
   documents: [{                                                     // Professional documents (CV, cover letters, transcripts)
       id: { type: String, required: true },                         // Document name
       date: { type: Date, required: true },                         // Creation/modification date
