@@ -9,44 +9,52 @@ import PieChart from '../components/PieChart';
 
 function Home() {
 
-    // Define variables for the user data
-    const [userData, setUserData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+  // Define variables for the user data
+  const [userData, setUserData] = useState(null);
+  const [totalJobs, setTotalJobs] = useState(null); // State for total jobs
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    // Get the id of the specific user
-    const id = localStorage.getItem("id");
+  // Get the id of the specific user
+  const id = localStorage.getItem("id");
 
-    // If no id exists, we should redirect to the login
-    useEffect(() => {
+  // If no id exists, redirect to the login
+  useEffect(() => {
     if (!id) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
     // Fetch user-specific data using the userId
-    axios.get(`http://localhost:5000/user/${id}`)
-      .then(response => {
-        setUserData(response.data);  // Store user data
+    const fetchUserData = axios.get(`http://localhost:8000/User/${id}`);
+    const fetchTotalJobs = axios.get("http://localhost:8000/JobPostings"); // Fetch total jobs
+
+    Promise.all([fetchUserData, fetchTotalJobs])
+      .then(([userResponse, jobsResponse]) => {
+        setUserData(userResponse.data); // Store user data
+        setTotalJobs(jobsResponse.data.length); // Store the total number of jobs
         setLoading(false);
       })
       .catch(err => {
-        setError('Error loading user data');
+        setError("Error loading data");
         setLoading(false);
       });
-  }, [userId, navigate]);
+  }, [id, navigate]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   // Prepare Pie Chart data
+  const appliedJobsCount = userData.jobPostings.length;
+  const remainingJobsCount = totalJobs - appliedJobsCount;
+
   const pieChartData = {
-    labels: ["Applied Jobs", "All Other Jobs"],
+    labels: ["Applied Jobs", "Remaining Jobs"],
     datasets: [
       {
         label: "Number",
-        data: [userData.jobPostings.applied, userData.jobPostings.total - userData.jobPostings.applied],
+        data: [appliedJobsCount, remainingJobsCount],
         backgroundColor: ["rgb(128, 128, 128)", "rgb(255, 0, 0)"],
         hoverOffset: 4,
       },
