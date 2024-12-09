@@ -8,7 +8,7 @@ import Postings from './pages/Postings';
 import Events from './pages/Events';
 import MyProfile from './pages/myProfile'
 import NoPage from './pages/NoPage';
-import UserSignInSuccess from './pages/UserSignInSuccess';
+import UserSigninSuccess from './pages/UserSigninSuccess';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
