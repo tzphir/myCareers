@@ -73,7 +73,7 @@ router.post('/signin', (req, res) => {
                 }
 
                 // Create the new user with the hashed password
-                UserModel.create({ email, password: hashedPassword })
+                UserModel.create({ email, password: hashedPassword, fname: '', lname: '', id:'', faculty:'' })
                     .then(newUser => {
                         res.status(201).json({ message: "User created successfully", user: newUser });
                     })
