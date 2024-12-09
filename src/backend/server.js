@@ -1,19 +1,26 @@
-const express = require('express')
-const cors = require('cors')
-const mongoose = require('mongoose')
-
+// Server main entrypoint
+const express = require('express');
+const cors = require('cors');
+const connectToDatabase = require('./config/database');
+const userRoutes = require('./routes/userRoutes');
+const jobPostingRoutes = require('./routes/jobPostingRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
+
+// Connect to database
+connectToDatabase();
+
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
-const userRoutes = require('./routes/userRoutes');
+// API Routes (For CRUDE operations)
+app.use('/Users', userRoutes);
+app.use('/JobPostings', jobPostingRoutes);
+app.use('/Events', eventRoutes);
 
-mongoose.connect("mongodb://localhost:27017/MyCareersDatabase");
-
-app.use('/user', userRoutes);
-
-
-app.listen(5000, () => {
-    console.log("server is running")
+// Start the server
+const PORT = 8000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
