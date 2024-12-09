@@ -24,7 +24,7 @@ function Login(){
             return;
         }
 
-        axios.post("http://localhost:8000/User/login", { email, password })
+        axios.post("http://localhost:8000/Users/login", { email, password })
         .then(result => {
             console.log(result);
 
