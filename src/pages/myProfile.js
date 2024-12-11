@@ -13,9 +13,11 @@ const MyProfile = () => {
     const [personalInfo, setPersonalInfo] = useState({
         fname: '',
         lname: '',
-        studentId: '',
+        id: '',
         email: '',
         faculty: '',
+        documents: '',
+        jobPostings: ''
     });
 
     const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
@@ -24,7 +26,7 @@ const MyProfile = () => {
     useEffect(() => {
         const fetchPersonalInfo = async () => {
             try {
-                const response = await axios.get('/id:', {studentId}); 
+                const response = await axios.get(`/id:${id}`); 
                 setPersonalInfo(response.data);
             } catch (error) {
                 console.error('Error fetching personal info:', error);
@@ -109,7 +111,7 @@ const MyProfile = () => {
                         <label for="lname">Last Name:</label>
                         <input type='text' name="lname" value={personalInfo.lname} onChange={handleChange}></input>
                         <label for="studentId">Student ID:</label>
-                        <input type='text' id="studentId" value={personalInfo.studentId} onChange={handleChange}></input><br/>
+                        <input type='text' id="studentId" value={personalInfo.id} onChange={handleChange}></input><br/>
                         <label for="email">Email:</label>
                         <input type='text' id="email" value={personalInfo.email} onChange={handleChange}></input><br/>
                         <label for="faculty">Student ID:</label>

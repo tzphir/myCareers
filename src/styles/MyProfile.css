@@ -63,7 +63,7 @@ h2{
     text-align: start;
 }
 
-.container li{
+.container li, form{
     display: grid;
     grid-template-columns: 1fr auto auto auto;
     gap: 1vw;
