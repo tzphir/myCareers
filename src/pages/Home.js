@@ -7,7 +7,7 @@ import '../styles/Home.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PieChart from '../components/PieChart';
-import Calendar from 'react-calendar
+import Calendar from 'react-calendar';
 
 function Home() {
 
