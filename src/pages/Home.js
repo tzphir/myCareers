@@ -1,4 +1,5 @@
 // for chart.js, type this in the command line: npm i react-chartjs-2 chart.js
+// for react-calendar, type this in the command line: npm install react-calendar
 
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -6,6 +7,7 @@ import '../styles/Home.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PieChart from '../components/PieChart';
+import Calendar from 'react-calendar
 
 function Home() {
 
@@ -107,8 +109,8 @@ function Home() {
                 </div>
         
                 <div id="calendar" className="calender-container"> 
-                    <h1 id="date" style={{margin:'0'}}> Nov 21, 2024</h1>
-                    <p>Calender goes here </p>
+                    <h1> Click on the Calendar to see your events! </h1>
+                    <Calendar onClickDay={() => navigate(`events/${id}`)} />
                 </div>
     
             </div>
