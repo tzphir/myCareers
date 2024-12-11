@@ -1,14 +1,56 @@
+#myprofile{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 .container{
+    display: flex;
+    flex-wrap: wrap;
     border-radius: 25px;
     background-color: #dfdfdf;
-    display: flex;
-    width: 30vw;
-    margin: 5vh 5vw;
+    margin: 5vh 0;
     padding: 0 1vw;
+    height: fit-content;
+}
+
+#documents{
+    margin-right: 10vw;
 }
 
 .documents-content{
     line-height: 6vh;
+    width: 30vw;
+    text-align: end;
+}
+
+.applications-content{
+    width: 45vw;
+    padding-bottom: 2vh;
+}
+
+.types-personal-info{
+    line-height: 6vh;
+    width: fit-content;
+}
+
+#personal-info{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 30vw;
+    font-weight: normal;
+}
+
+.form-personal-info{
+    padding-top: 13vh;
+}
+
+input{
+    margin-bottom: 2vh;
 }
 
 .container ul{
@@ -16,21 +58,73 @@
     padding-left: 0%;
 }
 
-.documents-content li{
+h2{
+    margin-bottom: 0%;
+    text-align: start;
+}
+
+.container li{
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 1vw;
+    align-items: center;
+    text-align: start;
+}
+
+.personal-info-content li{
     font-weight: normal;
 }
 
-h2{
-    margin-bottom: 0%;
+.application-title{
+    text-decoration: underline;
 }
 
-.file-button{
+.doc-type{
+    text-align: start;
+    font-weight: normal;
+}
+
+.add-button, .view-button, .search-more-button{
     color: white;
     background-color: black;
     border: none;
+    cursor: pointer;
 }
 
-.file-button view{
-    padding: 100px;
+.search-more-button{
+    padding: 1vh 1vw;
 }
 
+select {
+    appearance: none;
+    width: fit-content;
+    padding: 1vh 1vw;
+    font-weight: normal;
+    text-align: center;
+    outline: 0;
+}
+
+option{
+    font-weight: normal;
+    text-align: center;
+}
+
+select:has(option[value="in-progress"]:checked){
+    background-color: #796ce6;
+}
+
+select:has(option[value="pending"]:checked){
+    background-color: #ebef1a;
+}
+
+select:has(option[value="accepted"]:checked){
+    background-color: #0fc62e;
+}
+
+select:has(option[value="rejected"]:checked){
+    background-color: #d03a3a;
+}
+
+.white{
+    background-color: white;
+}
