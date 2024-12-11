@@ -14,14 +14,17 @@ function UserSigninSuccess() {
 
   return (
 
-    <div className="login-page"id="Signin">
+    <div>
 
-      <p> You have sucessfully created your profile! Please click on the following link to login </p>
-      <button className="primary-button" onClick={redirect}> Go to login page</button>
+      <p style={{textAlign:"center"}}> You have sucessfully created your profile! Please click on the following link to login </p>
+
+      <div style={{ margin: "20px 0" }}></div>
+
+      <div className='button-container'>
+        <button className="primary-button" onClick={redirect}> Go to login page</button>
+      </div>
     
-      
-      
-    
+      <div style={{ margin: "20px 0" }}></div>
 
     </div>
 
