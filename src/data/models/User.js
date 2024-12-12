@@ -10,13 +10,14 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, unique: true },               // Account password
   faculty: { type: String, default: "FacultyPlaceholder"},                // Student faculty
   documents: [{                                                           // Professional documents (CV, cover letters, transcripts)
-      id: { type: String, required: true },                               // Document name
+      id: { type: String, required: true, unique: true },                 // Document name
+      document: { type: String, required: true },                         // Document path
       date: { type: Date, required: true },                               // Creation/modification date
       category: { type: String, enum: [                                   // Document type
           "CV",
           "Transcript", 
           "Cover Letter",
-        ], required: true },
+        ]},
   }],
   events: [{                                                              // Registered events
       id: { type: String, required: true },                               // Event name

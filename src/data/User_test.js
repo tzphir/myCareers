@@ -1,4 +1,7 @@
+const fs = require('fs');
+const path = require('path');
 const axios = require('axios');
+const FormData = require('form-data');
 
 const BASE_USER_URL = 'http://localhost:8000/Users'; // Replace with your server URL
 const BASE_EVENT_URL = 'http://localhost:8000/Events';
@@ -9,7 +12,7 @@ const testUser = {
   fname: "John",
   lname: "Doe",
   id: "123456",
-  faculty: "Engineering",  
+  faculty: "Engineering",
 }
 
 const testUserSignIn = {
@@ -128,7 +131,30 @@ const logResult = (description, result) => {
     response = await axios.delete(`${BASE_JOB_URL}/${job_id}`);
     logResult("Delete job posting", response); 
 
-    // // 17. Delete User
+    // 17. Add document
+    console.log("Current Working Directory:", process.cwd());
+    const documentData = new FormData();
+
+    const filePath = path.resolve(__dirname, "hello.pdf");
+    documentData.append("document", fs.createReadStream(filePath));
+
+    response = await axios.post(`${BASE_USER_URL}/${user_id}/documents`, documentData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+    logResult("Add document to user", response);
+
+    const uploadedDocumentId = response.data.documents[response.data.documents.length - 1].id;
+
+    // 18. Retrieve document
+    response = await axios.get(`${BASE_USER_URL}/${user_id}/documents/${uploadedDocumentId}`, {
+      responseType: 'blob', // Treat the file as binary data for proper download handling
+    });
+
+    // 19. Delete document
+    response = await axios.delete(`${BASE_USER_URL}/${user_id}/documents/${uploadedDocumentId}`);
+    logResult("Retrieved document", response);
+
+    // // 20. Delete User
     // response = await axios.delete(`${BASE_USER_URL}/${user_id}`);
     // logResult("Delete User", response);
   } catch (error) {

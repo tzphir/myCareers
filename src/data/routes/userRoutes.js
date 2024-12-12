@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+const upload = require('../utils/upload'); 
 const express = require('express');
 const User = require('../models/User');
 const Event = require('../models/Event');
@@ -47,24 +50,45 @@ router.post("/", async (req, res) => {
     });
 
     await user.save();
+
+    const userDir = path.join(__dirname, "..", "user_data", user.id); // Directory path ('./user_data/{userId}')
+    
+    if (!fs.existsSync(userDir)) {
+      fs.mkdirSync(userDir, { recursive: true });
+    }
+
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-// TODO: Placeholder for now
-// Add a document to a user"s list of documents
-router.post("/:id/documents", async (req, res) => {
+/**
+ * @description Add a document to a user's list of documents
+ * @param {string} id - User ID
+ * @body {file} document - Document file to be uploaded
+ * @body {string} [category] - Optional category for the document ("CV", "Transcript", "Cover Letter")
+ * @response 201 {id, fname, lname, email, id, password, faculty, documents, events, jobPostings}
+ * @response 400 {error: "No file uploaded" }
+ * @response 404 {error: "User not found" }
+ * @response 500 {error: "Error processing the file or updating user documents" }
+ */
+router.post("/:id/documents", upload.single('document'), async (req, res) => {
   try {
-    const { documentId } = req.body; // Expect a document ID
-    if (!documentId) {
-      return res.status(400).json({ error: "Document ID is required" });
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
     }
+
+    const documentId = req.file.filename; // Use the uploaded file's filename as the document ID
+    const documentPath = path.join(req.params.id, documentId);
 
     const user = await User.findByIdAndUpdate(
       req.params.id,
-      { $push: { documents: { id: documentId } } },
+      { $push: { documents: {
+        id: documentId,
+        document: documentPath,
+        date: new Date(),
+        category: req.body.category || null } } },
       { new: true } // Return updated user
     );
 
@@ -79,7 +103,7 @@ router.post("/:id/documents", async (req, res) => {
 });
 
 /**
- * @description Add an event to a user"s list of events
+ * @description Add an event to a user's list of events
  * @route POST /Users/:id/events
  * @param {string} id - User ID
  * @body {string} eventId - The ID of the event to add
@@ -119,7 +143,7 @@ router.post("/:id/events", async (req, res) => {
 });
 
 /**
- * @description Add a job posting to a user"s list of job postings
+ * @description Add a job posting to a user's list of job postings
  * @route POST /Users/:id/jobPostings
  * @param {string} id - User ID
  * @body {string} jobPostingId - The ID of the job posting to add
@@ -259,6 +283,31 @@ router.get("/", async (req, res) => {
 });
 
 /**
+ * @description Get a specific document from user
+ * @route GET /Users/:id/documents/:documentId
+ * @param {string} id - User ID
+ * @param {string} documentId - Document ID (filename)
+ * @response 200 {file} - The requested document file
+ * @response 404 {error: "File not found"}
+ * @response 500 {error: "Error retrieving the document"}
+ */
+router.get("/:id/documents/:documentId", (req, res) => {
+  try {
+    const { id, documentId } = req.params;
+
+    const documentPath = path.join(__dirname, "..", "user_data", id, documentId);
+
+    if (!fs.existsSync(documentPath)) {
+      return res.status(404).json({ error: "File not found" });
+    }
+
+    res.sendFile(documentPath);
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving the document" });
+  }
+});
+
+/**
  * @description Update a specific user by id (document, events and job postings handled separately)
  * @route PUT /Users/:id
  * @param {string} id - User id
@@ -289,31 +338,6 @@ router.put("/:id", async (req, res) => {
     res.json(user);
   } catch (error) {
     return res.status(400).json({ error: error.message });
-  }
-});
-
-// TODO Placeholder for now
-// Update documents for user
-router.put("/:id/documents", async (req, res) => {
-  try {
-    const { documents } = req.body; // Expect an array of documents
-    if (!documents || !Array.isArray(documents)) {
-      return res.status(400).json({ error: "Documents must be an array" });
-    }
-
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { documents },
-      { new: true } // Return updated user
-    );
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    res.json(user);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
   }
 });
 
@@ -354,7 +378,6 @@ router.put("/:id/events", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 /**
  * @description Update job postings for a specific user
@@ -425,27 +448,59 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    const userDir = path.join(__dirname, "..", "user_data", user.id); // Directory path ('./user_data/{userId}')
+    
+    if (fs.existsSync(userDir)) {
+      fs.rmdirSync(userDir, { recursive: true });
+    }
+
     res.json({ message: "User deleted successfully", user });
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
 })
 
-// TODO: Placeholder for now
-// Delete a document from a user"s list of documents
+/**
+ * @description Delete a user and their associated directory and documents
+ * @route DELETE /Users/:id
+ * @param {string} id - User ID
+ * @param {string} documentId - Document name
+ * @response 200 {message: "User deleted successfully" }
+ * @response 404 {error: "User not found" / "Document not found" }
+ * @response 400 {error: "Error deleting the user or files" / "Error fetching documents" }
+ * @response 500 {error: "Error deleting file" }
+ */
 router.delete("/:id/documents/:documentId", async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { $pull: { documents: { id: req.params.documentId } } },
-      { new: true } // Return updated user
-    );
+    const { id, documentId } = req.params;
+
+    const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ error: "User or document not found" });
+      return res.status(404).json({ error: "User not found" });
     }
 
-    res.json(user);
+    const document = user.documents.find(doc => doc.id === documentId);
+
+    if (!document) {
+      return res.status(404).json({ error: "Document not found" });
+    }
+
+    const filePath = path.join(__dirname, "..", "user_data", id, documentId);
+
+    user.documents = user.documents.filter(doc => doc.id !== documentId);
+
+    await user.save();
+
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error("Error deleting file:", err);
+        return res.status(500).json({ error: "Error deleting file" });
+      }
+
+      res.json({ message: "Document deleted successfully" });
+    });
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
