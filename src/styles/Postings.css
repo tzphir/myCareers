@@ -19,11 +19,23 @@
     place-items: center;
     font-size: 1em;
     width: 100%;
+    margin-bottom: 1vh;
 }
 
 .major-info{
     justify-self: start;
     padding-left: 1vw;
+}
+
+.minor-info{
+    display: flex;
+    flex-wrap:nowrap;
+    flex-direction: column;
+    text-align: center;
+}
+
+.minor-info.row-2{
+    flex-direction: row;
 }
 
 .posting img{
