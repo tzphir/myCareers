@@ -19,19 +19,17 @@ const userSchema = new mongoose.Schema({
           "Cover Letter",
         ]},
   }],
-  events: [{                                                              // Registered events
-      id: { type: String, required: true },                               // Event name
-      event: { type: eventSchema, required: true, unique: true },         // Event object
+  events: [{                                                        // Registered event IDs
+      eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true }, // Reference to Event by ID
   }],
-  jobPostings: [{                                                         // Job Posting applications
-      id: { type: String, required: true , unique: true },                // Job posting name
-      posting: { type: jobPostingSchema, required: true, unique: true },  // Job posting object
-      status: { type: String, enum: [                                     // Job posting status
-          "Pending",        // Waiting for news 
-          "In Progress",    // In interview process
-          "Approved",       // Received offer
-          "Rejected"        // Received rejection
-        ], default: 'Pending' },
+  jobPostings: [{                                                   // Job Posting applications (by ID)
+      jobPostingId: { type: mongoose.Schema.Types.ObjectId, ref: 'JobPosting', required: true },  // Reference to JobPosting by ID
+      status: { type: String, enum: [                               // Job posting status
+          'Pending',        // Waiting for news 
+          'In Progress',    // In interview process
+          'Approved',       // Received offer
+          'Rejected'        // Received rejection
+        ], default: 'In Progress' },
   }],
 });
 
