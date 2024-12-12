@@ -109,22 +109,33 @@ const MyProfile = () => {
                 </div>
             </div> 
 
-            <div style={{ borderLeft: '3px dashed black', height: '100vh' }} />        
+              
 
             <div className="container" id="personal-info">
                 <div className="types-personal-info">
                     <h2>Personal Info</h2>
                     <form onSubmit={handleSubmit}>
-                        <label for="fname">First Name:</label>
-                        <input type='text' name="fname" id="fname" value={personalInfo.fname} onChange={handleChange}></input><br/>
-                        <label for="lname">Last Name:</label>
-                        <input type='text' name="lname" id="lname" value={personalInfo.lname} onChange={handleChange}></input>
-                        <label for="id">Student ID:</label>
-                        <input type='text' name="id" id="id" value={personalInfo.id} onChange={handleChange}></input><br/>
-                        <label for="email">Email:</label>
-                        <input type='text' name="email" id="email" value={personalInfo.email} onChange={handleChange}></input><br/>
-                        <label for="faculty">Student ID:</label>
-                        <input type='text' name="faculty" id="faculty" value={personalInfo.faculty} onChange={handleChange}></input><br/>
+                        <div class="col">
+                            <label for="fname">First Name:</label>
+                            <input type='text' name="fname" id="fname" value={personalInfo.fname} onChange={handleChange}></input>
+                        </div>
+                        <div class="col">
+                            <label for="lname">Last Name:</label>
+                            <input type='text' name="lname" id="lname" value={personalInfo.lname} onChange={handleChange}></input>
+                        </div>
+                        <div class="col">
+                            <label for="id">Student ID:</label>
+                            <input type='text' name="id" id="id" value={personalInfo.id} onChange={handleChange}></input>
+                        </div>
+                        <div class="col">
+                            <label for="email">Email:</label>
+                            <input type='text' name="email" id="email" value={personalInfo.email} onChange={handleChange}></input>
+                        </div>
+                        <div class="col">
+
+                            <label for="faculty">Student ID:</label>
+                            <input type='text' name="faculty" id="faculty" value={personalInfo.faculty} onChange={handleChange}></input>
+                        </div>
                         {isChanged && <input type="submit" value="Submit" />}
                     </form>
                     {/*

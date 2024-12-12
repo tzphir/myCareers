@@ -5,7 +5,11 @@
     margin-left: 10%;
     margin-right: 10%;
 }
-
+select {
+    appearance: none; 
+    background: white;
+  }
+  
 .container{
     display: flex;
     flex-wrap: wrap;
@@ -33,7 +37,11 @@
 
 .types-personal-info{
     line-height: 6vh;
-    width: fit-content;
+    width: 30vw;
+}
+input[type="text"]{
+    width:50%;
+    background-image: none;
 }
 
 #personal-info{
@@ -63,7 +71,16 @@ h2{
     text-align: start;
 }
 
-.container li, form{
+.col{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+label{
+    font-weight: normal;
+}
+.container li{
     display: grid;
     grid-template-columns: 1fr auto auto auto;
     gap: 1vw;
