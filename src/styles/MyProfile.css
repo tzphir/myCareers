@@ -97,6 +97,8 @@ h2{
 
 select {
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     width: fit-content;
     padding: 1vh 1vw;
     font-weight: normal;
