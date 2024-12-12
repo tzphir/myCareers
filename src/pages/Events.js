@@ -96,7 +96,7 @@ function Events (){
 
     return(
         <div className="events">
-            <div className="button-container">
+            <div className="event-button-container">
                 <div className='pagination-buttons'> 
                     <button 
                     onClick={toPrevPage}
