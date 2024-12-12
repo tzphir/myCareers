@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
 
     await user.save();
 
-    const userDir = path.join(__dirname, "..", "user_data", user.id); // Directory path ('./user_data/{userId}')
+    const userDir = path.join(__dirname, "..", "user_data", `${user._id}`); // Directory path ('./user_data/{userId}')
     
     if (!fs.existsSync(userDir)) {
       fs.mkdirSync(userDir, { recursive: true });
