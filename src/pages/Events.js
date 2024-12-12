@@ -84,7 +84,9 @@ function Events (){
 
     //Changes page num 
     const toPrevPage = () => {
-       setCurrentPageNum(currentPageNum - 1); 
+        if ( currentPageNum > 1) //page num cannot go below 0 
+        {setCurrentPageNum(currentPageNum - 1); 
+        }     
     }
 
    const toNextPage = () => {
