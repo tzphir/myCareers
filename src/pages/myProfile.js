@@ -19,6 +19,7 @@ const MyProfile = () => {
         email: '',
         faculty: '',
         documents: [],
+        events: [],
         jobPostings: []
     });
 
@@ -28,7 +29,7 @@ const MyProfile = () => {
     useEffect(() => {
         const fetchPersonalInfo = async () => {
             try {
-                const response = await axios.get(`/id:${localStorage.getItem("id")}`); 
+                const response = await axios.get(`http://localhost:8000/${localStorage.getItem("id")}`); 
                 setPersonalInfo(response.data);
             } catch (error) {
                 console.error('Error fetching personal info:', error);
@@ -51,7 +52,7 @@ const MyProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put('/api/update-student-info', personalInfo); // Replace
+            await axios.put(`http://localhost:8000/Users/${localStorage.getItem("id")}`, personalInfo);
             setIsChanged(false); // Hide submit button after successful update
             alert('Information updated successfully!');
         } catch (error) {
@@ -65,7 +66,6 @@ const MyProfile = () => {
     }
 
     return (
-        
        <div id="myprofile">
             <div className="container" id="documents">
                 <div className="documents-content">
