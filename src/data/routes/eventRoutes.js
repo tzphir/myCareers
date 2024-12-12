@@ -1,4 +1,5 @@
 const express = require('express');
+const User = require('../models/User');
 const Event = require('../models/Event');
 
 // Create router
@@ -9,7 +10,7 @@ const router = express.Router();
  * @route POST /Events
  * @body {name, date, location, category, description}
  * @response 201 {id, name, date, location, category, description}
- * @response 400 {error: "All fields are required" / "Event already exists"}
+ * @response 400 {error: "All fields are required" / "Event already exists" / "Error fetching event"}
  */
 router.post("/", async (req, res) => {
   try {
@@ -64,7 +65,7 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @description Get event by any field (Except description)
+ * @description Get all event by any field (Except description & neet at least one field)
  * @route GET /Events?name=Name&date=yyyy-dd-mm&country=Country&province=Province&city=City&category=Category
  * @param {string} name - Event Name (optional)
  * @param {string} date - Event Date (optional)
@@ -72,8 +73,8 @@ router.get("/", async (req, res) => {
  * @param {string} province - Event Province (optional)
  * @param {string} city - Event City (optional)
  * @param {string} category - Event Category (optional)
- * @response 200 {id, name, date, location, category, description}
- * @response 404 {error: "Event not found"}
+ * @response 200 [{id, name, date, location, category, description}]
+ * @response 404 {error: "No event found"}
  * @response 400 {error: "Error fetching event" / "Invalid date format"}
  */
 router.get("/", async (req, res) => {
@@ -102,7 +103,7 @@ router.get("/", async (req, res) => {
     const events = await Event.find(query);
 
     if (events.length === 0) {
-      return res.status(404).json({ error: "Event not found" });
+      return res.status(404).json({ error: "No event found" });
     }
 
     res.json(events);
@@ -172,15 +173,25 @@ router.put("/:id", async (req, res) => {
  * @reponse 404 {error: "Event not found"}
  * @response 400 {"Error fetching event"}
  */
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
+    // Delete events references in all users
+    const result = await User.updateMany(
+      { "events.id": req.params.id },
+      { $pull: { events: { id: req.params.id } } }
+    );
+
+    if (result.modifiedCount === 0) {
+      console.log("No users found with this event.");
+    }
+
     const event = await Event.findByIdAndDelete(req.params.id);
 
     if (!event) {
       return res.status(404).json({ error: "Event not found" });
     }
 
-    res.json({ message: 'Event deleted successfully' });
+    res.json({ message: "Event deleted successfully" });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
