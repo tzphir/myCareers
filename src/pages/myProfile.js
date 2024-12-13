@@ -64,6 +64,9 @@ const MyProfile = () => {
     const goToPostings = () => {
         navigate('/postings+applications', { replace: true});
     }
+    const goToTemplate = () => {
+        navigate('/templates', {replace: true});
+    }
 
     return (
        <div id="myprofile">
@@ -103,7 +106,7 @@ const MyProfile = () => {
                         </li>
                         <li>
                             <span className="doc-type">Templates</span>
-                            <button type="button" className="add-button">+</button>
+                            <button type="button" className="add-button" onClick={goToTemplate}>+</button>
                         </li>
                     </ul>
                 </div>
