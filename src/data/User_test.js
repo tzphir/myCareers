@@ -93,6 +93,7 @@ const logResult = (description, result) => {
     const addedEvent = {
       eventId: event_id
     }
+    
     response = await axios.post(`${BASE_USER_URL}/${user_id}/events`, addedEvent)
     logResult("Add events to user", response);
 

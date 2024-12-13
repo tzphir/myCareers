@@ -177,8 +177,8 @@ router.delete("/:id", async (req, res) => {
   try {
     // Delete events references in all users
     const result = await User.updateMany(
-      { "events.id": req.params.id },
-      { $pull: { events: { id: req.params.id } } }
+      { "events.eventId": req.params.id },
+      { $pull: { events: { eventId: req.params.id } } }
     );
 
     if (result.modifiedCount === 0) {
