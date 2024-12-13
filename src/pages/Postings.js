@@ -3,25 +3,17 @@ import FilterWindow from '../components/FilterWindow';
 import '../styles/Postings.css'
 import axios from 'axios';
 import Posting from '../components/Posting';
+import FullPostingDisplay from '../components/FullPostingDisplay';
 
 const Postings = () => {
     
-    const [jobPostings, setJobPostings] = useState({
-        jobPostings: []
-    });
-
-    const JobPostings = [1,2];
-
-    const createPosting = () => {
-        return (<div>{JobPostings.map((jobPosting) => (<Posting jobPosting={JobPostings}></Posting>) )}</div>);
-        
-    }
+    const [jobPostings, setJobPostings] = useState([]);
 
     const [formData, setFormData] = useState({
         keywords: "",
     });
 
-    //const [starPosting, setStarredPosting] = useState('');
+    const [selectedPost, setSelectedPost] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -33,7 +25,7 @@ const Postings = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form Data:", formData);
+        //console.log("Form Data:", formData);
         // Add search logic here
     };
 
@@ -54,6 +46,19 @@ const Postings = () => {
 
     const filterButtonClicked = () => {
         setIsActive(!isActive);
+    }
+
+    const createPosting = () => {
+        return (
+        <div>
+            {jobPostings.map( (jobPosting) => (
+                <Posting 
+                    jobPosting={jobPosting} 
+                    //selectedPost={selectedPost}
+                    setSelectedPost={setSelectedPost}>    
+                </Posting>
+            ) )}
+        </div>);
     }
 
     return (
@@ -104,7 +109,13 @@ const Postings = () => {
                 </div>
             </div>
             <div style={{ borderLeft: '3px dashed black', height: '100vh' }} />
-            <div className='full-selected-posting'></div>
+            <div className='full-selected-posting'>
+                {selectedPost ? (
+                    <FullPostingDisplay selectedPost={selectedPost}></FullPostingDisplay>
+                ) : (
+                    <></>
+                )}
+            </div>
         </div>
     )
 };
