@@ -31,7 +31,7 @@ const Posting = ( {jobPosting, setSelectedPost } ) => {
     }
 
     const handlePostClick = () => {
-        console.log(jobPosting);
+        //console.log(jobPosting);
         setSelectedPost(jobPosting); 
     };
 

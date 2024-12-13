@@ -39,9 +39,11 @@ select {
     line-height: 6vh;
     width: 30vw;
 }
+
 input[type="text"]{
     width:50%;
     background-image: none;
+    font-weight: normal;
 }
 
 #personal-info{
@@ -51,6 +53,7 @@ input[type="text"]{
     justify-content: space-between;
     width: 30vw;
     font-weight: normal;
+    padding-bottom: 2vh;
 }
 
 .form-personal-info{
