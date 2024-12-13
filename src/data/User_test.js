@@ -123,10 +123,18 @@ const logResult = (description, result) => {
     // 15. Add Job Posting to User
     const addedJob = {
       jobPostingId: job_id,
-      status: "In Progress"
+      status: "In Progress",
+      star: false
     }
     response = await axios.post(`${BASE_USER_URL}/${user_id}/jobPostings`, addedJob)
     logResult("Add job posting to user", response);
+
+    const jobStar = {
+      star: true
+    }
+
+    response = await axios.put(`${BASE_USER_URL}/${user_id}/jobPostings/${job_id}`, jobStar);
+    logResult("Modified Star status", response)
 
     // 16. Delete Job Posting
     response = await axios.delete(`${BASE_JOB_URL}/${job_id}`);

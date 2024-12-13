@@ -33,11 +33,13 @@ const userSchema = new mongoose.Schema({
       required: true 
     },
     status: { type: String, enum: [                                       // Job posting status
+        "None",           // Didnt apply yet
         "Pending",        // Waiting for news 
         "In Progress",    // In interview process
         "Approved",       // Received offer
         "Rejected"        // Received rejection
-      ], default: 'Pending' },
+      ], default: "None" },
+    star: { type: Boolean, required: true, default: false }               // Boolean for if Job is starred or not
   }],
 });
 

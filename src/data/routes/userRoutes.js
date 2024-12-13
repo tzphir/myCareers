@@ -147,17 +147,24 @@ router.post("/:id/events", async (req, res) => {
  * @route POST /Users/:id/jobPostings
  * @param {string} id - User ID
  * @body {string} jobPostingId - The ID of the job posting to add
- * @body {string} status - Status of the job posting ("Pending", "In Progress", "Approved", "Rejected")
+ * @body {string} status - Status of the job posting ("None", "Pending", "In Progress", "Approved", "Rejected")
+ * @body {string} star - Star status of job posting (true, false)
  * @response 201 {Array} - Updated list of user's job postings
  * @response 404 {error: "User not found" / "Job posting not found"}
- * @response 400 {error: "Invalid job posting ID or status" / "Job posting is already in the user"s list" / "Error adding job posting"}
+ * @response 400 {error: "Invalid job posting ID or status" / "Star status must be a boolean" / "Job posting is already in the user"s list" / "Error adding job posting"}
  */
 router.post("/:id/jobPostings", async (req, res) => {
   try {
-    const { jobPostingId, status } = req.body;
+    const { jobPostingId, status, star } = req.body;
+    
+    const starred = req.body.star === 'true' ? true : req.body.star === 'false' ? false : req.body.star;
 
-    if (!jobPostingId || !["Pending", "In Progress", "Approved", "Rejected"].includes(status)) {
+    if (!jobPostingId || !["None", "Pending", "In Progress", "Approved", "Rejected"].includes(status)) {
       return res.status(400).json({ error: "Invalid job posting ID or status" });
+    }
+
+    if (typeof starred !== 'boolean') {
+      return res.status(400).json({ error: "Star status must be a boolean" });
     }
 
     const jobPosting = await JobPosting.findById(jobPostingId);
@@ -174,7 +181,7 @@ router.post("/:id/jobPostings", async (req, res) => {
       return res.status(400).json({ error: "Job posting is already in the user's list" });
     }
     
-    user.jobPostings.push({ jobPostingId, status });
+    user.jobPostings.push({ jobPostingId, status, star });
     await user.save();
 
     res.status(201).json(user.jobPostings);
@@ -338,6 +345,47 @@ router.put("/:id", async (req, res) => {
     res.json(user);
   } catch (error) {
     return res.status(400).json({ error: error.message });
+  }
+});
+
+/**
+ * @description Update a specific user by id (document, events and job postings handled separately)
+ * @route PUT /Users/:id/jobPostings/:jobPostingId
+ * @param {string} id - User ID
+ * @param {string} jobPostingId - Job posting ID
+ * @body {star} - Star status of document (true or false)
+ * @response 200 [{JobPostingId, status, star}]
+ * @response 404 {error: "User or job posting not found"}
+ * @response 400 {error: "Invalid or missing 'star' field" / "Error fetching user"}
+ */
+router.put("/:id/jobPostings/:jobPostingId", async (req, res) => {
+  try {
+    const { id, jobPostingId } = req.params;
+    const { star } = req.body
+
+    if (star === undefined || typeof star !== 'boolean') {
+      return res.status(400).json({ error: "Invalid or missing 'star' field" });
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: id, 'jobPostings.jobPostingId': jobPostingId },
+      { $set: { 'jobPostings.$.star': star } }, 
+      { new: true, runValidators: true } 
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" }); 
+    }
+
+    const updatedJobPosting = user.jobPostings.find(posting => posting.jobPostingId.toString() === jobPostingId);
+    return res.status(200).json({
+      jobPostingId: updatedJobPosting.jobPostingId,
+      status: updatedJobPosting.status,
+      star: updatedJobPosting.star
+    });
+
+  } catch (error) {
+    res.status(400).json({ error: error.message })
   }
 });
 
