@@ -16,7 +16,7 @@ const Events = () => {
     const [showCalendar, setShowCalendar] = useState(false);
     const [currentPageNum, setCurrentPageNum] = useState(1);
     const eventsPerPage = 8;
-    const [filteredEvents, setFilteredEvents] = useState(events); 
+    const [filteredEvents, setFilteredEvents] = useState([]); 
 
     const id = localStorage.getItem("id");
 
@@ -31,6 +31,7 @@ const Events = () => {
             try {
                 const result = await axios.get("http://localhost:8000/Events");
                 setEvents(result.data);
+                setFilteredEvents(result.data); //sets filtered events to all events initially 
             } catch (err) {
                 console.error("Error fetching events:", err);
             }
@@ -43,7 +44,7 @@ const Events = () => {
             .then(response => {
                 const fetchedUserData = response.data;
                 setUserData(fetchedUserData);
-
+                
                 // Extract event IDs from user events
                 const eventIds = fetchedUserData.events.map(event => event.eventId);
 
