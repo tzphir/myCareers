@@ -154,9 +154,9 @@ const logResult = (description, result) => {
     response = await axios.delete(`${BASE_USER_URL}/${user_id}/documents/${uploadedDocumentId}`);
     logResult("Retrieved document", response);
 
-    // // 20. Delete User
-    // response = await axios.delete(`${BASE_USER_URL}/${user_id}`);
-    // logResult("Delete User", response);
+    // 20. Delete User
+    response = await axios.delete(`${BASE_USER_URL}/${user_id}`);
+    logResult("Delete User", response);
   } catch (error) {
     console.error(`Error: ${error.response?.data?.error || error.message}`);
   }

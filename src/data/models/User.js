@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
           "CV",
           "Transcript", 
           "Cover Letter",
+          "Recommandation Letter",
+          "Others"
         ]},
   }],
   events: [{                                                              // Registered events

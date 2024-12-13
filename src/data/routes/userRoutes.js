@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
 
     await user.save();
 
-    const userDir = path.join(__dirname, "..", "user_data", user.id); // Directory path ('./user_data/{userId}')
+    const userDir = path.join(__dirname, "..", "user_data", `${user._id}`); // Directory path ('./user_data/{userId}')
     
     if (!fs.existsSync(userDir)) {
       fs.mkdirSync(userDir, { recursive: true });
@@ -448,7 +448,7 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const userDir = path.join(__dirname, "..", "user_data", user.id); // Directory path ('./user_data/{userId}')
+    const userDir = path.join(__dirname, "..", "user_data", `${user._id}`); // Directory path ('./user_data/{userId}')
     
     if (fs.existsSync(userDir)) {
       fs.rmdirSync(userDir, { recursive: true });

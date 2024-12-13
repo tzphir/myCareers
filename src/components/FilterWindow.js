@@ -43,7 +43,7 @@ const FilterWindow = () => {
     <div className="filter-container">
       <h2>Filter</h2>
       <h3>Job Specifications</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
           <input
             type="text"
@@ -54,23 +54,25 @@ const FilterWindow = () => {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group term">
           <label>Starting Term:</label>
-          <select
-            name="term"
-            value={formData.term}
-            onChange={handleInputChange}
-          >
-            <option value="">-Term-</option>
-            <option value="Winter">Winter</option>
-            <option value="Summer">Summer</option>
-            <option value="Fall">Fall</option>
-          </select>
+          <div className="el select-column">
+            <select
+              name="term"
+              value={formData.term}
+              onChange={handleInputChange}
+            >
+              <option value="">-Term-</option>
+              <option value="Winter">Winter</option>
+              <option value="Summer">Summer</option>
+              <option value="Fall">Fall</option>
+            </select>
+          </div>
         </div>
 
-        <div className="form-group">
+        <div className="form-group duration">
           <label>Duration:</label>
-          <div className="checkbox-row">
+          <div className="el checkbox-row">
           {["4 Months", "6 Months", "12 Months"].map((duration) => (
             <label key={duration}>
               <input
@@ -85,40 +87,44 @@ const FilterWindow = () => {
           </div>
         </div>
 
-        <div className="form-group">
-          <label>Location:</label>
-          <select
-            name="country"
-            value={formData.country}
-            onChange={handleInputChange}
-          >
-            <option value="">-Country-</option>
-            <option value="Canada">Canada</option>
-            <option value="USA">USA</option>
-          </select>
-          <select
-            name="province"
-            value={formData.province}
-            onChange={handleInputChange}
-          >
-            <option value="">-Province/State-</option>
-            <option value="Quebec">Quebec</option>
-            <option value="Ontario">Ontario</option>
-          </select>
-          <select
-            name="city"
-            value={formData.city}
-            onChange={handleInputChange}
-          >
-            <option value="">-City-</option>
-            <option value="Montreal">Montreal</option>
-            <option value="Toronto">Toronto</option>
-          </select>
+        <div className="form-group location">
+          <label style={{ alignItems: "unset" }}>
+          Location:
+          </label>
+          <div className="el select-column">
+            <select
+              name="country"
+              value={formData.country}
+              onChange={handleInputChange}
+            >
+              <option value="">-Country-</option>
+              <option value="Canada">Canada</option>
+              <option value="USA">USA</option>
+            </select>
+            <select
+              name="province"
+              value={formData.province}
+              onChange={handleInputChange}
+            >
+              <option value="">-Province/State-</option>
+              <option value="Quebec">Quebec</option>
+              <option value="Ontario">Ontario</option>
+            </select>
+            <select
+              name="city"
+              value={formData.city}
+              onChange={handleInputChange}
+            >
+              <option value="">-City-</option>
+              <option value="Montreal">Montreal</option>
+              <option value="Toronto">Toronto</option>
+            </select> 
+          </div>
         </div>
 
-        <div className="form-group">
+        <div className="form-group format">
           <label>Format:</label>
-          <div className="checkbox-row">
+          <div className="el checkbox-row">
           {["Hybrid", "In Person", "Remote"].map((format) => (
             <label key={format}>
               <input
@@ -133,9 +139,9 @@ const FilterWindow = () => {
           </div>
         </div>
 
-        <div className="form-group">
+        <div className="form-group type">
           <label>Type:</label>
-          <div className="checkbox-row">
+          <div className="el checkbox-row">
           {["Full Time", "Part Time", "Contract"].map((type) => (
             <label key={type}>
               <input
@@ -150,9 +156,9 @@ const FilterWindow = () => {
           </div>
         </div>
 
-        <div className="form-group">
+        <div className="form-group features">
           <label>Features:</label>
-          <div className="checkbox-row">
+          <div className="el checkbox-row">
           {["Starred", "Hidden"].map((feature) => (
             <label key={feature}>
               <input
@@ -167,9 +173,9 @@ const FilterWindow = () => {
           </div>
         </div>
 
-        <div className="form-group">
+        <div className="form-group language">
           <label>Language:</label>
-          <div className="checkbox-row">
+          <div className="el checkbox-row">
           {["EN", "FR"].map((lang) => (
             <label key={lang}>
               <input
