@@ -1,0 +1,91 @@
+
+.login-page {
+    background-image: url('../assets/background.png');
+    background-size: cover; 
+    background-position: center; 
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
+
+.login-container {
+    background: white;
+    padding: 2vw; 
+    margin: 6vh 11vw;
+    width: 30vw;
+    text-align: center ;
+    align-items: center;  
+}
+
+.form-container{
+    text-align:left; 
+    align-items: left;
+    padding-bottom: 2vw;
+    padding: 2vw; 
+}
+
+.separator{
+    margin:0; 
+    font-size: x-small; 
+    text-align: center;
+    margin-bottom: 5vh;
+    margin-top: 5vh; 
+
+}
+
+a {
+    color: black;       
+    text-decoration-color: black; 
+}
+a:hover{
+    color: blue ;      
+
+}
+
+input{
+    width: 100%;
+    padding: 0.5vw;
+    margin-bottom: 2vh; 
+    font-weight:normal; 
+    margin-top:1vh; 
+    box-sizing: border-box;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    gap:1.25em; 
+    width: 100%;
+}
+
+.primary-button {
+    text-align: center;
+    border:none; 
+    color: white;
+    background-color: #e7191f;
+    padding: 1.5vw 3vw;;
+    font-weight: bold; 
+    font-size: 16px; 
+    border-radius: 4rem;
+    cursor: pointer;
+    display: block; 
+}
+.primary-button:hover{
+    background-color: #831717;
+    cursor: pointer;
+}
+
+.secondary-button{
+    background-color: #dfdfdf; 
+    color: black; 
+    font-size: 14px; 
+    padding:0.6vw; 
+    display: block; 
+}
+
+
+.secondary-button:hover {
+    background-color: #928e8e;
+}
