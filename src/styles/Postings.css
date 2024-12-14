@@ -13,13 +13,14 @@
 .posting{
     border: 1px solid black;
     display: grid;
-    grid-template-columns: 3vw 3vw 20vw 15vw 5vw;
+    grid-template-columns: 3vw 3vw 19vw 17vw 4vw;
     grid-template-rows: 7vh;
     height: 7vh;
     place-items: center;
     font-size: 1em;
     width: 100%;
     margin-bottom: 1vh;
+    cursor: pointer;
 }
 
 .major-info{
@@ -36,6 +37,7 @@
 
 .minor-info.row-2{
     flex-direction: row;
+    place-self: center;
 }
 
 .posting img{
@@ -43,7 +45,7 @@
     height: 6vh;
 }
 
-.posting h3, .posting h5{
+.posting h4, .posting h6{
     margin: 0;
 }
 
@@ -57,6 +59,11 @@
 
 .full-selected-posting{
     width: 50vw;
+}
+
+.selected-posting{
+    background-color: rgb(189, 189, 189);
+    
 }
 
 .filter-button{
@@ -79,18 +86,6 @@
     text-align: center;
 }
 
-.star{
-    cursor: pointer;
-}
-
-.bi{
-    cursor: pointer;
-}
-
 .postings-container .filter-container{
     margin-left: 9vw;
 }
-
-
-
-
