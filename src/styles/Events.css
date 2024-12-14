@@ -1,0 +1,123 @@
+
+.events{
+    display:flex; 
+    margin:5vh 0;  
+    flex-direction: column;
+    align-items: center;
+    width:100%; 
+    padding:0; 
+}
+
+.event-button-container{
+    display:flex; 
+    flex-direction: row;
+    width:88vw; 
+    justify-content: space-between;
+    margin: 0; 
+    padding: 0; 
+}
+
+.pagination-buttons button{
+    background-color: #e7191f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size:20px; 
+    cursor: pointer;
+}
+
+.filter-sort{
+    margin-left: 20vw; 
+}
+
+.filter-sort  button{
+    background-color: black;
+    color: white;
+    border: none;
+    margin-right: 2vw; 
+    padding: 10px 15px;
+    font-size:20px; 
+    cursor: pointer;
+}
+
+.view-button button{
+    background-color: white;
+    font-size:20px; 
+    color:rgb(80, 79, 79);  
+    padding: 10px 17px;
+    cursor: pointer;
+}
+
+.view-button button:active{
+    background-color:#dfdfdf; 
+    text-decoration: underline;
+    color:black; 
+    border:none; 
+}
+
+table {
+    border: none; 
+    box-sizing: border-box; 
+    margin-top: 0;
+    border-collapse: separate; 
+    border: none; 
+    width: 95vw;
+    height: 50vw; 
+    background-color: #dfdfdf; 
+    border-radius: 50px; 
+    overflow: hidden; 
+    border-spacing: 0;
+}
+
+th {
+    text-align: left;
+    padding:20px; 
+    font-size: 30px; 
+} 
+
+td {
+    text-align: left;
+    font-weight:normal; 
+    font-size:18px; 
+    padding-left:1.7vw; ; 
+} 
+td:last-child {
+    text-align: right; 
+    padding-right:3vw; 
+}
+
+thead{
+    background-color: #dfdfdf; 
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+} 
+
+tbody tr:nth-child(even) {
+    background-color: #dfdfdf;
+}
+
+.register-button{
+    border: 1px solid black; 
+    text-align: center;
+    color: white;
+    padding: 8px 18px;
+    background-color: #e7191f;
+}
+
+.register-button:hover{
+    background-color: #831717;
+    cursor: pointer;
+}
+  
+.calendar-view{
+    border: solid black; 
+    margin-top: 0;
+    box-sizing: border-box; 
+    align-items: center;
+    text-align: center;
+    width: 95vw;
+    height: 50vw; 
+    border-radius: 50px; 
+}
