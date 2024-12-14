@@ -1,0 +1,102 @@
+.top-container{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 55px;
+    
+}
+.top-left-square{
+    display: flex;
+}
+.top-square{
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    margin: 0ps;
+}
+#h2-title{
+margin: 0px;
+}
+.left-square{
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+}
+.bottom-square{
+    padding: 16px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+.bottom-square-top{
+    display: flex;
+    align-items: center;
+}
+.star{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    margin:0 10px 0 0 ;
+}
+.logo img{
+    height: 50px;
+    width: 50px;
+   
+}
+.top-right-square {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight:lighter;
+    font-size: 14px;
+    padding: 0 16px;
+}
+
+.time{
+    font-weight: normal;
+}
+
+.location{
+    
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+.location-title{
+    font-weight: normal;
+}
+
+.right-square{
+display: flex;
+align-items:end;
+}
+
+.apply-button{
+    background-color: red;
+    color: white;
+    font-size: 1em;
+    border:1px solid black;
+    padding: 0.5vw 2vw;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+}
+
+.company-name{
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.desc-line{
+    border: 1px;
+    background-color: black;
+    height: 1px;
+    width: 100%;
+}
+
+.description-text{
+    padding: 8px 0 0 16px;
+    font-weight: lighter;
+}
