@@ -109,7 +109,7 @@ router.post("/:id/documents", upload.single('document'), async (req, res) => {
  * @body {string} eventId - The ID of the event to add
  * @response 201 {Array} - Updated list of user"s events
  * @response 404 {error: "User not found" / "Event not found"}
- * @response 400 {error: "Invalid event ID or status" / "Event is already in the user"s list" / "Error adding event"}
+ * @response 400 {error: "Invalid event ID or status" / "Event is already in the user's list" / "Error adding event"}
  */
 router.post("/:id/events", async (req, res) => {
   try {
@@ -129,11 +129,11 @@ router.post("/:id/events", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    if (user.events.some(e => e.id === eventId)) {
-      return res.status(400).json({ error: "Event is already in the user\"s list" });
+    if (user.events.some(e => e.eventId.toString() === eventId)) {
+      return res.status(400).json({ error: "Event is already in the user's list" });
     }
-
-    user.events.push({ id: eventId, event });
+    
+    user.events.push({ eventId });
     await user.save();
 
     res.status(201).json(user.events);
@@ -147,17 +147,24 @@ router.post("/:id/events", async (req, res) => {
  * @route POST /Users/:id/jobPostings
  * @param {string} id - User ID
  * @body {string} jobPostingId - The ID of the job posting to add
- * @body {string} status - Status of the job posting ("Pending", "In Progress", "Approved", "Rejected")
+ * @body {string} status - Status of the job posting ("None", "Pending", "In Progress", "Approved", "Rejected")
+ * @body {string} star - Star status of job posting (true, false)
  * @response 201 {Array} - Updated list of user's job postings
  * @response 404 {error: "User not found" / "Job posting not found"}
- * @response 400 {error: "Invalid job posting ID or status" / "Job posting is already in the user"s list" / "Error adding job posting"}
+ * @response 400 {error: "Invalid job posting ID or status" / "Star status must be a boolean" / "Job posting is already in the user"s list" / "Error adding job posting"}
  */
 router.post("/:id/jobPostings", async (req, res) => {
   try {
-    const { jobPostingId, status } = req.body;
+    const { jobPostingId, status, star } = req.body;
+    
+    const starred = req.body.star === 'true' ? true : req.body.star === 'false' ? false : req.body.star;
 
-    if (!jobPostingId || !["Pending", "In Progress", "Approved", "Rejected"].includes(status)) {
+    if (!jobPostingId || !["None", "Pending", "In Progress", "Approved", "Rejected"].includes(status)) {
       return res.status(400).json({ error: "Invalid job posting ID or status" });
+    }
+
+    if (typeof starred !== 'boolean') {
+      return res.status(400).json({ error: "Star status must be a boolean" });
     }
 
     const jobPosting = await JobPosting.findById(jobPostingId);
@@ -170,11 +177,11 @@ router.post("/:id/jobPostings", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    if (user.jobPostings.some(j => j.id === jobPostingId)) {
-      return res.status(400).json({ error: "Job posting is already in the user\"s list" });
+    if (user.jobPostings.some(e => e.jobPostingId.toString() === jobPostingId)) {
+      return res.status(400).json({ error: "Job posting is already in the user's list" });
     }
-
-    user.jobPostings.push({ id: jobPostingId, posting: jobPosting, status });
+    
+    user.jobPostings.push({ jobPostingId, status, star });
     await user.save();
 
     res.status(201).json(user.jobPostings);
@@ -342,98 +349,56 @@ router.put("/:id", async (req, res) => {
 });
 
 /**
- * @description Update events for a specific user
- * @route PUT /Users/:id/events
- * @param {string} id - User id
- * @body {events} - Array of events
- * @response 200 {updated user events array}
- * @response 404 {error: "User not found"}
- * @response 400 {error: "Events must be an array" / "Error updating events" / "One or more event IDs are invalid"}
+ * @description Update a specific user's job posting by id (update status and star)
+ * @route PUT /Users/:id/jobPostings/:jobPostingId
+ * @param {string} id - User ID
+ * @param {string} jobPostingId - Job posting ID
+ * @body {status, star} - New status and star status of the job posting
+ * @response 200 [{jobPostingId, status, star}]
+ * @response 404 {error: "User or job posting not found"}
+ * @response 400 {error: "Invalid 'status' or 'star' field" / "Error fetching user"}
  */
-router.put("/:id/events", async (req, res) => {
+router.put("/:id/jobPostings/:jobPostingId", async (req, res) => {
   try {
-    const { events } = req.body;
+    const { id, jobPostingId } = req.params;
+    const { status, star } = req.body;
 
-    if (!Array.isArray(events)) {
-      return res.status(400).json({ error: "Events must be an array" });
+    // Validate status and star fields
+    if (status && !["None", "Pending", "In Progress", "Approved", "Rejected"].includes(status)) {
+      return res.status(400).json({ error: "Invalid 'status' field" });
+    }
+    if (star !== undefined && typeof star !== "boolean") {
+      return res.status(400).json({ error: "Invalid 'star' field" });
     }
 
-    const validEvents = await Event.find({ _id: { $in: events } });
+    const updateFields = {};
+    if (status) updateFields['jobPostings.$.status'] = status;
+    if (star !== undefined) updateFields['jobPostings.$.star'] = star;
 
-    if (validEvents.length !== events.length) {
-      return res.status(400).json({ error: "One or more event IDs are invalid" });
-    }
-
-    const user = await User.findById(req.params.id);
+    // Find and update the specific job posting
+    const user = await User.findOneAndUpdate(
+      { _id: id, "jobPostings.jobPostingId": jobPostingId },
+      { $set: updateFields },
+      { new: true, runValidators: true }
+    );
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "User or job posting not found" });
     }
-
-    user.events = events;
-    await user.save();
-
-    res.json(user.events);
+    
+    const updatedJobPosting = user.jobPostings.find(posting => posting.jobPostingId.toString() === jobPostingId);
+    res.status(200).json({
+      jobPostingId: updatedJobPosting.jobPostingId,
+      status: updatedJobPosting.status,
+      star: updatedJobPosting.star,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
 /**
- * @description Update job postings for a specific user
- * @route PUT /Users/:id/jobPostings
- * @param {string} id - User id
- * @body {jobPostings} - Array of job postings
- * @response 200 {updated user jobPostings array}
- * @response 404 {error: "User not found"}
- * @response 400 {error: "Error updating job postings"}
- */
-router.put("/:id/jobPostings", async (req, res) => {
-  try {
-    const { jobPostings } = req.body;
-
-    if (!Array.isArray(jobPostings)) {
-      return res.status(400).json({ error: "Job postings must be an array" });
-    }
-
-    const validJobPostings = [];
-    for (const posting of jobPostings) {
-      const { id, posting: postingId, status } = posting;
-
-      if (!id || !postingId || !status) {
-        return res.status(400).json({ error: "Each job posting must include id, posting, and status" });
-      }
-
-      if (!["Pending", "In Progress", "Approved", "Rejected"].includes(status)) {
-        return res.status(400).json({ error: `Invalid status for job posting with id: ${id}` });
-      }
-
-      const validPosting = await JobPosting.findById(postingId);
-      if (!validPosting) {
-        return res.status(400).json({ error: `Job posting with ID ${postingId} does not exist` });
-      }
-
-      validJobPostings.push({ id, posting: postingId, status });
-    }
-
-    const user = await User.findById(req.params.id);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    user.jobPostings = validJobPostings;
-    await user.save();
-
-    res.status(200).json(user.jobPostings);
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: error.message });
-  }
-});
-
-/**
- * @description Delete user by id
+ * @description Delete user by id (Also deletes its directory)
  * @route DELETE /Users/:id
  * @param {string} id - User ID
  * @response 200 {message: "User deleted successfully", updatedEvents}
@@ -451,7 +416,7 @@ router.delete("/:id", async (req, res) => {
     const userDir = path.join(__dirname, "..", "user_data", `${user._id}`); // Directory path ('./user_data/{userId}')
     
     if (fs.existsSync(userDir)) {
-      fs.rmdirSync(userDir, { recursive: true });
+      fs.rmSync(userDir, { recursive: true });
     }
 
     res.json({ message: "User deleted successfully", user });
@@ -461,11 +426,11 @@ router.delete("/:id", async (req, res) => {
 })
 
 /**
- * @description Delete a user and their associated directory and documents
+ * @description Delete a user's document by ID
  * @route DELETE /Users/:id
  * @param {string} id - User ID
  * @param {string} documentId - Document name
- * @response 200 {message: "User deleted successfully" }
+ * @response 200 {message: "Document deleted successfully" }
  * @response 404 {error: "User not found" / "Document not found" }
  * @response 400 {error: "Error deleting the user or files" / "Error fetching documents" }
  * @response 500 {error: "Error deleting file" }
@@ -525,7 +490,7 @@ router.delete("/:userId/events/:eventId", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const eventIndex = user.events.findIndex((event) => event.id === eventId);
+    const eventIndex = user.events.findIndex((event) => event.eventId === eventId);
 
     if (eventIndex === -1) {
       return res.status(404).json({ error: "Event not found" });
@@ -559,7 +524,7 @@ router.delete("/:userId/jobPostings/:jobPostingId", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const postingIndex = user.jobPostings.findIndex((posting) => posting.id === jobPostingId);
+    const postingIndex = user.jobPostings.findIndex((posting) => posting.jobPostingId === jobPostingId);
 
     if (postingIndex === -1) {
       return res.status(404).json({ error: "Job posting not found" });

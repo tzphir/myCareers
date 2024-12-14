@@ -1,6 +1,4 @@
 const { mongoose } = require('mongoose');
-const { eventSchema } = require('./Event');
-const { jobPostingSchema } = require('./JobPosting');
 
 const userSchema = new mongoose.Schema({
   fname: { type: String, default: "FirstNamePlaceholder"},                // First name
@@ -17,21 +15,31 @@ const userSchema = new mongoose.Schema({
           "CV",
           "Transcript", 
           "Cover Letter",
+          "Recommandation Letter",
+          "Others"
         ]},
   }],
   events: [{                                                              // Registered events
-      id: { type: String, required: true },                               // Event name
-      event: { type: eventSchema, required: true, unique: true },         // Event object
+    eventId: {                                                            // Reference to event by ID
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Event', 
+      required: true 
+    }, 
   }],
   jobPostings: [{                                                         // Job Posting applications
-      id: { type: String, required: true , unique: true },                // Job posting name
-      posting: { type: jobPostingSchema, required: true, unique: true },  // Job posting object
-      status: { type: String, enum: [                                     // Job posting status
-          "Pending",        // Waiting for news 
-          "In Progress",    // In interview process
-          "Approved",       // Received offer
-          "Rejected"        // Received rejection
-        ], default: 'Pending' },
+    jobPostingId: {                                                       // Reference to job posting by ID
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'JobPosting', 
+      required: true 
+    },
+    status: { type: String, enum: [                                       // Job posting status
+        "None",           // Didnt apply yet
+        "Pending",        // Waiting for news 
+        "In Progress",    // In interview process
+        "Approved",       // Received offer
+        "Rejected"        // Received rejection
+      ], default: "None" },
+    star: { type: Boolean, required: true, default: false }               // Boolean for if Job is starred or not
   }],
 });
 

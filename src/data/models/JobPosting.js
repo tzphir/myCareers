@@ -56,4 +56,3 @@ const jobPostingSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('JobPosting', jobPostingSchema, "JobPostings");
-module.exports.jobPostingSchema = jobPostingSchema;
