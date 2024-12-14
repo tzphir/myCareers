@@ -24,12 +24,20 @@ const MyProfile = () => {
     jobPostings: [],
   });
 
-  const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
+  const [personalInfoChanged, setPersonalInfoChanged] = useState(false); // Tracks if any input has changed
   
   const [activeDocument, setActiveDocument] = useState(null);
 
+  const [isDeletedApplication, setDeletedApplication] = useState(false);
+  const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
 
-
+  const documentCounts = useMemo(() => {
+    const counts = {};
+    personalInfo.documents.forEach((doc) => {
+      counts[doc.category] = (counts[doc.category] || 0) + 1;
+    });
+    return counts;
+  }, [personalInfo.documents]);
 
   // Fetch student information on component mount
   useEffect(() => {
@@ -44,20 +52,27 @@ const MyProfile = () => {
       }
     };
     fetchPersonalInfo();
+    const GETDOCUMENTTEST = async () => {
+        try {
+            const GETDOCUMENT = await axios.get(`http://localhost:8000/Users/${localStorage.getItem("_id")}/documents/1734165825081.pdf`);
+            console.log(GETDOCUMENT);
+        } catch (error) {
+            console.log("T'AS FLOP: ", error);
+        }
+    }
+    GETDOCUMENTTEST();
   }, []);
 
+  // Handle input changes
+  const handlePersonalInfoChange = (e) => {
+    const { name, value } = e.target;
+    setPersonalInfo((prevInfo) => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+    setPersonalInfoChanged(true); // Show submit button
+  };
 
-  const documentCounts = useMemo(() => {
-    const counts = {};
-    personalInfo.documents.forEach((doc) => {
-      counts[doc.category] = (counts[doc.category] || 0) + 1;
-    });
-    return counts;
-  }, [personalInfo.documents]);
-
-
-
-  
   const handleFileChange = async (e, documentType) => {
     const file = e.target.files[0];
     
@@ -135,7 +150,7 @@ const MyProfile = () => {
         `http://localhost:8000/Users/${personalInfo._id}`,
         personalInfo
       );
-      setIsChanged(false); // Hide submit button after successful update
+      setPersonalInfoChanged(false); // Hide submit button after successful update
       alert("Information updated successfully!");
     } catch (error) {
       console.error("Error updating personal info:", error);
@@ -223,8 +238,6 @@ const MyProfile = () => {
                 </div>
             </div> 
 
-              
-
       <div className="container" id="personal-info">
         <div className="types-personal-info">
           <h2>Personal Info</h2>
@@ -236,7 +249,7 @@ const MyProfile = () => {
                 name="fname"
                 id="fname"
                 value={personalInfo.fname}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -246,7 +259,7 @@ const MyProfile = () => {
                 name="lname"
                 id="lname"
                 value={personalInfo.lname}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -256,7 +269,7 @@ const MyProfile = () => {
                 name="id"
                 id="id"
                 value={personalInfo.id}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -266,7 +279,7 @@ const MyProfile = () => {
                 name="email"
                 id="email"
                 value={personalInfo.email}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -276,10 +289,10 @@ const MyProfile = () => {
                 name="faculty"
                 id="faculty"
                 value={personalInfo.faculty}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
-            {isChanged && <input type="submit" value="Submit" />}
+            {personalInfoChanged && <input type="submit" value="Submit" />}
           </form>
         </div>
       </div>
@@ -288,9 +301,11 @@ const MyProfile = () => {
           <div className="applications-content">
             <h2>Applications Status Board</h2>
             <ul>
-              {personalInfo?.jobPostings?.map((jobPosting, index) => (
-                <UserPosting key={index} jobPosting={jobPosting} />
-              ))}
+                {personalInfo?.jobPostings?.map((jobPosting, index) => 
+                    !isDeletedApplication ? (
+                        <UserPosting key={index} jobPosting={jobPosting} setDeletedApplication={setDeletedApplication}></UserPosting>
+                    ) : null
+                )}
             </ul>
             <button
               type="button"

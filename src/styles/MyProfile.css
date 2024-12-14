@@ -6,11 +6,6 @@
     margin-right: 10%;
 }
 
-select {
-    appearance: none;
-    background: white;
-}
-
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -121,6 +116,7 @@ label {
 }
 
 select {
+    background: white;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;

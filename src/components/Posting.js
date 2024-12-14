@@ -5,22 +5,6 @@ const Posting = ( {jobPosting, setSelectedPost, selectedPost } ) => {
 
     const [deletedStatus, setDeleteStatus] = useState(false);
     const [starredStatus, setStarredStatus] = useState(false);
-    //console.log({ setSelectedPost });
-    //const ref = useRef(jobPosting.jobPosting._id);
-    //const idValue = jobPosting.jobPosting._id;
-
-    //console.log(idValue);
-
-    /*
-    const handleDeletePosting = async () => {
-        try {
-            const response = await axios.delete(`http://localhost:8000/JobPostings/${idValue}`); 
-            setDeleteStatus(response.data);
-        } catch (error) {
-            console.error('Error fetching job postings:', error);
-        }
-    };
-    */
 
     const handleDeletePosting = () => {
         setDeleteStatus(true);
