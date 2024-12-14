@@ -349,43 +349,51 @@ router.put("/:id", async (req, res) => {
 });
 
 /**
- * @description Update a specific user by id (document, events and job postings handled separately)
+ * @description Update a specific user's job posting by id (update status and star)
  * @route PUT /Users/:id/jobPostings/:jobPostingId
  * @param {string} id - User ID
  * @param {string} jobPostingId - Job posting ID
- * @body {star} - Star status of document (true or false)
- * @response 200 [{JobPostingId, status, star}]
+ * @body {status, star} - New status and star status of the job posting
+ * @response 200 [{jobPostingId, status, star}]
  * @response 404 {error: "User or job posting not found"}
- * @response 400 {error: "Invalid or missing 'star' field" / "Error fetching user"}
+ * @response 400 {error: "Invalid 'status' or 'star' field" / "Error fetching user"}
  */
 router.put("/:id/jobPostings/:jobPostingId", async (req, res) => {
   try {
     const { id, jobPostingId } = req.params;
-    const { star } = req.body
+    const { status, star } = req.body;
 
-    if (star === undefined || typeof star !== 'boolean') {
-      return res.status(400).json({ error: "Invalid or missing 'star' field" });
+    // Validate status and star fields
+    if (status && !["None", "Pending", "In Progress", "Approved", "Rejected"].includes(status)) {
+      return res.status(400).json({ error: "Invalid 'status' field" });
+    }
+    if (star !== undefined && typeof star !== "boolean") {
+      return res.status(400).json({ error: "Invalid 'star' field" });
     }
 
+    const updateFields = {};
+    if (status) updateFields['jobPostings.$.status'] = status;
+    if (star !== undefined) updateFields['jobPostings.$.star'] = star;
+
+    // Find and update the specific job posting
     const user = await User.findOneAndUpdate(
-      { _id: id, 'jobPostings.jobPostingId': jobPostingId },
-      { $set: { 'jobPostings.$.star': star } }, 
-      { new: true, runValidators: true } 
+      { _id: id, "jobPostings.jobPostingId": jobPostingId },
+      { $set: updateFields },
+      { new: true, runValidators: true }
     );
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" }); 
+      return res.status(404).json({ error: "User or job posting not found" });
     }
-
+    
     const updatedJobPosting = user.jobPostings.find(posting => posting.jobPostingId.toString() === jobPostingId);
-    return res.status(200).json({
+    res.status(200).json({
       jobPostingId: updatedJobPosting.jobPostingId,
       status: updatedJobPosting.status,
-      star: updatedJobPosting.star
+      star: updatedJobPosting.star,
     });
-
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
 });
 
