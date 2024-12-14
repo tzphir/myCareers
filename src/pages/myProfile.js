@@ -28,17 +28,8 @@ const MyProfile = () => {
   
   const [activeDocument, setActiveDocument] = useState(null);
 
-  const documentCounts = useMemo(() => {
-    const counts = {};
-    personalInfo.documents.forEach((doc) => {
-      counts[doc.category] = (counts[doc.category] || 0) + 1;
-    });
-    return counts;
-  }, [personalInfo.documents]);
 
 
-
-  
 
   // Fetch student information on component mount
   useEffect(() => {
@@ -55,16 +46,18 @@ const MyProfile = () => {
     fetchPersonalInfo();
   }, []);
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setPersonalInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-    setIsChanged(true); // Show submit button
-  };
 
+  const documentCounts = useMemo(() => {
+    const counts = {};
+    personalInfo.documents.forEach((doc) => {
+      counts[doc.category] = (counts[doc.category] || 0) + 1;
+    });
+    return counts;
+  }, [personalInfo.documents]);
+
+
+
+  
   const handleFileChange = async (e, documentType) => {
     const file = e.target.files[0];
     
@@ -86,15 +79,15 @@ const MyProfile = () => {
           `http://localhost:8000/Users/${localStorage.getItem("_id")}`
         );
         setPersonalInfo(updatedResponse.data);
-        alert(`${documentType} téléchargé avec succès!`);
+        alert(`${documentType} uploaded successfully!`);
       } catch (error) {
-        console.error("Erreur lors du téléchargement du fichier:", error);
-        alert(`Erreur lors du téléchargement de ${documentType}`);
+        console.error("Error uploading the file:", error);
+        alert(`Error uploading ${documentType}`);
       }
     }
   };
   
-
+  
   const showPdf = async (docType) => {
     const filteredDocuments = personalInfo.documents.filter(
       (doc) => doc.category === docType
@@ -119,6 +112,19 @@ const MyProfile = () => {
   const closeDocuments = () => {
     setActiveDocument(null);
   };
+
+  
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPersonalInfo((prevInfo) => ({
+      ...prevInfo,
+      [name]: value,
+    }));
+    setIsChanged(true); // Show submit button
+  };
+
 
   // Submit updated info
   const handleSubmit = async (e) => {
@@ -152,33 +158,62 @@ const MyProfile = () => {
                     <ul>
                         <li>
                             <span className="doc-type">Cover Letter</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
+                            <span className="count">{documentCounts["Cover Letter"] || 0}</span>
+                            <button type="button" className="view-button" onClick={() => showPdf("Cover Letter")}>View</button>
+                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-cov-letter").click()}>+</button>                            <input
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "Cover Letter")}
+                  id={`file-upload-cov-letter`}
+                />
                         </li>
                         <li>
                             <span className="doc-type">CV/Resume</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
+                            <span className="count">{documentCounts["CV"] || 0}</span>
+                            <button type="button" className="view-button" onClick={() => showPdf("CV")}>View</button>
+                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-cv").click()}>+</button>                            <input
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "CV")}
+                  id={`file-upload-cv`}
+                />
                         </li>
                         <li>
                             <span className="doc-type">Unofficial Transcript</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
+                            <span className="count">{documentCounts["Transcript"] || 0}</span>
+                            <button type="button" className="view-button" onClick={() => showPdf("Transcript")}>View</button>
+                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-transcript").click()}>+</button>                            
+                            <input
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "Transcript")}
+                  id={`file-upload-transcript`}
+                />
                         </li>
                         <li>
                             <span className="doc-type">Recommendation Letter</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
+                            <span className="count">{documentCounts["Recommendation Letter"] || 0}</span>
+                            <button type="button" className="view-button" onClick={() => showPdf("Recommendation Letter")}>View</button>
+                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-rec-letter").click()}>+</button>
+                                                        <input
+                            
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "Recommendation Letter")}
+                  id={`file-upload-rec-letter`}
+                />
                         </li>
                         <li>
                             <span className="doc-type">Other</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
+                            <span className="count">{documentCounts["Others"] || 0}</span>
+                            <button type="button" className="view-button" onClick={() => showPdf("Others")}>View</button>
+                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-other").click()}>+</button>
+                            <input
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, "Others")}
+                  id={`file-upload-other`}
+                />
                         </li>
                         <li>
                             <span className="doc-type">Templates</span>
@@ -270,7 +305,7 @@ const MyProfile = () => {
             <>
             <div className="overlay">
 
-                <DocumentPreview className="overlay-content" documents={activeDocument} onDocumentClose={closeDocuments}></DocumentPreview>
+                <DocumentPreview  documents={activeDocument} onDocumentClose={closeDocuments}></DocumentPreview>
             </div>
             </>
           )}

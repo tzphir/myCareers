@@ -12,6 +12,8 @@ const DocumentPreview = ({documents, onDocumentClose} ) => {
 
     return(
         <div className="pdf-viewer">
+<div className='button-docs'>
+
             <div className='close-button-container'>
                 <button className="close-button" onClick={onDocumentClose}>
         X
@@ -20,9 +22,8 @@ const DocumentPreview = ({documents, onDocumentClose} ) => {
             </div>
           <div className="documents-container">
             {documents.map((doc, index) => (
+              
               <div key={index} className="pdf-container">
-                <h4>{doc.category}</h4>
-
                 <Document
                   file={doc.fileUrl}
                   onLoadSuccess={onDocumentLoadSuccess}
@@ -32,6 +33,9 @@ const DocumentPreview = ({documents, onDocumentClose} ) => {
               </div>
             ))}
           </div>
+</div>
+
+
         </div>
       )
 }
