@@ -12,6 +12,10 @@ img{
     flex: 0 0 40%;
 }
 
+hr{
+    margin-bottom:0; 
+}
+
 #logout{
     border: 1px solid black; 
     text-align: center;
