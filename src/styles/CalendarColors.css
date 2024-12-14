@@ -1,0 +1,21 @@
+.blue-event {
+    background-color: #0000ff;
+    color: white;
+ }
+ 
+ .green-event {
+    background-color: #008000;
+    color: white;
+ }
+ 
+ .red-event {
+    background-color: #ff0000;
+    color: white;
+ }
+ 
+ .calendar-div {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
