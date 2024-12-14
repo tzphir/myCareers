@@ -61,6 +61,11 @@
     width: 50vw;
 }
 
+.selected-posting{
+    background-color: rgb(189, 189, 189);
+    
+}
+
 .filter-button{
     text-align: center;
     color: white;

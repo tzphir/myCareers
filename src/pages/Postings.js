@@ -53,9 +53,12 @@ const Postings = () => {
         <div>
             {jobPostings.map( (jobPosting) => (
                 <Posting 
+                key={jobPosting._id}
                     jobPosting={jobPosting} 
                     //selectedPost={selectedPost}
-                    setSelectedPost={setSelectedPost}>    
+                    setSelectedPost={setSelectedPost}
+                    selectedPost={selectedPost}>    
+                    
                 </Posting>
             ) )}
         </div>);
