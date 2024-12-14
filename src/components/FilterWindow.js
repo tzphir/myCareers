@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./FilterWindow.css";
+import "../styles/FilterWindow.css";
 
 const FilterWindow = () => {
   const [formData, setFormData] = useState({

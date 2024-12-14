@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Postings from './pages/Postings';
 import Events from './pages/Events';
 import MyProfile from './pages/myProfile'
+import CardPage from './pages/CardPage'
 import NoPage from './pages/NoPage';
 import reportWebVitals from './reportWebVitals';
 
@@ -17,6 +18,7 @@ root.render(
           <Route path="postings+applications" element={<Postings />} />
           <Route path="events" element={<Events />} />
           <Route path="myprofile" element={<MyProfile />} />
+          <Route path="templates" element={<CardPage />} />
           <Route path="*" element={<NoPage />} />
       </Route>
   </Routes>

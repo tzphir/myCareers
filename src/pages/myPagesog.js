@@ -136,59 +136,60 @@ const MyProfile = () => {
     }
   };
 
-    const navigate = useNavigate();
-    const goToPostings = () => {
-        navigate('/postings+applications', { replace: true});
-    }
-    const goToTemplate = () => {
-        navigate('/templates', {replace: true});
-    }
+  const navigate = useNavigate();
+  const goToPostings = () => {
+    navigate("/postings+applications", { replace: true });
+  };
 
-    return (
-       <div id="myprofile">
-            <div className="container" id="documents">
-                <div className="documents-content">
-                    <h2>Documents</h2>
-                    <ul>
-                        <li>
-                            <span className="doc-type">Cover Letter</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
-                        </li>
-                        <li>
-                            <span className="doc-type">CV/Resume</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
-                        </li>
-                        <li>
-                            <span className="doc-type">Unofficial Transcript</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
-                        </li>
-                        <li>
-                            <span className="doc-type">Recommendation Letter</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
-                        </li>
-                        <li>
-                            <span className="doc-type">Other</span>
-                            <span className="count">0</span>
-                            <button type="button" className="view-button">View</button>
-                            <button type="button" className="add-button">+</button>
-                        </li>
-                        <li>
-                            <span className="doc-type">Templates</span>
-                            <button type="button" className="add-button" onClick={goToTemplate}>+</button>
-                        </li>
-                    </ul>
-                </div>
-            </div> 
 
-              
+  return (
+    <div id="myprofile">
+      <div className="container" id="documents">
+        <div className="documents-content">
+          <h2>Documents</h2>
+          <ul>
+            {[
+              "Cover Letter",
+              "CV/Resume",
+              "Unofficial Transcript",
+              "Recommendation Letter",
+              "Other",
+              "Templates",
+            ].map((docType, index) => (
+              <li key={index}>
+                <span className="doc-type">{docType}</span>
+
+                <span className="count">{documentCounts[docType] || 0}</span>
+
+                <button
+                  type="button"
+                  className="view-button"
+                  onClick={() => showPdf(docType)}
+                >
+                  View
+                </button>
+
+                {}
+                <button
+                  type="button"
+                  className="add-button"
+                  onClick={() =>
+                    document.getElementById(`file-upload-${docType}`).click()
+                  } 
+                >
+                  +
+                </button>
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handleFileChange(e, docType)}
+                  id={`file-upload-${docType}`}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
       <div className="container" id="personal-info">
         <div className="types-personal-info">
