@@ -7,7 +7,9 @@ const FullPostingDisplay = ( {  selectedPost } ) => {
 
 const req = {
     jobPostingId : selectedPost._id,
-    status: "Pending"
+    status: "Pending",
+    star:true
+    
   };
     const handleApply = async () => {
 

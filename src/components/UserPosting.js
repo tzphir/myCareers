@@ -3,7 +3,7 @@ import axios from 'axios';
 import "../styles/MyProfile.css";
 
 const UserPosting = ( {  jobPosting, setDeletedApplication } ) => {
-    console.log(jobPosting.jobPostingId);
+    console.log(jobPosting);
     console.log(jobPosting.id);
     console.log("Hello");
 

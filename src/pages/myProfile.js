@@ -52,15 +52,6 @@ const MyProfile = () => {
       }
     };
     fetchPersonalInfo();
-    const GETDOCUMENTTEST = async () => {
-        try {
-            const GETDOCUMENT = await axios.get(`http://localhost:8000/Users/${localStorage.getItem("_id")}/documents/1734165825081.pdf`);
-            console.log(GETDOCUMENT);
-        } catch (error) {
-            console.log("T'AS FLOP: ", error);
-        }
-    }
-    GETDOCUMENTTEST();
   }, []);
 
   // Handle input changes
@@ -130,15 +121,6 @@ const MyProfile = () => {
 
   
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setPersonalInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
-    setIsChanged(true); // Show submit button
-  };
 
 
   // Submit updated info
@@ -206,15 +188,15 @@ const MyProfile = () => {
                 />
                         </li>
                         <li>
-                            <span className="doc-type">Recommendation Letter</span>
-                            <span className="count">{documentCounts["Recommendation Letter"] || 0}</span>
-                            <button type="button" className="view-button" onClick={() => showPdf("Recommendation Letter")}>View</button>
+                            <span className="doc-type">Recommandation Letter</span>
+                            <span className="count">{documentCounts["Recommandation Letter"] || 0}</span>
+                            <button type="button" className="view-button" onClick={() => showPdf("Recommandation Letter")}>View</button>
                             <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-rec-letter").click()}>+</button>
                                                         <input
                             
                   type="file"
                   style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, "Recommendation Letter")}
+                  onChange={(e) => handleFileChange(e, "Recommandation Letter")}
                   id={`file-upload-rec-letter`}
                 />
                         </li>
