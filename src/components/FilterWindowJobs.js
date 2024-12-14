@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../styles/FilterWindow.css";
+import "../styles/FilterWindowJobs.css";
 
-const FilterWindow = () => {
+const FilterWindowJobs = ({ onFilterSubmit }) => {
   const [formData, setFormData] = useState({
     keywords: "",
     term: "",
@@ -35,8 +35,7 @@ const FilterWindow = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    // Add search logic here
+    onFilterSubmit(formData); // Send form data to the parent component (Postings)
   };
 
   return (
@@ -73,24 +72,22 @@ const FilterWindow = () => {
         <div className="form-group duration">
           <label>Duration:</label>
           <div className="el checkbox-row">
-          {["4 Months", "6 Months", "12 Months"].map((duration) => (
-            <label key={duration}>
-              <input
-                type="checkbox"
-                name="duration"
-                value={duration}
-                onChange={handleInputChange}
-              />
-              {duration}
-            </label>
-          ))}
+            {["4-month", "6-month", "12-month"].map((duration) => (
+              <label key={duration}>
+                <input
+                  type="checkbox"
+                  name="duration"
+                  value={duration}
+                  onChange={handleInputChange}
+                />
+                {duration}
+              </label>
+            ))}
           </div>
         </div>
 
         <div className="form-group location">
-          <label style={{ alignItems: "unset" }}>
-          Location:
-          </label>
+          <label style={{ alignItems: "unset" }}>Location:</label>
           <div className="el select-column">
             <select
               name="country"
@@ -118,75 +115,75 @@ const FilterWindow = () => {
               <option value="">-City-</option>
               <option value="Montreal">Montreal</option>
               <option value="Toronto">Toronto</option>
-            </select> 
+            </select>
           </div>
         </div>
 
         <div className="form-group format">
           <label>Format:</label>
           <div className="el checkbox-row">
-          {["Hybrid", "In Person", "Remote"].map((format) => (
-            <label key={format}>
-              <input
-                type="checkbox"
-                name="format"
-                value={format}
-                onChange={handleInputChange}
-              />
-              {format}
-            </label>
-          ))}
+            {["Hybrid", "In Person", "Remote"].map((format) => (
+              <label key={format}>
+                <input
+                  type="checkbox"
+                  name="format"
+                  value={format}
+                  onChange={handleInputChange}
+                />
+                {format}
+              </label>
+            ))}
           </div>
         </div>
 
         <div className="form-group type">
           <label>Type:</label>
           <div className="el checkbox-row">
-          {["Full Time", "Part Time", "Contract"].map((type) => (
-            <label key={type}>
-              <input
-                type="checkbox"
-                name="type"
-                value={type}
-                onChange={handleInputChange}
-              />
-              {type}
-            </label>
-          ))}
+            {["Full Time", "Part Time", "Contract"].map((type) => (
+              <label key={type}>
+                <input
+                  type="checkbox"
+                  name="type"
+                  value={type}
+                  onChange={handleInputChange}
+                />
+                {type}
+              </label>
+            ))}
           </div>
         </div>
 
         <div className="form-group features">
           <label>Features:</label>
           <div className="el checkbox-row">
-          {["Starred", "Hidden"].map((feature) => (
-            <label key={feature}>
-              <input
-                type="checkbox"
-                name="features"
-                value={feature}
-                onChange={handleInputChange}
-              />
-              {feature}
-            </label>
-          ))}
+            {["Starred", "Hidden"].map((feature) => (
+              <label key={feature}>
+                <input
+                  type="checkbox"
+                  name="features"
+                  value={feature}
+                  onChange={handleInputChange}
+                />
+                {feature}
+              </label>
+            ))}
           </div>
         </div>
 
         <div className="form-group language">
           <label>Language:</label>
           <div className="el checkbox-row">
-          {["EN", "FR"].map((lang) => (
-            <label key={lang}>
-              <input
-                type="checkbox"
-                name="language"
-                value={lang}
-                onChange={handleInputChange}
-              />
-              {lang}
-            </label>
-          ))}
+            {["EN", "FR"].map((lang) => (
+              <label key={lang}>
+                <input
+                  type="checkbox"
+                  name="language"
+                  value={lang}
+                  onChange={handleInputChange}
+                />
+                {lang}
+              </label>
+            ))}
           </div>
         </div>
 
@@ -196,4 +193,4 @@ const FilterWindow = () => {
   );
 };
 
-export default FilterWindow;
+export default FilterWindowJobs;
