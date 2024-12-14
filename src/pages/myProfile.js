@@ -24,9 +24,11 @@ const MyProfile = () => {
     jobPostings: [],
   });
 
-  const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
+  const [personalInfoChanged, setPersonalInfoChanged] = useState(false); // Tracks if any input has changed
   
   const [activeDocument, setActiveDocument] = useState(null);
+
+  const [isDeletedApplication, setDeletedApplication] = useState(false);
 
   const documentCounts = useMemo(() => {
     const counts = {};
@@ -35,10 +37,6 @@ const MyProfile = () => {
     });
     return counts;
   }, [personalInfo.documents]);
-
-
-
-  
 
   // Fetch student information on component mount
   useEffect(() => {
@@ -53,16 +51,25 @@ const MyProfile = () => {
       }
     };
     fetchPersonalInfo();
+    const GETDOCUMENTTEST = async () => {
+        try {
+            const GETDOCUMENT = await axios.get(`http://localhost:8000/Users/${localStorage.getItem("_id")}/documents/1734165825081.pdf`);
+            console.log(GETDOCUMENT);
+        } catch (error) {
+            console.log("T'AS FLOP: ", error);
+        }
+    }
+    GETDOCUMENTTEST();
   }, []);
 
   // Handle input changes
-  const handleChange = (e) => {
+  const handlePersonalInfoChange = (e) => {
     const { name, value } = e.target;
     setPersonalInfo((prevInfo) => ({
       ...prevInfo,
       [name]: value,
     }));
-    setIsChanged(true); // Show submit button
+    setPersonalInfoChanged(true); // Show submit button
   };
 
   const handleFileChange = async (e, documentType) => {
@@ -129,67 +136,66 @@ const MyProfile = () => {
         `http://localhost:8000/Users/${personalInfo._id}`,
         personalInfo
       );
-      setIsChanged(false); // Hide submit button after successful update
+      setPersonalInfoChanged(false); // Hide submit button after successful update
       alert("Information updated successfully!");
     } catch (error) {
       console.error("Error updating personal info:", error);
     }
   };
 
-  const navigate = useNavigate();
-  const goToPostings = () => {
-    navigate("/postings+applications", { replace: true });
-  };
+    const navigate = useNavigate();
+    const goToPostings = () => {
+        navigate('/postings+applications', { replace: true});
+    }
+    const goToTemplate = () => {
+        navigate('/templates', {replace: true});
+    }
 
+    return (
+       <div id="myprofile">
+            <div className="container" id="documents">
+                <div className="documents-content">
+                    <h2>Documents</h2>
+                    <ul>
+                        <li>
+                            <span className="doc-type">Cover Letter</span>
+                            <span className="count">0</span>
+                            <button type="button" className="view-button">View</button>
+                            <button type="button" className="add-button">+</button>
+                        </li>
+                        <li>
+                            <span className="doc-type">CV/Resume</span>
+                            <span className="count">0</span>
+                            <button type="button" className="view-button">View</button>
+                            <button type="button" className="add-button">+</button>
+                        </li>
+                        <li>
+                            <span className="doc-type">Unofficial Transcript</span>
+                            <span className="count">0</span>
+                            <button type="button" className="view-button">View</button>
+                            <button type="button" className="add-button">+</button>
+                        </li>
+                        <li>
+                            <span className="doc-type">Recommendation Letter</span>
+                            <span className="count">0</span>
+                            <button type="button" className="view-button">View</button>
+                            <button type="button" className="add-button">+</button>
+                        </li>
+                        <li>
+                            <span className="doc-type">Other</span>
+                            <span className="count">0</span>
+                            <button type="button" className="view-button">View</button>
+                            <button type="button" className="add-button">+</button>
+                        </li>
+                        <li>
+                            <span className="doc-type">Templates</span>
+                            <button type="button" className="add-button" onClick={goToTemplate}>+</button>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
 
-  return (
-    <div id="myprofile">
-      <div className="container" id="documents">
-        <div className="documents-content">
-          <h2>Documents</h2>
-          <ul>
-            {[
-              "Cover Letter",
-              "CV/Resume",
-              "Unofficial Transcript",
-              "Recommendation Letter",
-              "Other",
-              "Templates",
-            ].map((docType, index) => (
-              <li key={index}>
-                <span className="doc-type">{docType}</span>
-
-                <span className="count">{documentCounts[docType] || 0}</span>
-
-                <button
-                  type="button"
-                  className="view-button"
-                  onClick={() => showPdf(docType)}
-                >
-                  View
-                </button>
-
-                {}
-                <button
-                  type="button"
-                  className="add-button"
-                  onClick={() =>
-                    document.getElementById(`file-upload-${docType}`).click()
-                  } 
-                >
-                  +
-                </button>
-                <input
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, docType)}
-                  id={`file-upload-${docType}`}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+              
 
       <div className="container" id="personal-info">
         <div className="types-personal-info">
@@ -202,7 +208,7 @@ const MyProfile = () => {
                 name="fname"
                 id="fname"
                 value={personalInfo.fname}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -212,7 +218,7 @@ const MyProfile = () => {
                 name="lname"
                 id="lname"
                 value={personalInfo.lname}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -222,7 +228,7 @@ const MyProfile = () => {
                 name="id"
                 id="id"
                 value={personalInfo.id}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -232,7 +238,7 @@ const MyProfile = () => {
                 name="email"
                 id="email"
                 value={personalInfo.email}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -242,10 +248,10 @@ const MyProfile = () => {
                 name="faculty"
                 id="faculty"
                 value={personalInfo.faculty}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
-            {isChanged && <input type="submit" value="Submit" />}
+            {personalInfoChanged && <input type="submit" value="Submit" />}
           </form>
         </div>
       </div>
@@ -254,9 +260,11 @@ const MyProfile = () => {
           <div className="applications-content">
             <h2>Applications Status Board</h2>
             <ul>
-              {personalInfo?.jobPostings?.map((jobPosting, index) => (
-                <UserPosting key={index} jobPosting={jobPosting} />
-              ))}
+                {personalInfo?.jobPostings?.map((jobPosting, index) => 
+                    !isDeletedApplication ? (
+                        <UserPosting key={index} jobPosting={jobPosting} setDeletedApplication={setDeletedApplication}></UserPosting>
+                    ) : null
+                )}
             </ul>
             <button
               type="button"
