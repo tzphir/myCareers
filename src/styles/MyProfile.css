@@ -191,12 +191,14 @@ select:has(option[value="rejected"]:checked) {
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 width: 100%;
 height: 100%;
+overflow: auto;
+
     
 }
 
@@ -205,10 +207,10 @@ height: 100%;
     padding: 15px; */
     display: flex;
     overflow-x: auto;
-    /* overflow-y: hidden; */
+    overflow-y: hidden; 
     white-space: nowrap;
     gap: 20px;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
 }
 .button-docs{
@@ -218,14 +220,14 @@ height: 100%;
 }
 
 .close-button-container {
-    /* position: absolute; */
-    /* top: 10px;
+    position: absolute;
+    top: 0px;
     left: 50%;
     transform: translateX(-50%);
     color: black;
-    z-index: 1000; */
-    position: static;
-    transform: none;
+    z-index: 1000;
+
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -250,10 +252,10 @@ height: 100%;
     transform: none; 
     /* Ajustez le style du bouton selon vos besoins */
     color: black;
-    padding: 10px 30px;
+    padding: 5px 20px;
     cursor: pointer;
     border-radius: 40px;
-    font-size: 40px;
+    font-size: 30px;
     background-color: rgb(230 228 228 / 70%);
     font-weight: bold;
     z-index: 1000;
@@ -261,6 +263,7 @@ height: 100%;
 
 .documents-container {
     display: flex;
+    flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: auto;
     gap: 20px;
@@ -290,7 +293,7 @@ height: 100%;
 
 .react-pdf__Page__canvas {
     
-    max-width: 100%; 
+ 
     max-height: 80vh;
     aspect-ratio: 1.414 / 1; 
     display: block;
