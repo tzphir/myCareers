@@ -24,12 +24,19 @@ const MyProfile = () => {
     jobPostings: [],
   });
 
-  const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
+  const [personalInfoChanged, setPersonalInfoChanged] = useState(false); // Tracks if any input has changed
   
   const [activeDocument, setActiveDocument] = useState(null);
 
+  const [isDeletedApplication, setDeletedApplication] = useState(false);
 
-
+  const documentCounts = useMemo(() => {
+    const counts = {};
+    personalInfo.documents.forEach((doc) => {
+      counts[doc.category] = (counts[doc.category] || 0) + 1;
+    });
+    return counts;
+  }, [personalInfo.documents]);
 
   // Fetch student information on component mount
   useEffect(() => {
@@ -44,6 +51,15 @@ const MyProfile = () => {
       }
     };
     fetchPersonalInfo();
+    const GETDOCUMENTTEST = async () => {
+        try {
+            const GETDOCUMENT = await axios.get(`http://localhost:8000/Users/${localStorage.getItem("_id")}/documents/1734165825081.pdf`);
+            console.log(GETDOCUMENT);
+        } catch (error) {
+            console.log("T'AS FLOP: ", error);
+        }
+    }
+    GETDOCUMENTTEST();
   }, []);
 
 
@@ -135,7 +151,7 @@ const MyProfile = () => {
         `http://localhost:8000/Users/${personalInfo._id}`,
         personalInfo
       );
-      setIsChanged(false); // Hide submit button after successful update
+      setPersonalInfoChanged(false); // Hide submit button after successful update
       alert("Information updated successfully!");
     } catch (error) {
       console.error("Error updating personal info:", error);
@@ -149,79 +165,66 @@ const MyProfile = () => {
     const goToTemplate = () => {
         navigate('/templates', {replace: true});
     }
+    const navigate = useNavigate();
+    const goToPostings = () => {
+        navigate('/postings+applications', { replace: true});
+    }
+    const goToTemplate = () => {
+        navigate('/templates', {replace: true});
+    }
 
-    return (
-       <div id="myprofile">
-            <div className="container" id="documents">
-                <div className="documents-content">
-                    <h2>Documents</h2>
-                    <ul>
-                        <li>
-                            <span className="doc-type">Cover Letter</span>
-                            <span className="count">{documentCounts["Cover Letter"] || 0}</span>
-                            <button type="button" className="view-button" onClick={() => showPdf("Cover Letter")}>View</button>
-                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-cov-letter").click()}>+</button>                            <input
+  return (
+    <div id="myprofile">
+      <div className="container" id="documents">
+        <div className="documents-content">
+          <h2>Documents</h2>
+          <ul>
+            {[
+              "Cover Letter",
+              "CV/Resume",
+              "Unofficial Transcript",
+              "Recommendation Letter",
+              "Other",
+              "Templates",
+            ].map((docType, index) => (
+              <li key={index}>
+                <span className="doc-type">{docType}</span>
+
+                <span className="count">{documentCounts[docType] || 0}</span>
+
+                <button
+                  type="button"
+                  className="view-button"
+                  onClick={() => showPdf(docType)}
+                >
+                  View
+                </button>
+
+                {}
+                <button
+                  type="button"
+                  className="add-button"
+                  onClick={() =>
+                    document.getElementById(`file-upload-${docType}`).click()
+                  } 
+                >
+                  +
+                </button>
+                <input
                   type="file"
                   style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, "Cover Letter")}
-                  id={`file-upload-cov-letter`}
+                  onChange={(e) => handleFileChange(e, docType)}
+                  id={`file-upload-${docType}`}
                 />
-                        </li>
-                        <li>
-                            <span className="doc-type">CV/Resume</span>
-                            <span className="count">{documentCounts["CV"] || 0}</span>
-                            <button type="button" className="view-button" onClick={() => showPdf("CV")}>View</button>
-                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-cv").click()}>+</button>                            <input
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, "CV")}
-                  id={`file-upload-cv`}
-                />
-                        </li>
-                        <li>
-                            <span className="doc-type">Unofficial Transcript</span>
-                            <span className="count">{documentCounts["Transcript"] || 0}</span>
-                            <button type="button" className="view-button" onClick={() => showPdf("Transcript")}>View</button>
-                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-transcript").click()}>+</button>                            
-                            <input
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, "Transcript")}
-                  id={`file-upload-transcript`}
-                />
-                        </li>
-                        <li>
-                            <span className="doc-type">Recommendation Letter</span>
-                            <span className="count">{documentCounts["Recommendation Letter"] || 0}</span>
-                            <button type="button" className="view-button" onClick={() => showPdf("Recommendation Letter")}>View</button>
-                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-rec-letter").click()}>+</button>
-                                                        <input
-                            
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, "Recommendation Letter")}
-                  id={`file-upload-rec-letter`}
-                />
-                        </li>
-                        <li>
-                            <span className="doc-type">Other</span>
-                            <span className="count">{documentCounts["Others"] || 0}</span>
-                            <button type="button" className="view-button" onClick={() => showPdf("Others")}>View</button>
-                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-other").click()}>+</button>
-                            <input
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, "Others")}
-                  id={`file-upload-other`}
-                />
-                        </li>
-                        <li>
-                            <span className="doc-type">Templates</span>
-                            <button type="button" className="add-button" onClick={goToTemplate}>+</button>
-                        </li>
-                    </ul>
-                </div>
-            </div> 
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+              
+
+              
 
               
 
@@ -236,7 +239,7 @@ const MyProfile = () => {
                 name="fname"
                 id="fname"
                 value={personalInfo.fname}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -246,7 +249,7 @@ const MyProfile = () => {
                 name="lname"
                 id="lname"
                 value={personalInfo.lname}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -256,7 +259,7 @@ const MyProfile = () => {
                 name="id"
                 id="id"
                 value={personalInfo.id}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -266,7 +269,7 @@ const MyProfile = () => {
                 name="email"
                 id="email"
                 value={personalInfo.email}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
             <div className="col">
@@ -276,10 +279,10 @@ const MyProfile = () => {
                 name="faculty"
                 id="faculty"
                 value={personalInfo.faculty}
-                onChange={handleChange}
+                onChange={handlePersonalInfoChange}
               ></input>
             </div>
-            {isChanged && <input type="submit" value="Submit" />}
+            {personalInfoChanged && <input type="submit" value="Submit" />}
           </form>
         </div>
       </div>
@@ -288,9 +291,11 @@ const MyProfile = () => {
           <div className="applications-content">
             <h2>Applications Status Board</h2>
             <ul>
-              {personalInfo?.jobPostings?.map((jobPosting, index) => (
-                <UserPosting key={index} jobPosting={jobPosting} />
-              ))}
+                {personalInfo?.jobPostings?.map((jobPosting, index) => 
+                    !isDeletedApplication ? (
+                        <UserPosting key={index} jobPosting={jobPosting} setDeletedApplication={setDeletedApplication}></UserPosting>
+                    ) : null
+                )}
             </ul>
             <button
               type="button"
