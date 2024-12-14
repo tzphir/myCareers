@@ -1,16 +1,17 @@
-#myprofile{
+#myprofile {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     margin-left: 10%;
     margin-right: 10%;
 }
+
 select {
-    appearance: none; 
+    appearance: none;
     background: white;
-  }
-  
-.container{
+}
+
+.container {
     display: flex;
     flex-wrap: wrap;
     border-radius: 25px;
@@ -20,67 +21,71 @@ select {
     height: fit-content;
 }
 
-#documents{
+#documents {
     margin-right: 10vw;
 }
 
-.documents-content{
+.documents-content {
     line-height: 6vh;
     width: 30vw;
     text-align: end;
 }
 
-.applications-content{
+.applications-content {
     width: 45vw;
     padding-bottom: 2vh;
 }
 
-.types-personal-info{
+.types-personal-info {
     line-height: 6vh;
     width: 30vw;
 }
-input[type="text"]{
-    width:50%;
+
+input[type="text"] {
+    width: 50%;
     background-image: none;
+    font-weight: normal;
 }
 
-#personal-info{
+#personal-info {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
     width: 30vw;
     font-weight: normal;
+    padding-bottom: 2vh;
 }
 
-.form-personal-info{
+.form-personal-info {
     padding-top: 13vh;
 }
 
-input{
+input {
     margin-bottom: 2vh;
 }
 
-.container ul{
+.container ul {
     list-style: none;
     padding-left: 0%;
 }
 
-h2{
+h2 {
     margin-bottom: 0%;
     text-align: start;
 }
 
-.col{
+.col {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
-label{
+
+label {
     font-weight: normal;
 }
-.container li{
+
+.container li {
     display: grid;
     grid-template-columns: 1fr auto auto auto;
     gap: 1vw;
@@ -88,27 +93,29 @@ label{
     text-align: start;
 }
 
-.personal-info-content li{
+.personal-info-content li {
     font-weight: normal;
 }
 
-.application-title{
+.application-title {
     text-decoration: underline;
 }
 
-.doc-type{
+.doc-type {
     text-align: start;
     font-weight: normal;
 }
 
-.add-button, .view-button, .search-more-button{
+.add-button,
+.view-button,
+.search-more-button {
     color: white;
     background-color: black;
     border: none;
     cursor: pointer;
 }
 
-.search-more-button{
+.search-more-button {
     padding: 1vh 1vw;
 }
 
@@ -123,27 +130,154 @@ select {
     outline: 0;
 }
 
-option{
+option {
     font-weight: normal;
     text-align: center;
 }
 
-select:has(option[value="in-progress"]:checked){
+select:has(option[value="in-progress"]:checked) {
     background-color: #796ce6;
 }
 
-select:has(option[value="pending"]:checked){
+select:has(option[value="pending"]:checked) {
     background-color: #ebef1a;
 }
 
-select:has(option[value="accepted"]:checked){
+select:has(option[value="accepted"]:checked) {
     background-color: #0fc62e;
 }
 
-select:has(option[value="rejected"]:checked){
+select:has(option[value="rejected"]:checked) {
     background-color: #d03a3a;
 }
 
-.white{
+.white {
     background-color: white;
+}
+
+.pdf-viewer {
+    margin: 20px auto;
+    padding: 15px;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.close-button-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: black;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.close-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    border: none;
+    padding: 10px 30px;
+    cursor: pointer;
+    border-radius: 40px;
+    font-size: 40px;
+    background-color: rgba(247, 247, 247, 0.5);
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.documents-container {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 20px;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+    padding-top: 60px;
+}
+
+.documents-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.documents-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.documents-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.pdf-container {
+    flex-shrink: 0;
+    width: auto;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.pdf-container h4 {
+    margin-bottom: 10px;
+}
+
+.react-pdf__Page {
+    width: 80%;
+    height: auto;
+}
+
+.react-pdf__Document {
+    border: 1px solid #000;
+    margin: 0 auto;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.overlay-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 10000;
+}
+
+.doc-preview-title {
+    background-color: white;
+    padding: 10px;
+}
+
+.react-pdf__Page__canvas {
+    width: 110% !important;
+    height: 60% !important;
+}
+
+.close-button:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+    transition: background-color 0.3s ease;
+}
+
+.close-button:hover span {
+    color: white;
 }
