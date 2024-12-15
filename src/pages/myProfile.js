@@ -41,17 +41,17 @@ const MyProfile = () => {
     return counts;
   }, [personalInfo.documents]);
   // Fetch student information on component mount
+  const fetchPersonalInfo = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/Users/${localStorage.getItem("_id")}`
+      );
+      setPersonalInfo(response.data);
+    } catch (error) {
+      console.error("Error fetching personal info:", error);
+    }
+  };
   useEffect(() => {
-    const fetchPersonalInfo = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/Users/${localStorage.getItem("_id")}`
-        );
-        setPersonalInfo(response.data);
-      } catch (error) {
-        console.error("Error fetching personal info:", error);
-      }
-    };
     fetchPersonalInfo();
 
     const fetchPersonalPostings = async () => {
@@ -71,12 +71,12 @@ const MyProfile = () => {
   }, []);
 
 
-  const updatePersonalJobPostings = (updateFn) => {
-    setPersonalInfo((prev) => ({
-      ...prev,
-      jobPostings: updateFn(prev.jobPostings),
-    }));
-  };
+  // const updatePersonalJobPostings = (updateFn) => {
+  //   setPersonalInfo((prev) => ({
+  //     ...prev,
+  //     jobPostings: updateFn(prev.jobPostings),
+  //   }));
+  // };
 
   // Handle input changes
   const handlePersonalInfoChange = (e) => {
@@ -247,7 +247,7 @@ const MyProfile = () => {
       <div className="container" id="personal-info">
         <div className="types-personal-info">
           <h2>Personal Info</h2>
-          <form onSubmit={handleSubmit}>
+          <form className="form-container" onSubmit={handleSubmit}>
             <div className="col">
               <label for="fname">First Name:</label>
               <input
@@ -317,7 +317,7 @@ const MyProfile = () => {
               key={index}
               jobPosting={jobPosting}
               postings={postings}
-              updatePersonalInfo={updatePersonalJobPostings} // On passe la fonction ici
+              updatePersonalInfo={fetchPersonalInfo} 
             />
                 )}
             </ul>

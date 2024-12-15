@@ -53,12 +53,10 @@ const Postings = () => {
         <div>
             {jobPostings.map( (jobPosting) => (
                 <Posting 
-                key={jobPosting._id}
+                    key={jobPosting._id}
                     jobPosting={jobPosting} 
-                    //selectedPost={selectedPost}
                     setSelectedPost={setSelectedPost}
                     selectedPost={selectedPost}>    
-                    
                 </Posting>
             ) )}
         </div>);
@@ -83,30 +81,6 @@ const Postings = () => {
 
                     <button className='filter-button' onClick={filterButtonClicked}>Filter</button>
                 </div>
-                {/*
-                <div className='postings-filter-options'>
-                    <div className='postings-filter-options contract'>
-                        <ul>
-                            <li>Full Time</li>
-                            <li>Part Time</li>
-                            <li>Contract</li>
-                        </ul>
-                    </div>
-                    <div className='postings-filter-options term'>
-                        <ul>
-                            <li>Fall</li>
-                            <li>Winter</li>
-                            <li>Summer</li>
-                        </ul>
-                    </div>
-                    <div className='postings-filter-options display'>
-                        <ul>
-                            <li>Starred</li>
-                            <li>Hidden</li>
-                        </ul>
-                    </div>
-                </div>
-                */}
                 <div className='postings-list-container'>
                     {createPosting()}
                 </div>
