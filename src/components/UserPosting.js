@@ -2,13 +2,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import "../styles/MyProfile.css";
 
-const UserPosting = ( {  jobPosting, setDeletedApplication } ) => {
-    console.log(jobPosting);
-    console.log(jobPosting.id);
-    console.log("Hello");
+const UserPosting = ( {  jobPosting, updatePersonalInfo, postings } ) => {
 
     const [selectedValue, setSelectedValue] = useState('');
-
+    const selectedJobPostingInfos = postings.find(post => post._id === jobPosting.jobPostingId)
+    
 
     const handleStatusChange = (event) => {
         setSelectedValue(event.target.value);
@@ -23,9 +21,10 @@ const UserPosting = ( {  jobPosting, setDeletedApplication } ) => {
 
     const handleDeleteUserApplication = async () => {
         try {
-          const response = await axios.delete(`http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.id}`, );
-          setDeletedApplication(true);
-          console.log(response.data);
+          const response = await axios.delete(`http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.jobPostingId}`, );
+        updatePersonalInfo((prevPostings) => prevPostings.filter(p => p.jobPostingId !== jobPosting.jobPostingId));
+
+
         } catch (error) {
           console.error("Error deleting your application :", error);
         }
@@ -33,13 +32,13 @@ const UserPosting = ( {  jobPosting, setDeletedApplication } ) => {
 
     return(
         <li>
-            <span className='application-title'>{jobPosting.posting.title}</span>
-            <select value={selectedValue} onChange={handleStatusChange}>
-                <option value='' className="white">Set Status</option>
-                <option value='pending' className="white">Pending</option>
-                <option value='in-progress' className="white">In Progress</option>
-                <option value='accepted' className="white">Accepted</option>
-                <option value='rejected' className="white">Rejected</option>
+            <span className='application-title'>{selectedJobPostingInfos?.title}</span>
+            <select value={selectedValue} id='select-status' onChange={handleStatusChange}>
+                <option value='' id="white">Set Status</option>
+                <option value='pending' id="white">Pending</option>
+                <option value='in-progress' id="white">In Progress</option>
+                <option value='accepted' id="white">Accepted</option>
+                <option value='rejected' id="white">Rejected</option>
             </select>
             <i className="bi bi-trash"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash"  style={{ cursor: 'pointer' }} onClick={handleDeleteUserApplication} viewBox="0 0 16 16">

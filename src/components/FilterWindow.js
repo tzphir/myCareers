@@ -57,7 +57,7 @@ const FilterWindow = () => {
         <div className="form-group term">
           <label>Starting Term:</label>
           <div className="el select-column">
-            <select
+            <select className="select-filter"
               name="term"
               value={formData.term}
               onChange={handleInputChange}
@@ -92,7 +92,7 @@ const FilterWindow = () => {
           Location:
           </label>
           <div className="el select-column">
-            <select
+            <select className="select-filter"
               name="country"
               value={formData.country}
               onChange={handleInputChange}
@@ -101,7 +101,7 @@ const FilterWindow = () => {
               <option value="Canada">Canada</option>
               <option value="USA">USA</option>
             </select>
-            <select
+            <select className="select-filter"
               name="province"
               value={formData.province}
               onChange={handleInputChange}
@@ -110,7 +110,7 @@ const FilterWindow = () => {
               <option value="Quebec">Quebec</option>
               <option value="Ontario">Ontario</option>
             </select>
-            <select
+            <select className="select-filter"
               name="city"
               value={formData.city}
               onChange={handleInputChange}

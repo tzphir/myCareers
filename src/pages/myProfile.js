@@ -3,14 +3,12 @@ import axios from "axios";
 import {pdfjs } from "react-pdf";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-
 import "../styles/MyProfile.css";
-
 import UserPosting from "../components/UserPosting";
 import { useNavigate } from "react-router-dom";
-
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import DocumentPreview from "../components/DocumentPreview";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const MyProfile = () => {
@@ -30,6 +28,10 @@ const MyProfile = () => {
 
   const [isDeletedApplication, setDeletedApplication] = useState(false);
   const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
+  const [postings, setPostings] = useState([])
+
+
+
 
   const documentCounts = useMemo(() => {
     const counts = {};
@@ -38,7 +40,6 @@ const MyProfile = () => {
     });
     return counts;
   }, [personalInfo.documents]);
-
   // Fetch student information on component mount
   useEffect(() => {
     const fetchPersonalInfo = async () => {
@@ -52,7 +53,30 @@ const MyProfile = () => {
       }
     };
     fetchPersonalInfo();
+
+    const fetchPersonalPostings = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/JobPostings`
+        );
+        setPostings(response.data);
+        
+        
+      } catch (error) {
+        console.error("Error fetching personal info:", error);
+      }
+    };
+    fetchPersonalPostings();
+    
   }, []);
+
+
+  const updatePersonalJobPostings = (updateFn) => {
+    setPersonalInfo((prev) => ({
+      ...prev,
+      jobPostings: updateFn(prev.jobPostings),
+    }));
+  };
 
   // Handle input changes
   const handlePersonalInfoChange = (e) => {
@@ -274,7 +298,12 @@ const MyProfile = () => {
                 onChange={handlePersonalInfoChange}
               ></input>
             </div>
-            {personalInfoChanged && <input type="submit" value="Submit" />}
+            {personalInfoChanged && 
+            (
+              <div className="submit-container">
+                <input type="submit" value="Submit" className="personal-info-submit"/>
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -284,9 +313,12 @@ const MyProfile = () => {
             <h2>Applications Status Board</h2>
             <ul>
                 {personalInfo?.jobPostings?.map((jobPosting, index) => 
-                    !isDeletedApplication ? (
-                        <UserPosting key={index} jobPosting={jobPosting} setDeletedApplication={setDeletedApplication}></UserPosting>
-                    ) : null
+              <UserPosting
+              key={index}
+              jobPosting={jobPosting}
+              postings={postings}
+              updatePersonalInfo={updatePersonalJobPostings} // On passe la fonction ici
+            />
                 )}
             </ul>
             <button

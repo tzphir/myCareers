@@ -104,18 +104,34 @@ label {
 
 .add-button,
 .view-button,
-.search-more-button {
+.search-more-button,
+.personal-info-submit {
     color: white;
     background-color: black;
     border: none;
     cursor: pointer;
 }
 
-.search-more-button {
+
+.submit-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.personal-info-submit{
+    width: 98%;
+    padding: 1vh;
+text-align: center;
+margin: 10px 0 0 0;
+
+
+}
+
+.search-more-button{
     padding: 1vh 1vw;
 }
 
-select {
+#select-status {
     background: white;
     appearance: none;
     -webkit-appearance: none;
@@ -132,19 +148,19 @@ option {
     text-align: center;
 }
 
-select:has(option[value="in-progress"]:checked) {
+#select-status:has(option[value="in-progress"]:checked) {
     background-color: #796ce6;
 }
 
-select:has(option[value="pending"]:checked) {
+#select-status:has(option[value="pending"]:checked) {
     background-color: #ebef1a;
 }
 
-select:has(option[value="accepted"]:checked) {
+#select-status:has(option[value="accepted"]:checked) {
     background-color: #0fc62e;
 }
 
-select:has(option[value="rejected"]:checked) {
+#select-status:has(option[value="rejected"]:checked) {
     background-color: #d03a3a;
 }
 
@@ -199,14 +215,11 @@ overflow: auto;
 }
 
 .pdf-viewer {
-    /* margin: 20px auto;
-    padding: 15px; */
     display: flex;
     overflow-x: auto;
     overflow-y: hidden; 
     white-space: nowrap;
     gap: 20px;
-    /* justify-content: center; */
     align-items: center;
 }
 .button-docs{
@@ -231,22 +244,9 @@ overflow: auto;
 }
 
 .close-button {
-    /* position: absolute; */
-    /* transform: translateX(-50%); */
-    /* color: black;
-    
-    padding: 10px 30px;
-    cursor: pointer;
-    border-radius: 40px;
-    font-size: 40px;
-    background-color: rgb(230 228 228 / 70%);
-    font-weight: bold;
-    z-index: 1000; */ 
-
 
     position: static; 
     transform: none; 
-    /* Ajustez le style du bouton selon vos besoins */
     color: black;
     padding: 5px 20px;
     cursor: pointer;
@@ -310,3 +310,4 @@ overflow: auto;
 .close-button:hover span {
     color: white;
 }
+

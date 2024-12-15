@@ -516,7 +516,7 @@ router.delete("/:userId/jobPostings/:jobPostingId", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const postingIndex = user.jobPostings.findIndex((posting) => posting.jobPostingId === jobPostingId);
+    const postingIndex = user.jobPostings.findIndex((posting) => posting.jobPostingId.toString() === jobPostingId);
 
     if (postingIndex === -1) {
       return res.status(404).json({ error: "Job posting not found" });

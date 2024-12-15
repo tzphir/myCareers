@@ -44,7 +44,7 @@ body {
 }
 
 input[type="text"],
-select {
+.select-filter {
   width: 100%;
   padding: 8px;
   margin: 5px 0 10px;
@@ -123,7 +123,7 @@ input[type="checkbox" i] {
 }
 
 /* Rounded corners for dropdowns */
-select {
+.select-filter {
   width: 100% !important;
   appearance: none;
   -webkit-appearance: none;
@@ -136,7 +136,7 @@ select {
   font-size: 1em;
 }
 
-select:focus {
+.select-filter:focus {
   outline: none;
 }
 
