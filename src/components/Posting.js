@@ -1,18 +1,26 @@
 import Logo from '../assets/mock_company_logo.jpeg';
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Posting = ( {jobPosting, setSelectedPost, selectedPost } ) => {
 
     const [deletedStatus, setDeleteStatus] = useState(false);
-    const [starredStatus, setStarredStatus] = useState(false);
 
     const handleDeletePosting = () => {
         setDeleteStatus(true);
     };
+
+    const [starredStatus, setStarredStatus] = useState(false);
     
-    const handleStarredPosting = () => {
+    const handleStarredPosting = async () => {
         setStarredStatus(!starredStatus);
-    }
+        try{
+            const response = await axios.put(`http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.id}`, starredStatus);
+            console.log(response.data);
+        } catch (error){
+            console.log('Error starring posting', error) 
+        }
+    };
 
     const handlePostClick = () => {
         //console.log(jobPosting);

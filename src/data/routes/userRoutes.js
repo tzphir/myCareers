@@ -390,6 +390,54 @@ router.put("/:id/jobPostings/:jobPostingId", async (req, res) => {
 });
 
 /**
+ * @description Update the status of a specific application for a user
+ * @route PUT /Users/:id/jobPostings/:jobPostingId/status
+ * @param {string} id - User ID
+ * @param {string} jobPostingId - Job Posting ID
+ * @body {string} status - New status value (e.g., "Pending", "Approved")
+ * @response 200 {jobPostingId, status, star}
+ * @response 404 {error: "User or job posting not found"}
+ * @response 400 {error: "Invalid or missing 'status' field"}
+ */
+router.put("/:id/jobPostings/:jobPostingId/status", async (req, res) => {
+  try {
+    const { id, jobPostingId } = req.params;
+    const { status } = req.body;
+
+    const validStatuses = ["None", "Pending", "In Progress", "Approved", "Rejected"];
+  
+    if (!status || !validStatuses.includes(status)) {
+      return res.status(400).json({
+        error: `Invalid or missing 'status' field. Valid values are: ${validStatuses.join(", ")}`
+      });
+    }
+  
+    const user = await User.findOneAndUpdate(
+      { _id: id, "jobPostings.jobPostingId": jobPostingId },
+      { $set: { "jobPostings.$.status": status } },
+      { new: true, runValidators: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User or job posting not found" });
+    }
+
+    const updatedJobPosting = user.jobPostings.find(
+      (posting) => posting.jobPostingId.toString() === jobPostingId
+    );
+
+    res.status(200).json({
+      jobPostingId: updatedJobPosting.jobPostingId,
+      status: updatedJobPosting.status,
+      star: updatedJobPosting.star
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+
+/**
  * @description Delete user by id (Also deletes its directory)
  * @route DELETE /Users/:id
  * @param {string} id - User ID

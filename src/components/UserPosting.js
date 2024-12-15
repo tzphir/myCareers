@@ -1,44 +1,54 @@
-import { useState } from 'react';
 import axios from 'axios';
 import "../styles/MyProfile.css";
 
 const UserPosting = ( {  jobPosting, updatePersonalInfo, postings } ) => {
 
-    const [selectedValue, setSelectedValue] = useState('');
-    const selectedJobPostingInfos = postings.find(post => post._id === jobPosting.jobPostingId)
+    const selectedJobPostingInfos = postings.find(
+        (post) => post._id === jobPosting.jobPostingId
+      );
     
-
-    const handleStatusChange = (event) => {
-        setSelectedValue(event.target.value);
-        //PUT REQUEST TO UPDATE JOB POSTING'S STATUS -> MISSING NECESSARY ENDPOINT
-        {/*
-        try{
-            const response = await axios.put(`http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.id}`);
-        }
-            */}
-        
-    }
-
-    const handleDeleteUserApplication = async () => {
+      const handleStatusChange = async (event) => {
+        const updatedStatus = event.target.value;
+    
         try {
-          const response = await axios.delete(`http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.jobPostingId}`, );
-        updatePersonalInfo((prevPostings) => prevPostings.filter(p => p.jobPostingId !== jobPosting.jobPostingId));
-
-
+            console.log(jobPosting.jobPostingId);
+            await axios.put(
+            `http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.jobPostingId}/status`,
+            { status: updatedStatus }
+          );
+          updatePersonalInfo(); 
         } catch (error) {
-          console.error("Error deleting your application :", error);
+          console.error("Error updating status:", error);
+        }
+      };
+    
+    
+      const handleDeleteUserApplication = async () => {
+        try {
+          await axios.delete(
+            `http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.jobPostingId}`
+          );
+          updatePersonalInfo();
+        } catch (error) {
+          console.error("Error deleting application:", error);
         }
       };
 
     return(
-        <li>
-            <span className='application-title'>{selectedJobPostingInfos?.title}</span>
-            <select value={selectedValue} id='select-status' onChange={handleStatusChange}>
-                <option value='' id="white">Set Status</option>
-                <option value='pending' id="white">Pending</option>
-                <option value='in-progress' id="white">In Progress</option>
-                <option value='accepted' id="white">Accepted</option>
-                <option value='rejected' id="white">Rejected</option>
+        <li className='li-app-status-board'>
+            <span className="application-title">
+                {selectedJobPostingInfos?.title}
+            </span>
+            <select
+                defaultValue={jobPosting.status} 
+                id="select-status"
+                onChange={handleStatusChange}
+            >
+                <option value="None" id="white">Set Status</option>
+                <option value="Pending" id="white">Pending</option>
+                <option value="In Progress" id="white">In Progress</option>
+                <option value="Approved" id="white">Approved</option>
+                <option value="Rejected" id="white">Rejected</option>
             </select>
             <i className="bi bi-trash"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash"  style={{ cursor: 'pointer' }} onClick={handleDeleteUserApplication} viewBox="0 0 16 16">

@@ -4,6 +4,11 @@
     width: 100%;
     margin-left: 10%;
     margin-right: 10%;
+    /*justify-content: space-between;*/
+}
+
+.li-app-status-board{
+    margin-top: 10px;
 }
 
 .container {
@@ -11,14 +16,17 @@
     flex-wrap: wrap;
     border-radius: 25px;
     background-color: #dfdfdf;
-    margin: 5vh 0;
     padding: 0 1vw;
-    height: fit-content;
+    margin: 2vw;
 
 }
 
+.form-container{
+    padding-top: 1vw;
+}
+
 #documents {
-    margin-right: 10vw;
+    margin-right: 13vw;
 }
 
 .documents-content {
@@ -28,7 +36,7 @@
 }
 
 .applications-content {
-    width: 45vw;
+    width: 40vw;
     padding-bottom: 2vh;
 }
 
@@ -118,13 +126,12 @@ label {
     justify-content: center;
     align-items: center;
 }
+
 .personal-info-submit{
     width: 98%;
     padding: 1vh;
-text-align: center;
-margin: 10px 0 0 0;
-
-
+    text-align: center;
+    margin: 10px 0 0 0;
 }
 
 .search-more-button{
@@ -148,31 +155,25 @@ option {
     text-align: center;
 }
 
-#select-status:has(option[value="in-progress"]:checked) {
+#select-status:has(option[value="In Progress" ]:checked) {
     background-color: #796ce6;
 }
 
-#select-status:has(option[value="pending"]:checked) {
+#select-status:has(option[value="Pending"]:checked) {
     background-color: #ebef1a;
 }
 
-#select-status:has(option[value="accepted"]:checked) {
+#select-status:has(option[value="Approved"]:checked) {
     background-color: #0fc62e;
 }
 
-#select-status:has(option[value="rejected"]:checked) {
+#select-status:has(option[value="Rejected"]:checked) {
     background-color: #d03a3a;
 }
 
 .white {
     background-color: white;
 }
-
-
-
-
-
-
 
 .documents-container::-webkit-scrollbar {
     height: 8px;

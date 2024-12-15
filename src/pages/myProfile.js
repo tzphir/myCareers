@@ -40,17 +40,18 @@ const MyProfile = () => {
     });
     return counts;
   }, [personalInfo.documents]);
-  // Fetch student information on component mount
-  const fetchPersonalInfo = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/Users/${localStorage.getItem("_id")}`
-      );
-      setPersonalInfo(response.data);
-    } catch (error) {
-      console.error("Error fetching personal info:", error);
-    }
-  };
+
+    const fetchPersonalInfo = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/Users/${localStorage.getItem("_id")}`
+        );
+        setPersonalInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching personal info:", error);
+      }
+    };
+    
   useEffect(() => {
     fetchPersonalInfo();
 
@@ -60,8 +61,6 @@ const MyProfile = () => {
           `http://localhost:8000/JobPostings`
         );
         setPostings(response.data);
-        
-        
       } catch (error) {
         console.error("Error fetching personal info:", error);
       }
@@ -69,14 +68,6 @@ const MyProfile = () => {
     fetchPersonalPostings();
     
   }, []);
-
-
-  // const updatePersonalJobPostings = (updateFn) => {
-  //   setPersonalInfo((prev) => ({
-  //     ...prev,
-  //     jobPostings: updateFn(prev.jobPostings),
-  //   }));
-  // };
 
   // Handle input changes
   const handlePersonalInfoChange = (e) => {
@@ -247,7 +238,7 @@ const MyProfile = () => {
       <div className="container" id="personal-info">
         <div className="types-personal-info">
           <h2>Personal Info</h2>
-          <form className="form-container" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="col">
               <label for="fname">First Name:</label>
               <input
