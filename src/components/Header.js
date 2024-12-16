@@ -64,7 +64,7 @@ const Header = () => {
                                 </svg>
                             </button>
                         )}
-                        <li><a href="/" id="home_nav" className="nav_links" onClick={closeMenu}>Home</a></li>
+                        <li><a href="/home" id="home_nav" className="nav_links" onClick={closeMenu}>Home</a></li>
                         <li><a href="/postings+applications" className="nav_links" id="postings_nav" onClick={closeMenu}>Postings/Applications</a></li>
                         <li><a href="/events" className="nav_links" id="events_nav" onClick={closeMenu}>Events</a></li>
                         <li><a href="/myprofile" className="nav_links" id="myprofile_nav" onClick={closeMenu}>MyProfile</a></li>

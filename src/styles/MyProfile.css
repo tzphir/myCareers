@@ -4,6 +4,11 @@
     width: 100%;
     margin-left: 10%;
     margin-right: 10%;
+    /*justify-content: space-between;*/
+}
+
+.li-app-status-board{
+    margin-top: 10px;
 }
 
 .container {
@@ -11,14 +16,17 @@
     flex-wrap: wrap;
     border-radius: 25px;
     background-color: #dfdfdf;
-    margin: 5vh 0;
     padding: 0 1vw;
-    height: fit-content;
+    margin: 2vw;
 
 }
 
+.form-container{
+    padding-top: 1vw;
+}
+
 #documents {
-    margin-right: 10vw;
+    margin-right: 13vw;
 }
 
 .documents-content {
@@ -28,7 +36,7 @@
 }
 
 .applications-content {
-    width: 45vw;
+    width: 40vw;
     padding-bottom: 2vh;
 }
 
@@ -104,18 +112,33 @@ label {
 
 .add-button,
 .view-button,
-.search-more-button {
+.search-more-button,
+.personal-info-submit {
     color: white;
     background-color: black;
     border: none;
     cursor: pointer;
 }
 
-.search-more-button {
+
+.submit-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.personal-info-submit{
+    width: 98%;
+    padding: 1vh;
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.search-more-button{
     padding: 1vh 1vw;
 }
 
-select {
+#select-status {
     background: white;
     appearance: none;
     -webkit-appearance: none;
@@ -132,31 +155,25 @@ option {
     text-align: center;
 }
 
-select:has(option[value="in-progress"]:checked) {
+#select-status:has(option[value="In Progress" ]:checked) {
     background-color: #796ce6;
 }
 
-select:has(option[value="pending"]:checked) {
+#select-status:has(option[value="Pending"]:checked) {
     background-color: #ebef1a;
 }
 
-select:has(option[value="accepted"]:checked) {
+#select-status:has(option[value="Approved"]:checked) {
     background-color: #0fc62e;
 }
 
-select:has(option[value="rejected"]:checked) {
+#select-status:has(option[value="Rejected"]:checked) {
     background-color: #d03a3a;
 }
 
 .white {
     background-color: white;
 }
-
-
-
-
-
-
 
 .documents-container::-webkit-scrollbar {
     height: 8px;
@@ -199,14 +216,11 @@ overflow: auto;
 }
 
 .pdf-viewer {
-    /* margin: 20px auto;
-    padding: 15px; */
     display: flex;
     overflow-x: auto;
     overflow-y: hidden; 
     white-space: nowrap;
     gap: 20px;
-    /* justify-content: center; */
     align-items: center;
 }
 .button-docs{
@@ -231,22 +245,9 @@ overflow: auto;
 }
 
 .close-button {
-    /* position: absolute; */
-    /* transform: translateX(-50%); */
-    /* color: black;
-    
-    padding: 10px 30px;
-    cursor: pointer;
-    border-radius: 40px;
-    font-size: 40px;
-    background-color: rgb(230 228 228 / 70%);
-    font-weight: bold;
-    z-index: 1000; */ 
-
 
     position: static; 
     transform: none; 
-    
     color: black;
     padding: 5px 20px;
     cursor: pointer;
@@ -287,9 +288,7 @@ overflow: auto;
 
 
 
-.react-pdf__Page__canvas {
-    
- 
+.react-pdf__Page__canvas { 
     max-height: 80vh;
     aspect-ratio: 1.414 / 1; 
     display: block;
@@ -309,72 +308,5 @@ overflow: auto;
 
 .close-button:hover span {
     color: white;
-}
-
-
-@media (max-width: 800px) {
-    #myprofile {
-        margin-left: 5%;
-        margin-right: 5%;
-        flex-direction: column;
-    }
-
-    .container {
-        width: 90%;
-        flex-direction: column;
-        padding: 0 2vw;
-    }
-
-    .documents-content,
-    .applications-content,
-    .types-personal-info {
-        width: 100%; 
-        text-align: start;
-    }
-
-    #personal-info {
-        flex-direction: column; 
-        width: 80%;
-    }
-
-    input[type="text"] {
-        width: 70%;
-    }
-
-    .add-button,
-    .view-button,
-    .search-more-button {
-        width: 80%; 
-        margin-bottom: 1vh;
-    }
-
-    .documents-container {
-        flex-wrap: wrap; 
-        overflow-x: hidden; 
-    }
-
-    .pdf-container {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    .close-button {
-        font-size: 20px;
-        padding: 5px 15px;
-    }
-
-    .applications-content {
-        width: 80%;
-    }
-
-    .applications-content h2 {
-
-        text-align: center;
-    }
-
-    .search-more-button {
-
-        margin-left: 100px;
-    }
 }
 

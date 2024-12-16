@@ -40,7 +40,6 @@ const MyProfile = () => {
     });
     return counts;
   }, [personalInfo.documents]);
-  // Fetch student information on component mount
   const fetchPersonalInfo = async () => {
     try {
       const response = await axios.get(
@@ -60,8 +59,6 @@ const MyProfile = () => {
           `http://localhost:8000/JobPostings`
         );
         setPostings(response.data);
-        
-        
       } catch (error) {
         console.error("Error fetching personal info:", error);
       }

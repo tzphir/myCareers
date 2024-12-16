@@ -15,11 +15,11 @@ const Card = ({ docName, docImageUrl, docxFileUrl, pdfFileUrl }) => {
       <div className="card-content">
         <h3>{docName}</h3>
         <div className="download-options">
-          
+          {/* Download DOCX */}
           <a href={docxFileUrl} download className="download-button">
             Download DOCX
           </a>
-          
+          {/* Download PDF */}
           <a href={pdfFileUrl} download className="download-button">
             Download PDF
           </a>

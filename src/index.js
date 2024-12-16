@@ -7,9 +7,9 @@ import Login from './pages/Login';
 import Postings from './pages/Postings';
 import Events from './pages/Events';
 import MyProfile from './pages/myProfile'
+import CardPage from './pages/CardPage'
 import NoPage from './pages/NoPage';
 import UserSigninSuccess from './pages/UserSigninSuccess';
-import CardsPage from './pages/CardPage';
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,7 +25,7 @@ root.render(
           <Route path="postings+applications" element={<Postings />} />
           <Route path="events" element={<Events />} />
           <Route path="myprofile" element={<MyProfile />} />
-          <Route path="templates" element={<CardsPage />} />
+          <Route path="templates" element={<CardPage />} />
           <Route path="*" element={<NoPage />} />
           
       </Route>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./FilterWindow.css";
 
-
 function FilterWindow ({ handleFilteringEvents, setIsActive  }) { 
     const [formData, setFormData] = useState({
         keywords: "",
