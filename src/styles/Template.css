@@ -78,3 +78,24 @@ footer div p:hover{
 
 
 
+@media (max-width: 750px) {
+    footer {
+        flex-direction: column;
+        align-items: center;
+        padding: 2vh 4vw;
+    }
+
+    footer > div {
+        padding: 2vh 0; 
+        text-align: center; 
+    }
+
+    footer div h3 {
+        font-size: 1em; 
+    }
+
+    footer div p {
+        font-size: 0.9em; 
+        text-align: center;
+    }
+}

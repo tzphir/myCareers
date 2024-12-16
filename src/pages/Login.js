@@ -8,6 +8,15 @@ import axios from 'axios';
 
 function Login(){
 
+    const inputStyle = {
+        width: "100%",
+        padding: "0.5vw",
+        marginBottom: "2vh",
+        fontWeight: "normal",
+        marginTop: "1vh",
+        boxSizing: "border-box",
+    };
+
     // Set required fields
     const [email, setEmail] = useState(); 
     const [password, setPassword] = useState(); 
@@ -32,7 +41,7 @@ function Login(){
                 const id = result.data.id;
                 // store the id for the home page
                 localStorage.setItem("id", id);
-                navigate(`/home/${id}`);
+                navigate(`/home`);
             } else {
                 window.alert("Login failed. Please try again.");
             }
@@ -50,10 +59,10 @@ function Login(){
 
     
     return(
-       <div className="login-page"id="Login ">
+       <div className="login-page"id="Login">
         <div className="login-container" id="loginform">
 
-                <h2>Login to myCareers</h2>
+                <h2 style={{textAlign: "center"}}>Login to myCareers</h2>
                 <p>McGill's Career Help System</p>
        
                 <form id="form-container" className="form-container" onSubmit={handleLogin}> 
@@ -61,14 +70,19 @@ function Login(){
                     <input
                      type="text"
                      name="email"
+                     placeholder='Enter McGill Email'
                      value={email}
-                     onChange={(e) => setEmail(e.target.value)} 
-                     />
+                     onChange={(e) => setEmail(e.target.value)}
+                     className='exclude-style'
+                     style={inputStyle}
+                      
+                     /> <br />
 
                     <label>Password</label>
                     <input 
                      type="password" 
-                     name="password" 
+                     name="password"
+                     placeholder='Enter Password' 
                      value={password}
                      onChange={(e) => setPassword(e.target.value)}
                    />
@@ -80,8 +94,8 @@ function Login(){
 
 
                     <div className="button-container"> 
-                        <button className="primary-button" type="submit">Login</button>
-                        <button className="primary-button secondary-button" onClick={handleSignin}>Sign in</button>
+                        <button className="primary-button" type="submit">Log in</button>
+                        <button className="primary-button secondary-button" onClick={handleSignin}>Sign up</button>
                     </div>
 
                 </form>

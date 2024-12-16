@@ -121,3 +121,89 @@ tbody tr:nth-child(even) {
     height: 50vw; 
     border-radius: 50px; 
 }
+
+
+
+
+/* harder to make it responsive because of the buttons above */
+@media (max-width: 950px) {
+    .events {
+        margin: 3vh 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .event-button-container {
+        flex-direction: column;
+        width: 90vw;
+        align-items: center;
+    }
+
+    .pagination-buttons button {
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+
+    .filter-sort {
+        margin-left: 0;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .filter-sort button {
+        font-size: 16px;
+        margin-right: 1vw;
+        padding: 8px 12px;
+    }
+
+    .view-button {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .view-button button {
+        font-size: 16px;
+        padding: 8px 12px;
+        margin: 0 5px;
+    }
+
+    table {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .register-button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .calendar-div {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .calendar-view {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    
+    h2 {
+        font-size: 18px;
+    }
+
+    .legend div {
+        margin-right: 10px;
+        font-size: 14px;
+    }
+}
+

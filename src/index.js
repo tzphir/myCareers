@@ -9,22 +9,25 @@ import Events from './pages/Events';
 import MyProfile from './pages/myProfile'
 import NoPage from './pages/NoPage';
 import UserSigninSuccess from './pages/UserSigninSuccess';
-import reportWebVitals from './reportWebVitals';
+import CardsPage from './pages/CardPage';
+// import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
   
-  <Routes>
-    <Route path="usersigninsuccess" element={<UserSigninSuccess />} />  
+  <Routes> 
       <Route path="/" element={<Layout />}>
+          <Route path="usersigninsuccess" element={<UserSigninSuccess />} /> 
           <Route path="login" element={<Login/>}></Route>
           <Route path="signin" element={<Signin/>}></Route>
-          <Route path="home/:id" element={<Home />} />
+          <Route path="home" element={<Home />} />
           <Route path="postings+applications" element={<Postings />} />
           <Route path="events" element={<Events />} />
           <Route path="myprofile" element={<MyProfile />} />
+          <Route path="templates" element={<CardsPage />} />
           <Route path="*" element={<NoPage />} />
+          
       </Route>
   </Routes>
 </BrowserRouter>
@@ -33,4 +36,4 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();

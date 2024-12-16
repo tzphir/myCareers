@@ -7,7 +7,8 @@ import '../styles/Home.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PieChart from '../components/PieChart';
-import Calendar from 'react-calendar';
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'; 
 
 function Home() {
 
@@ -29,13 +30,14 @@ function Home() {
     }
 
     // Fetch user-specific data using the userId
-    const fetchUserData = axios.get(`http://localhost:8000/User/${id}`);
+    const fetchUserData = axios.get(`http://localhost:8000/Users/${id}`);
     const fetchTotalJobs = axios.get("http://localhost:8000/JobPostings"); // Fetch total jobs
 
     Promise.all([fetchUserData, fetchTotalJobs])
       .then(([userResponse, jobsResponse]) => {
-        setUserData(userResponse.data); // Store user data
-        setTotalJobs(jobsResponse.data.length); // Store the total number of jobs
+        console.log(userResponse.data, jobsResponse.data);
+        setUserData(userResponse.data);
+        setTotalJobs(jobsResponse.data.length); 
         setLoading(false);
       })
       .catch(err => {
@@ -62,6 +64,8 @@ function Home() {
       },
     ],
   };
+
+  
     
     
 
@@ -70,15 +74,15 @@ function Home() {
 
             <div className="nav-container"> 
                 <div id="button-container" className="button-container">
-                    <button id="jobButton" className="nav-button"> Jobs</button>
+                    <button id="jobButton" className="nav-button" onClick={() => navigate('/postings+applications')}> Jobs</button>
                     <p> Browse our General Jobs Board for many opportunities including summer positions and full-time roles </p>
                 </div>
                 <div id="button-container" className="button-container"> 
-                    <button id="internshipButton"className="nav-button"> Internships</button>
+                    <button id="internshipButton"className="nav-button" onClick={() => navigate('/postings+applications')}> Internships</button>
                     <p>Explore our Internships/Co-op Board for tailored opportunites to gain valuable hands-on industry experience </p>
                 </div>   
                 <div id="button-container" className="button-container">
-                    <button id="volunteerButton" className="nav-button"> Volunteer</button>
+                    <button id="volunteerButton" className="nav-button" onClick={() => navigate('/postings+applications')}> Volunteer</button>
                     <p>Make a difference in your community and beyond and discover various volunteering opportunities </p>
                 </div>  
             </div>
@@ -103,14 +107,15 @@ function Home() {
                         </ul>
                     </div>  
                     <div id="pieChart" className="pie-chart"> 
+                      <h3> Total jobs vs applied jobs</h3>
                         <PieChart data={pieChartData} />
                         
                     </div>
                 </div>
-        
+                
                 <div id="calendar" className="calender-container"> 
-                    <h1> Click on the Calendar to see your events! </h1>
-                    <Calendar onClickDay={() => navigate(`events/${id}`)} />
+                <h2> Click on the Calendar to see your events! </h2> <br></br>
+                    <Calendar onClickDay={() => navigate(`/events`)} />
                 </div>
     
             </div>

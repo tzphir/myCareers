@@ -7,6 +7,15 @@ import axios from 'axios';
 
 function Signin(){
 
+    const inputStyle = {
+        width: "100%",
+        padding: "0.5vw",
+        marginBottom: "2vh",
+        fontWeight: "normal",
+        marginTop: "1vh",
+        boxSizing: "border-box",
+    };
+
     // Declare all required fields here
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -68,7 +77,7 @@ function Signin(){
        <div className="login-page"id="Signin">
         <div className="login-container" id="signinform">
 
-                <h2>Sign in to myCareers</h2>
+                <h2 style={{textAlign: "center"}}>Sign in to myCareers</h2>
                 <p>McGill's Career Help System</p>
        
                 <form onSubmit={handleSignin} id="sign-in-container" className="form-container"> 
@@ -79,7 +88,9 @@ function Signin(){
                      placeholder="Enter McGill Email"
                      value={email}
                      onChange={(e) => setEmail(e.target.value)}
-                     />
+                     className='exclude-style'
+                     style={inputStyle}
+                     /> <br />
 
                     <label>New Password</label>
                     <input 
@@ -104,8 +115,8 @@ function Signin(){
                     </div>
 
                     <div className="button-container"> 
-                        <button className="primary-button" type="submit">Signin</button>
-                        <button className="primary-button secondary-button" type="button" onClick={handleLogin}>Login</button>
+                        <button className="primary-button" type="submit">Sign up</button>
+                        <button className="primary-button secondary-button" type="button" onClick={handleLogin}>Log in</button>
                     </div>
                 </form>
         </div>

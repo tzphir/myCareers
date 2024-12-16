@@ -116,3 +116,66 @@ h2{
 }
 
 
+@media (max-width: 850px) {
+    h2 {
+        font-size: 1.2em; 
+    }
+
+    .nav-container {
+        flex-direction: column; 
+        align-items: center;
+        margin-top: 5vh;
+    }
+
+    .button-container {
+        width: 90%; 
+        margin-bottom: 3vh;
+    }
+
+    .nav-button {
+        font-size: medium;
+        width: 100%; 
+        height: auto; 
+        padding: 2rem;
+    }
+
+    .bottom-container {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .stats-container {
+        width: 90%; 
+        margin-bottom: 3vh;
+        padding: 2vh;
+    }
+
+    .numbers {
+        width: 100%; 
+        padding: 0;
+    }
+
+    .numbers li {
+        flex-direction: column; 
+        align-items: flex-start; 
+        font-size: 14px; 
+    }
+
+    .numbers p {
+        text-align: left; 
+        font-size: 16px; 
+    }
+
+    .pie-chart {
+        width: 100%; 
+        padding: 0;
+        margin-bottom: 3vh;
+    }
+
+    .calender-container {
+        width: 50%; 
+        padding-top: 2vh;
+    }
+}
+
+

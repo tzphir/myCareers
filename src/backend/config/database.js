@@ -15,5 +15,5 @@ const connectToDatabase = async () => {
   }
 };
 
-// Export database connection 
+
 module.exports = connectToDatabase;

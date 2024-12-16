@@ -1,22 +1,22 @@
 const { mongoose } = require('mongoose');
 
 const jobPostingSchema = new mongoose.Schema({
-  title: { type: String, required: true },        // Job title
-  company: { type: String, required: true },      // Company name
-  date: { type: Date, required: true },           // Posting date
-  location: {                                     // Job location
+  title: { type: String, required: true },       
+  company: { type: String, required: true },      
+  date: { type: Date, required: true },           
+  location: {                                     
     country: { type: String, required: true },    
     province: { type: String, required: true },
     city: { type: String, required: true },
   },
-  type: [{                                        // Job type
+  type: [{                                        
     status: { type: String, enum: [
         'job',
         'internship', 
         'volunteer'
       ], default: 'job' },
   }],
-  term: [{                                        // Job starting term
+  term: [{                                        
     status: { type: String, enum: [
         'winter', 
         'spring', 
@@ -24,7 +24,7 @@ const jobPostingSchema = new mongoose.Schema({
         'fall'], 
       default: 'summer' },
   }],
-  duration: [{                                    // Contract duration
+  duration: [{                                    
     status: { type: String, enum: [
         '4-months', 
         '6-month', 
@@ -32,27 +32,27 @@ const jobPostingSchema = new mongoose.Schema({
         '12-month'
       ], default: '4-month' },
   }],
-  format: [{                                      // Work format
+  format: [{                                      
     status: { type: String, enum: [
         'hybrid', 
         'remote', 
         'online'
       ], default: 'remote' },
   }],
-  modality: [{                                    // Job time commitment
+  modality: [{                                    
     status: { type: String, enum: [
         'full-time', 
         'part-time', 
         'contract'
       ], default: 'full-time' },
   }],
-  language: [{                                    // Language spoken in office
+  language: [{                                    
     status: { type: String, enum: [
         'english', 
         'french'
       ], default: 'english' },
   }], 
-  description: { type: String, required: true },  // Job description
+  description: { type: String, required: true }, 
 });
 
 module.exports = mongoose.model('JobPosting', jobPostingSchema, "JobPostings");

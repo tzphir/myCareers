@@ -69,18 +69,21 @@ router.post('/', async (req, res) => {
 
 /**
  * @description Get all job postings
- * @route GET /JobPostings
+ * @route GET /job-postings
  * @response 200 [{title, company, date, location, type, term, duration, format, modality, language, description}]
  * @response 400 {error: "Error fetching job postings"}
  */
+
+
 router.get("/", async (req, res) => {
   try {
-    const event = await Event.find();
-    res.json(event);
-  } catch(error) {
-    res.status(400).json({ error: error.message })
+    const jobPostings = await JobPosting.find();
+    res.json(jobPostings);
+  } catch (error) {
+    res.status(400).json({ error: "Error fetching job postings" });
   }
 });
+
 
 /**
  * @description Get all job postings by any field (Except description)
