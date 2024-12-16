@@ -30,9 +30,6 @@ const MyProfile = () => {
   const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
   const [postings, setPostings] = useState([])
 
-
-
-
   const documentCounts = useMemo(() => {
     const counts = {};
     personalInfo.documents.forEach((doc) => {
@@ -189,7 +186,8 @@ const MyProfile = () => {
                             <span className="doc-type">CV/Resume</span>
                             <span className="count">{documentCounts["CV"] || 0}</span>
                             <button type="button" className="view-button" onClick={() => showPdf("CV")}>View</button>
-                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-cv").click()}>+</button>                            <input
+                            <button type="button" className="add-button" onClick={()=> document.getElementById("file-upload-cv").click()}>+</button>                            
+                <input
                   type="file"
                   style={{ display: "none" }}
                   onChange={(e) => handleFileChange(e, "CV")}
@@ -247,7 +245,8 @@ const MyProfile = () => {
           <form className="form-container" onSubmit={handleSubmit}>
             <div className="col">
               <label for="fname">First Name:</label>
-              <input
+              <input 
+                className="exclude-style"
                 type="text"
                 name="fname"
                 id="fname"
@@ -258,6 +257,7 @@ const MyProfile = () => {
             <div className="col">
               <label for="lname">Last Name:</label>
               <input
+                className="exclude-style"
                 type="text"
                 name="lname"
                 id="lname"
@@ -268,6 +268,7 @@ const MyProfile = () => {
             <div className="col">
               <label for="id">Student ID:</label>
               <input
+                className="exclude-style"
                 type="text"
                 name="id"
                 id="id"
@@ -278,6 +279,7 @@ const MyProfile = () => {
             <div className="col">
               <label for="email">Email:</label>
               <input
+                className="exclude-style"
                 type="text"
                 name="email"
                 id="email"
@@ -288,6 +290,7 @@ const MyProfile = () => {
             <div className="col">
               <label for="faculty">Faculty:</label>
               <input
+                className="exclude-style"
                 type="text"
                 name="faculty"
                 id="faculty"

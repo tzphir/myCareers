@@ -30,7 +30,7 @@ const Events = () => {
         // Fetch all events
         const fetchAllEvents = async () => {
             try {
-                const result = await axios.get("http://localhost:8000/Events");
+                const result = await axios.get("http://localhost:8000/events");
                 setEvents(result.data);
                 setFilteredEvents(result.data); //sets filtered events to all events initially 
             } catch (err) {
@@ -53,7 +53,7 @@ const Events = () => {
                 const fetchUserEvents = async () => {
                     try {
                         const eventPromises = eventIds.map(eventId =>
-                            axios.get(`http://localhost:8000/Events/${eventId}`)
+                            axios.get(`http://localhost:8000/events/${eventId}`)
                         );
                         const eventResponses = await Promise.all(eventPromises);
                         const userEvents = eventResponses.map(response => response.data);
@@ -77,13 +77,9 @@ const Events = () => {
 
     //Applies filters to the events 
     const handleFilteringEvents= (formData) => {
-        const { keywords, title, startDate, endDate, category, registered } = formData;
+        const { title, startDate, endDate, category, registered } = formData;
         //filtered array is originally a clone of the events array 
-        let filtered = events; 
-       
-        if (keywords) {
-            filtered = filtered.filter(event => event.name.toLowerCase().includes(keywords.toLowerCase()));
-        }
+        let filtered = events;  
         if (title) {
             filtered = filtered.filter(event => event.name.toLowerCase().includes(title.toLowerCase()));
         }
@@ -115,7 +111,7 @@ const Events = () => {
 
         const handleRegister = async () => {
             try {
-                const response = await axios.post(`http://localhost:8000/Users/${id}/Events`, { eventId: event._id });
+                const response = await axios.post(`http://localhost:8000/Users/${id}/events`, { eventId: event._id });
                 if (response.status === 200) {
                     setUserEvents([...userEvents, event]); // Update state with the newly registered event
                 }

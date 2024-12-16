@@ -140,7 +140,7 @@ const Postings = () => {
   return (
     <div className="postings-page">
       <div className="postings-container">
-        {isActive && <FilterWindow onFilterSubmit={handleFilterSubmit} />}
+        {isActive && <FilterWindow onFilterSubmit={handleFilterSubmit} setIsActive={setIsActive}/>}
         <div className="search-section">
           <form>
             <div className="search-bar">

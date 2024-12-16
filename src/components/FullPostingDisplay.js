@@ -12,15 +12,15 @@ const req = {
     star:true
     
   };
-    const handleApply = async () => {
-
-        try{
-            await axios.post(`http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings`,req);
-        }catch (error){
-            console.log('Error while applying for job', error) 
-        }
-        alert("This posting has been added to your application status board in your profile")
+  const handleApply = async () => {
+    try{
+        const response = await axios.post(`http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings`,req);
+        alert("This posting has been added to your application status board in your profile");
+    }catch (error){
+        alert(error.response.data.error); 
     }
+
+}
     
     //console.log(selectedPost);
     const starColor = selectedPost.star ? 'red' : 'none';

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./FilterWindow.css";
+import "../styles/FilterWindow.css";
+
 
 function FilterWindow ({ handleFilteringEvents, setIsActive  }) { 
     const [formData, setFormData] = useState({
@@ -36,24 +37,14 @@ function FilterWindow ({ handleFilteringEvents, setIsActive  }) {
   return (
     <div className="filter-container">
       <button 
-       className="close-button"
-       onClick={setIsActive(false)}
+       className="x-button"
+       onClick={() => setIsActive(false)}
        >
         <span>x</span>
       </button>
       <h2>Filter</h2>
       <h3>Job Specifications</h3>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input
-            type="text"
-            name="keywords"
-            placeholder="Keywords"
-            value={formData.keywords}
-            onChange={handleInputChange}
-          />
-        </div>
-
         <div className="group">
           <input 
             type="text"

@@ -14,7 +14,7 @@ const Posting = ( {jobPosting, setSelectedPost, selectedPost } ) => {
     const handleStarredPosting = async () => {
         setStarredStatus(!starredStatus);
         try{
-            const response = await axios.put(`http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.id}`, starredStatus);
+            const response = await axios.put(`http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings/${jobPosting.id}`, starredStatus);
             console.log(response.data);
         } catch (error){
             console.log('Error starring posting', error) 

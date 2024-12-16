@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/FilterWindowJobs.css";
 
-const FilterWindowJobs = ({ onFilterSubmit }) => {
+const FilterWindowJobs = ({ onFilterSubmit, setIsActive }) => {
   const [formData, setFormData] = useState({
     keywords: "",
     term: "",
@@ -36,10 +36,17 @@ const FilterWindowJobs = ({ onFilterSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onFilterSubmit(formData); // Send form data to the parent component (Postings)
+    setIsActive(false);
   };
 
   return (
     <div className="filter-container">
+      <button 
+       className="x-button"
+       onClick={() => setIsActive(false)}
+       >
+        <span>x</span>
+      </button>
       <h2>Filter</h2>
       <h3>Job Specifications</h3>
       <form onSubmit={handleSubmit} className="form">

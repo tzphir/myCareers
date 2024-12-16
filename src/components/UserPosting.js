@@ -13,7 +13,7 @@ const UserPosting = ( {  jobPosting, updatePersonalInfo, postings } ) => {
         try {
             console.log(jobPosting.jobPostingId);
             await axios.put(
-            `http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.jobPostingId}/status`,
+            `http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings/${jobPosting.jobPostingId}/status`,
             { status: updatedStatus }
           );
           updatePersonalInfo(); 
@@ -26,7 +26,7 @@ const UserPosting = ( {  jobPosting, updatePersonalInfo, postings } ) => {
       const handleDeleteUserApplication = async () => {
         try {
           await axios.delete(
-            `http://localhost:8000/Users/${localStorage.getItem("_id")}/jobPostings/${jobPosting.jobPostingId}`
+            `http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings/${jobPosting.jobPostingId}`
           );
           updatePersonalInfo();
         } catch (error) {
