@@ -112,8 +112,10 @@ const Events = () => {
         const handleRegister = async () => {
             try {
                 const response = await axios.post(`http://localhost:8000/Users/${id}/events`, { eventId: event._id });
-                if (response.status === 200) {
-                    setUserEvents([...userEvents, event]); // Update state with the newly registered event
+                if (response.status === 201) {
+                    setUserEvents((prevEvents) => {
+                        return [...prevEvents, event];
+                    });
                 }
             } catch (error) {
                 console.error("Error registering for event:", error);
