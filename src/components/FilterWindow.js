@@ -36,12 +36,6 @@ function FilterWindow ({ handleFilteringEvents, setIsActive  }) {
 
   return (
     <div className="filter-container">
-      <button 
-       className="close-button"
-       onClick={setIsActive(false)}
-       >
-        <span>x</span>
-      </button>
       <h2>Filter</h2>
       <h3>Job Specifications</h3>
       <form onSubmit={handleSubmit}>
