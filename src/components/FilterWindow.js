@@ -38,7 +38,7 @@ function FilterWindow ({ handleFilteringEvents, setIsActive  }) {
     <div className="filter-container">
       <button 
        className="close-button"
-       onclick={setIsActive(false)}
+       onClick={setIsActive(false)}
        >
         <span>x</span>
       </button>
