@@ -309,3 +309,71 @@ overflow: auto;
     color: white;
 }
 
+
+
+@media (max-width: 800px) {
+    #myprofile {
+        margin-left: 5%;
+        margin-right: 5%;
+        flex-direction: column;
+    }
+
+    .container {
+        width: 90%;
+        flex-direction: column;
+        padding: 0 2vw;
+    }
+
+    .documents-content,
+    .applications-content,
+    .types-personal-info {
+        width: 100%; 
+        text-align: start;
+    }
+
+    #personal-info {
+        flex-direction: column; 
+        width: 80%;
+    }
+
+    input[type="text"] {
+        width: 70%;
+    }
+
+    .add-button,
+    .view-button,
+    .search-more-button {
+        width: 80%; 
+        margin-bottom: 1vh;
+    }
+
+    .documents-container {
+        flex-wrap: wrap; 
+        overflow-x: hidden; 
+    }
+
+    .pdf-container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .close-button {
+        font-size: 20px;
+        padding: 5px 15px;
+    }
+
+    .applications-content {
+        width: 80%;
+    }
+
+    .applications-content h2 {
+
+        text-align: center;
+    }
+
+    .search-more-button {
+
+        margin-left: 100px;
+    }
+}
+
