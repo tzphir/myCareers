@@ -47,7 +47,7 @@ function Login(){
             }
         })
         .catch(err => {
-            console.error(err);
+            window.alert("Login failed. Please try again.");
         });
         
     };

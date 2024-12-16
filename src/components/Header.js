@@ -41,10 +41,14 @@ const Header = () => {
         setMenuOpen(false);
     };
 
+    const clickLogo = () => {
+        navigate('/'); 
+    };
+
     return (
         <header>
             <div id="header" onLoad={setHeaderStyle}>
-                <img src={Logo} alt="MyCareer" />
+                <img src={Logo} alt="MyCareer" onClick={clickLogo} style={{ cursor: 'pointer' }} />
                 {displayNavigation && <button id="logout" onClick={() => navigate('/login')}>Log Out</button>}
             </div>
             <hr style={{ border: '1px solid black' }} />
