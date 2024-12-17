@@ -100,3 +100,69 @@ align-items:end;
     padding: 8px 0 0 16px;
     font-weight: lighter;
 }
+
+
+
+
+
+@media (max-width: 950px) {
+    .top-container {
+        margin: 70px 20px;
+    }
+
+    .top-square {
+        /* flex-direction: column;
+        align-items: flex-start; */
+        gap: 8px;
+    }
+
+    #h2-title {
+        font-size: 1.3em;
+    }
+
+    .top-left-square {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .top-right-square {
+        align-items: flex-start;
+        font-size: 12px;
+        padding: 0;
+    }
+
+    .bottom-square {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 8px 0;
+    }
+
+    .bottom-square-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo img {
+        height: 40px;
+        width: 40px;
+    }
+
+    .company-name, .location-title {
+        font-size: 0.9em;
+    }
+
+    .apply-button {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+
+    .description-text {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+}
+
+
+
