@@ -1,37 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/Template.css';
 import Logo from "../assets/logo.jpeg";
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, NavLink  } from 'react-router-dom';
 
 const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const displayNavigation = location.pathname !== '/login' && location.pathname !== '/signin' && location.pathname!== '/usersigninsuccess';
-
-    function setHeaderStyle() {
-        const links = document.querySelectorAll('.nav_links');
-        links.forEach(element => {
-            element.style.textDecoration = 'none';
-        });
-        switch (location.pathname) {
-            case '/home':
-                document.getElementById('home_nav').style.textDecoration = 'underline' ;
-                break;
-            case '/postings+applications':
-                document.getElementById('postings_nav').style.textDecoration = 'underline';
-                break;
-            case '/events':
-                document.getElementById('events_nav').style.textDecoration = 'underline';
-                break;
-            case '/myprofile':
-                document.getElementById('myprofile_nav').style.textDecoration = 'underline';
-                break;
-            default:
-                break;
-        }
-    };
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -42,12 +18,12 @@ const Header = () => {
     };
 
     const clickLogo = () => {
-        navigate('/'); 
+        navigate('/home'); 
     };
 
     return (
         <header>
-            <div id="header" onLoad={setHeaderStyle}>
+            <div id="header">
                 <img src={Logo} alt="MyCareer" onClick={clickLogo} style={{ cursor: 'pointer' }} />
                 {displayNavigation && <button id="logout" onClick={() => navigate('/login')}>Log Out</button>}
             </div>
@@ -68,10 +44,42 @@ const Header = () => {
                                 </svg>
                             </button>
                         )}
-                        <li><a href="/home" id="home_nav" className="nav_links" onClick={closeMenu}>Home</a></li>
-                        <li><a href="/postings+applications" className="nav_links" id="postings_nav" onClick={closeMenu}>Postings/Applications</a></li>
-                        <li><a href="/events" className="nav_links" id="events_nav" onClick={closeMenu}>Events</a></li>
-                        <li><a href="/myprofile" className="nav_links" id="myprofile_nav" onClick={closeMenu}>MyProfile</a></li>
+                        <li>
+                            <NavLink 
+                                to="/home" 
+                                className={({ isActive }) => isActive ? "nav_links active" : "nav_links"}
+                                onClick={closeMenu}
+                            >
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink 
+                                to="/postings+applications" 
+                                className={({ isActive }) => isActive ? "nav_links active" : "nav_links"}
+                                onClick={closeMenu}
+                            >
+                                Postings/Applications
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink 
+                                to="/events" 
+                                className={({ isActive }) => isActive ? "nav_links active" : "nav_links"}
+                                onClick={closeMenu}
+                            >
+                                Events
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink 
+                                to="/myprofile" 
+                                className={({ isActive }) => isActive ? "nav_links active" : "nav_links"}
+                                onClick={closeMenu}
+                            >
+                                MyProfile
+                            </NavLink>
+                        </li>
                     </ul>
                 </nav>
             )}

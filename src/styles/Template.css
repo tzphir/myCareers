@@ -52,6 +52,10 @@ nav ul {
     padding: 0;
 }
 
+nav a.active {
+    text-decoration: underline;
+}
+
 .nav_links {
     text-decoration: none;
     font-size: large;
