@@ -1,37 +1,31 @@
 import Logo from '../assets/mock_company_logo.jpeg';
 import React, { useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 
-const Posting = ( {jobPosting, setSelectedPost, selectedPost } ) => {
+const Posting = ( {jobPosting, setSelectedPost, selectedPost, isStarred, onStarChange} ) => {
 
     const [deletedStatus, setDeleteStatus] = useState(false);
-    const [starredStatus, setStarredStatus] = useState(false);
+    //const [starredStatus, setStarredStatus] = useState(false);
 
     const handleDeletePosting = () => {
         setDeleteStatus(true);
     };
-    
-    const handleStarredPosting = async () => {
-        setStarredStatus(!starredStatus);
-        try{
-            const response = await axios.put(`http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings/${jobPosting.id}`, starredStatus);
-            console.log(response.data);
-        } catch (error){
-            console.log('Error starring posting', error) 
-        }
-    };
 
     const handlePostClick = () => {
-        //console.log(jobPosting);
         setSelectedPost(jobPosting); 
     };
+
+    const handleStarredPosting = () => {
+        //setStarredStatus(!isStarred)
+        onStarChange(jobPosting._id, !isStarred); 
+      };
 
     if (deletedStatus) {
         return null;
     }
     const isSelected = selectedPost && selectedPost._id === jobPosting._id;
     const postingClass = isSelected ? 'posting selected-posting' : 'posting';
-    const starColor = starredStatus ? 'red' : 'none';
+    const starColor = isStarred ? 'red' : 'none';
     const backgroundColor = isSelected ? 'rgb(189, 189, 189)' : 'white';
 
     

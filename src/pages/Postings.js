@@ -9,6 +9,8 @@ const Postings = () => {
   const [jobPostings, setJobPostings] = useState([]);
   const [filteredJobPostings, setFilteredJobPostings] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [starredPostings, setStarredPostings] = useState({});
+  const [userJobPostings, setUserJobPostings]= useState({});
   const [isActive, setIsActive] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -45,7 +47,6 @@ const Postings = () => {
   };
 
   const handleFilterSubmit = (filterData) => {
-    console.log('Filter Data Submitted:', filterData);
     setFormData(filterData);
 
     const filtered = jobPostings.filter((posting) => {
@@ -101,6 +102,7 @@ const Postings = () => {
   };
 
   useEffect(() => {
+    // fetching all jobs postings in the database
     const fetchJobPostings = async () => {
       try {
         const response = await axios.get('http://localhost:8000/JobPostings');
@@ -111,14 +113,28 @@ const Postings = () => {
       }
     };
     fetchJobPostings();
+
+    const fetchUserApplications = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8000/Users/${localStorage.getItem("id")}`);
+            setUserJobPostings(response.data.jobPostings.map(posting => posting.jobPostingId));
+        } catch (error) {
+            console.error("Error fetching user's list of applied postings:", error);
+        }
+    };
+    fetchUserApplications();
   }, []);
 
   const filterButtonClicked = () => {
     setIsActive(!isActive);
   };
 
-  const handlePostClick = (post) => {
-    setSelectedPost(post);
+  const handleStarChange = (id, isStarred) => {
+    setStarredPostings((prev) => ({ ...prev, [id]: isStarred }));
+  };
+
+  const handlePostClick = (selectedPost) => {
+    setSelectedPost(selectedPost);
 
     // redirect to full job posting when screen is small(otherwise not that intuitive)
     if (window.innerWidth <= 900 && fullPostRef.current) {
@@ -132,9 +148,12 @@ const Postings = () => {
         {filteredJobPostings.length > 0 ? (
           filteredJobPostings.map((jobPosting) => (
             <Posting
-              key={jobPosting.id}
+              key={jobPosting._id}
               jobPosting={jobPosting}
               setSelectedPost={handlePostClick} 
+              selectedPost={selectedPost}
+              isStarred={starredPostings[jobPosting._id] || false}
+              onStarChange={handleStarChange}
             />
           ))
         ) : (
@@ -178,8 +197,15 @@ const Postings = () => {
 
       <div className="full-selected-posting" ref={fullPostRef}>
         {selectedPost ? (
-          <FullPostingDisplay selectedPost={selectedPost} />
-        ) : null}
+          <FullPostingDisplay 
+            selectedPost={selectedPost} 
+            isStarred={starredPostings[selectedPost._id] || false} 
+            userJobPostings={userJobPostings}
+            setUserJobPostings={setUserJobPostings}
+            ></FullPostingDisplay>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

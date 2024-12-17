@@ -19,7 +19,6 @@ const Events = () => {
     const [filteredEvents, setFilteredEvents] = useState([]); 
 
     const id = localStorage.getItem("id");
-    console.log(id);
 
     useEffect(() => {
         if (!id) {
@@ -132,7 +131,7 @@ const Events = () => {
                         className={`register-button ${isRegistered ? 'registered' : ''}`}
                         onClick={isRegistered ? null : handleRegister}
                         disabled={isRegistered}
-                        style={isRegistered ? { backgroundColor: "black", color: "white" } : {}}
+                        style={isRegistered ? { backgroundColor: "black", color: "white", cursor: "default" } : {}}
                     >
                         {isRegistered ? 'Registered' : 'Register'}
                     </button>

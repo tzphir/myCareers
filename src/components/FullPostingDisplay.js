@@ -1,29 +1,39 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Logo from '../assets/mock_company_logo.jpeg';
 import '../styles/FullPostingDisplay.css'
 import axios from 'axios';
 
-const FullPostingDisplay = ( {  selectedPost } ) => {
+const FullPostingDisplay = ( {  selectedPost, isStarred, userJobPostings, setUserJobPostings } ) => {
 
-const req = {
-    jobPostingId : selectedPost._id,
-    status: "Pending",
-    star:true
-    
-  };
-  const handleApply = async () => {
-    try{
-        const response = await axios.post(`http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings`,req);
-        alert("This posting has been added to your application status board in your profile");
-    }catch (error){
-        alert(error.response.data.error); 
+    const [hasApplied, setHasApplied] = useState(false);
+
+    useEffect(() => {
+        setHasApplied(userJobPostings.some(postId => postId === selectedPost._id));
+        
+      }, [selectedPost, userJobPostings]);
+
+    const req = {
+        jobPostingId : selectedPost._id,
+        status: "Pending",
+        star: isStarred
+    };
+
+    const handleApply = async () => {
+        try{
+            await axios.post(`http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings`,req);
+            setHasApplied(true);
+            setUserJobPostings([...userJobPostings, selectedPost._id]);
+
+            alert("This posting has been added to your application status board in your profile");
+        }catch (error){
+            alert(error.response); 
+        }
     }
-
-}
     
-    //console.log(selectedPost);
-    const starColor = selectedPost.star ? 'red' : 'none';
+    const starColor = isStarred ? 'red' : 'none';
+    const applyColor = hasApplied ? 'disable' : 'default';
+
     return(
     <div className="top-container">
 
@@ -59,7 +69,7 @@ const req = {
 
             <div className="right-square">
                 <div>
-                    <button className="apply-button" onClick={handleApply}>Apply</button>
+                    <button id="apply-button" onClick={hasApplied ? null : handleApply} className={applyColor}>Apply</button>
                 </div>
             </div>
         </div>

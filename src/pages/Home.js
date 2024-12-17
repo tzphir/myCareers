@@ -35,7 +35,6 @@ function Home() {
 
     Promise.all([fetchUserData, fetchTotalJobs])
       .then(([userResponse, jobsResponse]) => {
-        console.log(userResponse.data, jobsResponse.data);
         setUserData(userResponse.data);
         setTotalJobs(jobsResponse.data.length); 
         setLoading(false);

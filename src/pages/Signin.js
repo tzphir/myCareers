@@ -49,8 +49,6 @@ function Signin(){
         // Proceed with POST request
         axios.post("http://localhost:8000/Users/signin", { email, password })
             .then(result => {
-                console.log(result);
-
                 // Already a record with the same email inside the database
                 if (result.data.message === "User already exists") {
                     window.alert("User already exists.");
@@ -111,7 +109,7 @@ function Signin(){
 
                     <div className="separator">
                         <hr style={{border: '1px solid black'}}/>
-                        <p>For assistance please contact the <a href="#">ICS Service Desk</a></p>
+                        <p>For assistance please contact the <a href="https://www.mcgill.ca/it/it-mcgill/it-customer-services" target='_blank' rel="noopener noreferrer">ICS Service Desk</a></p>
                     </div>
 
                     <div className="button-container"> 

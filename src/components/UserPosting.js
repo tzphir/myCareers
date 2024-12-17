@@ -11,7 +11,6 @@ const UserPosting = ( {  jobPosting, updatePersonalInfo, postings } ) => {
         const updatedStatus = event.target.value;
     
         try {
-            console.log(jobPosting.jobPostingId);
             await axios.put(
             `http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings/${jobPosting.jobPostingId}/status`,
             { status: updatedStatus }

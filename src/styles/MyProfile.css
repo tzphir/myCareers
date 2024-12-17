@@ -1,37 +1,42 @@
 #myprofile {
     display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: column;
     margin-left: 10%;
     margin-right: 10%;
-    /*justify-content: space-between;*/
+    justify-content: space-between;
 }
-
 .li-app-status-board{
     margin-top: 10px;
 }
-
+.top-container-my-profile{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 .container {
     display: flex;
     flex-wrap: wrap;
     border-radius: 25px;
     background-color: #dfdfdf;
     padding: 0 1vw;
-    margin: 2vw;
+    margin: 5vh 0;
+    height: fit-content;
+    width: 480px;
+    flex-shrink: 0;
 }
 
-.form-container{
-    padding-top: 1vw;
+.form-container-my-profile{
+    padding: 1vw 0 0 0;
+    flex-shrink: 0;
 }
 
-#documents {
-    margin-right: 13vw;
-}
 
 .documents-content {
     line-height: 6vh;
-    width: 30vw;
     text-align: end;
+    width: 100%;
 }
 
 .applications-content {
@@ -41,7 +46,8 @@
 
 .types-personal-info {
     line-height: 6vh;
-    width: 30vw;
+    width: 100%;
+    flex-shrink: 0;
 }
 
 input[type="text"] {
@@ -55,7 +61,6 @@ input[type="text"] {
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    width: 30vw;
     font-weight: normal;
     padding-bottom: 2vh;
 }
@@ -65,7 +70,8 @@ input[type="text"] {
 }
 
 input {
-    margin-bottom: 2vh;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .container ul {
@@ -76,12 +82,14 @@ input {
 h2 {
     margin-bottom: 0%;
     text-align: start;
+    font-size: 1.5em;
 }
 
 .col {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 1vh 0;
 }
 
 label {
@@ -100,9 +108,6 @@ label {
     font-weight: normal;
 }
 
-.application-title {
-    text-decoration: underline;
-}
 
 .doc-type {
     text-align: start;
@@ -117,6 +122,14 @@ label {
     background-color: black;
     border: none;
     cursor: pointer;
+    margin-top:0;
+}
+
+.add-button:hover,
+.view-button:hover,
+.search-more-button:hover,
+.personal-info-submit:hover {
+    background-color: #555;
 }
 
 
@@ -154,7 +167,7 @@ option {
     text-align: center;
 }
 
-#select-status:has(option[value="In Progress" ]:checked) {
+#select-status:has(option[value="In Progress"]:checked) {
     background-color: #796ce6;
 }
 
@@ -170,7 +183,7 @@ option {
     background-color: #d03a3a;
 }
 
-.white {
+#white {
     background-color: white;
 }
 
@@ -194,9 +207,6 @@ option {
 
 }
 
-
-
-
 .overlay {
     position: fixed;
     top: 0;
@@ -207,11 +217,9 @@ option {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-width: 100%;
-height: 100%;
-overflow: auto;
-
-    
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 }
 
 .pdf-viewer {
@@ -309,17 +317,82 @@ overflow: auto;
     color: white;
 }
 
+@media (max-width:1310px) {
+    .top-container-my-profile{
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+    .container{
+        flex-wrap: nowrap;
+        width: 38vw;
+    }
+    .documents-content{
+        /* width:30vw; */
+    }
+}
 
+@media (max-width: 390px) {
+    .types-personal-info{
+        line-height: 3vh;
+    }
+}
+
+@media (max-width: 685px) {
+    .react-pdf__Page__canvas{
+        width:70vw !important;
+        aspect-ratio: 1 / 1.414 !important;
+        height: auto !important;
+    }
+    .documents-container {
+        flex-wrap: wrap; 
+        overflow-x: hidden; 
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 60px;
+    }
+
+    .react-pdf__Page{
+        width:70vw ;
+        aspect-ratio:1/1.414 ;
+        height: auto;
+    }
+}
 
 @media (max-width: 800px) {
+    .top-container-my-profile{
+        flex-direction: column;
+        align-items: center;
+    
+    }
+
+    .overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+    }
     #myprofile {
         margin-left: 5%;
         margin-right: 5%;
         flex-direction: column;
     }
 
+    .container-bottom{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .container {
-        width: 90%;
+        width: 70%;
         flex-direction: column;
         padding: 0 2vw;
     }
@@ -333,27 +406,22 @@ overflow: auto;
 
     #personal-info {
         flex-direction: column; 
-        width: 80%;
+        width: 70%;
     }
 
     input[type="text"] {
         width: 70%;
     }
 
-    .add-button,
-    .view-button,
-    .search-more-button {
-        width: 80%; 
-        margin-bottom: 1vh;
-    }
-
     .documents-container {
         flex-wrap: wrap; 
         overflow-x: hidden; 
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 60px;
     }
 
     .pdf-container {
-        width: 80%;
         margin: 0 auto;
     }
 
@@ -362,18 +430,4 @@ overflow: auto;
         padding: 5px 15px;
     }
 
-    .applications-content {
-        width: 80%;
-    }
-
-    .applications-content h2 {
-
-        text-align: center;
-    }
-
-    .search-more-button {
-
-        margin-left: 100px;
-    }
 }
-

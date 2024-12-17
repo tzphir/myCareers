@@ -24,7 +24,7 @@ const Header = () => {
     return (
         <header>
             <div id="header">
-                <img src={Logo} alt="MyCareer" onClick={clickLogo} style={{ cursor: 'pointer' }} />
+                <img src={Logo} alt="MyCareer" onClick={clickLogo} className='page-logo' style={{ cursor: 'pointer' }} />
                 {displayNavigation && <button id="logout" onClick={() => navigate('/login')}>Log Out</button>}
             </div>
             <hr style={{ border: '1px solid black' }} />

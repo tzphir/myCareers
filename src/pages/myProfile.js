@@ -26,8 +26,8 @@ const MyProfile = () => {
   
   const [activeDocument, setActiveDocument] = useState(null);
 
-  const [isDeletedApplication, setDeletedApplication] = useState(false);
-  const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
+  //const [isDeletedApplication, setDeletedApplication] = useState(false);
+  //const [isChanged, setIsChanged] = useState(false); // Tracks if any input has changed
   const [postings, setPostings] = useState([])
 
   const documentCounts = useMemo(() => {
@@ -52,9 +52,7 @@ const MyProfile = () => {
 
     const fetchPersonalPostings = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/JobPostings`
-        );
+        const response = await axios.get(`http://localhost:8000/JobPostings`);
         setPostings(response.data);
       } catch (error) {
         console.error("Error fetching personal info:", error);
@@ -63,14 +61,6 @@ const MyProfile = () => {
     fetchPersonalPostings();
     
   }, []);
-
-
-  // const updatePersonalJobPostings = (updateFn) => {
-  //   setPersonalInfo((prev) => ({
-  //     ...prev,
-  //     jobPostings: updateFn(prev.jobPostings),
-  //   }));
-  // };
 
   // Handle input changes
   const handlePersonalInfoChange = (e) => {
@@ -91,7 +81,7 @@ const MyProfile = () => {
       formData.append("category", documentType);
   
       try {
-        const response = await axios.post(
+        await axios.post(
           `http://localhost:8000/Users/${personalInfo._id}/documents`,
           formData,
           {
@@ -117,35 +107,35 @@ const MyProfile = () => {
       (doc) => doc.category === docType
     );
 
-    try {
-      const documentsPromises = filteredDocuments.map(async (doc) => {
-        const response = await axios.get(
-          `http://localhost:8000/Users/${personalInfo._id}/documents/${doc.id}`,
-          { responseType: "blob" }
-        );
-        const fileUrl = URL.createObjectURL(response.data);
-        return { category: doc.category, fileUrl };
-      });
-      const documentsWithUrls = await Promise.all(documentsPromises);
-      setActiveDocument(documentsWithUrls);
-    } catch (error) {
-      console.error("Error loading PDF:", error);
-      alert("Error retrieving the document.");
+    if(filteredDocuments.length === 0){
+      alert("No documents to view")
+    }else{
+
+      try {
+        const documentsPromises = filteredDocuments.map(async (doc) => {
+          const response = await axios.get(
+            `http://localhost:8000/Users/${personalInfo._id}/documents/${doc.id}`,
+            { responseType: "blob" }
+          );
+          const fileUrl = URL.createObjectURL(response.data);
+          return { category: doc.category, fileUrl };
+        });
+        const documentsWithUrls = await Promise.all(documentsPromises);
+        setActiveDocument(documentsWithUrls);
+      } catch (error) {
+        console.error("Error loading PDF:", error);
+        alert("Error retrieving the document.");
+      }
     }
   };
   const closeDocuments = () => {
     setActiveDocument(null);
   };
 
-  
-
-
-
   // Submit updated info
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(personalInfo);
       await axios.put(
         `http://localhost:8000/Users/${personalInfo._id}`,
         personalInfo
@@ -167,6 +157,7 @@ const MyProfile = () => {
 
     return (
        <div id="myprofile">
+        <div className="top-container-my-profile">
             <div className="container" id="documents">
                 <div className="documents-content">
                     <h2>Documents</h2>
@@ -242,9 +233,9 @@ const MyProfile = () => {
       <div className="container" id="personal-info">
         <div className="types-personal-info">
           <h2>Personal Info</h2>
-          <form className="form-container" onSubmit={handleSubmit}>
+          <form className="form-container-my-profile" onSubmit={handleSubmit}>
             <div className="col">
-              <label for="fname">First Name:</label>
+              <label htmlFor="fname">First Name:</label>
               <input 
                 className="exclude-style"
                 type="text"
@@ -255,7 +246,7 @@ const MyProfile = () => {
               ></input>
             </div>
             <div className="col">
-              <label for="lname">Last Name:</label>
+              <label htmlFor="lname">Last Name:</label>
               <input
                 className="exclude-style"
                 type="text"
@@ -266,7 +257,7 @@ const MyProfile = () => {
               ></input>
             </div>
             <div className="col">
-              <label for="id">Student ID:</label>
+              <label htmlFor="id">Student ID:</label>
               <input
                 className="exclude-style"
                 type="text"
@@ -277,7 +268,7 @@ const MyProfile = () => {
               ></input>
             </div>
             <div className="col">
-              <label for="email">Email:</label>
+              <label htmlFor="email">Email:</label>
               <input
                 className="exclude-style"
                 type="text"
@@ -288,7 +279,7 @@ const MyProfile = () => {
               ></input>
             </div>
             <div className="col">
-              <label for="faculty">Faculty:</label>
+              <label htmlFor="faculty">Faculty:</label>
               <input
                 className="exclude-style"
                 type="text"
@@ -307,7 +298,9 @@ const MyProfile = () => {
           </form>
         </div>
       </div>
+      </div>
 
+      <div className="container-bottom">
         <div className="container" id="applications">
           <div className="applications-content">
             <h2>Applications Status Board</h2>
@@ -330,6 +323,7 @@ const MyProfile = () => {
             </button>
           </div>
         </div>
+      </div>
           {activeDocument?.length > 0 && (
             <>
             <div className="overlay">
