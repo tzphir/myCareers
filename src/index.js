@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Signin from './pages/Signin'; 
@@ -18,6 +18,7 @@ root.render(
   
   <Routes> 
       <Route path="/" element={<Layout />}>
+          <Route index element={<Navigate to="/login" />} />
           <Route path="usersigninsuccess" element={<UserSigninSuccess />} /> 
           <Route path="login" element={<Login/>}></Route>
           <Route path="signin" element={<Signin/>}></Route>
