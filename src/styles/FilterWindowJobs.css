@@ -16,6 +16,7 @@ body {
 } 
 
 .filter-container {
+top:10%;
 max-width: 1000px;
 margin: -50px;
 padding: 20px;
