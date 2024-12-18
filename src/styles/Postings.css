@@ -1,9 +1,3 @@
-.line {
-
-    display:none;
-
-}
-
 .postings-page{
     display: flex;
     align-items: start;
@@ -24,7 +18,8 @@
      width: 50px;
        
 }
-.posting{
+
+.posting {
     border: 1px solid black;
     display: flex;
     flex:wrap; 
@@ -36,6 +31,7 @@
     gap:0.1em; 
     padding-right: 2vw;
 }
+
 
 .major-info{
     flex:1; 
@@ -55,92 +51,4 @@
 
 .postings-container .filter-container{
     margin-left: 9vw;
-}
-
-@media screen and (max-width: 1200px) {
-    .line {
-        /* display: none; */
-        margin-left: 15px;
-        border-left: 3px dashed black;
-        margin-top: 60px;
-        height: 10px;
-        
-    }
-    .postings-page {
-        margin-top: 5vh;
-    }
-    .postings-container {
-        width: 60vw;
-        margin: 0;
-    }
-    .posting {
-        grid-template-columns: 15% 15% 45% 25%;
-        font-size: 0.9em;
-        height: auto;
-        padding: 1vh 0.5vw;
-    }
-    .posting img {
-        width: auto;
-        height: 5vh;
-    }
-    .major-info {
-        padding-left: 1vw;
-        font-size: 1em;
-    }
-    .minor-info {
-        font-size: 0.9em;
-        text-align: center;
-    }
-    .search-section {
-        flex-direction: column;
-        gap: 1vh;
-        margin-bottom: 1vh;
-    }
-    .filter-button {
-        font-size: 1em;
-        padding: 0.5vh 1vw;
-    }
-    .full-selected-posting {
-        width: 90vw;
-        margin: 2vh auto 0;
-    }
-    .search-bar {
-        width: 60vw;
-    }
-    .search-bar input {
-        font-size: 0.9em;
-    }
-}
-@media screen and (max-width: 900px) {
-    .search-bar {
-        width: 100%;
-        margin-left: 15px;
-    }
-    .line {
-        display: none;
-    }
-    .postings-page {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 2vh;
-        width: 100%;
-    }
-    .postings-container {
-        width: auto
-    }
-    .postings-list-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .posting {
-        width: 100%;
-        font-size: 0.9em;
-    }
-    .full-selected-posting {
-        width: 100%;
-        margin-top: 2vh; 
-        
-    }
 }
