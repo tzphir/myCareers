@@ -1,3 +1,5 @@
+//Marie-Christine
+
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
@@ -7,7 +9,7 @@ const Layout = () => {
     const pageContainerStyle = {
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh', // Ensures the wrapper always fills the viewport height
+        height: '100vh', 
     };
 
     return (
