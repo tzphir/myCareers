@@ -1,5 +1,6 @@
-// for chart.js, type this in the command line: npm i react-chartjs-2 chart.js
-// for react-calendar, type this in the command line: npm install react-calendar
+//Karya, Thomas
+
+
 
 import React from 'react';
 import { useState, useEffect } from 'react';
