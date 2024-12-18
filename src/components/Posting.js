@@ -1,3 +1,5 @@
+//Marie-Christine
+
 import Logo from '../assets/mock_company_logo.jpeg';
 import React, { useState } from 'react';
 //import axios from 'axios';
