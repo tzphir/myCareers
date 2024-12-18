@@ -105,7 +105,7 @@ const Postings = () => {
     // fetching all jobs postings in the database
     const fetchJobPostings = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/JobPostings');
+        const response = await axios.get('https://mycareers-backend.onrender.com/JobPostings');
         setJobPostings(response.data);
         setFilteredJobPostings(response.data);
       } catch (error) {
@@ -116,7 +116,7 @@ const Postings = () => {
 
     const fetchUserApplications = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/Users/${localStorage.getItem("id")}`);
+            const response = await axios.get(`https://mycareers-backend.onrender.com/Users/${localStorage.getItem("id")}`);
             setUserJobPostings(response.data.jobPostings.map(posting => posting.jobPostingId));
         } catch (error) {
             console.error("Error fetching user's list of applied postings:", error);

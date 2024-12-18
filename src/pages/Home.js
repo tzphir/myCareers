@@ -30,8 +30,8 @@ function Home() {
     }
 
     // Fetch user-specific data using the userId
-    const fetchUserData = axios.get(`http://localhost:8000/Users/${id}`);
-    const fetchTotalJobs = axios.get("http://localhost:8000/JobPostings"); // Fetch total jobs
+    const fetchUserData = axios.get(`https://mycareers-backend.onrender.com/Users/${id}`);
+    const fetchTotalJobs = axios.get("https://mycareers-backend.onrender.com/JobPostings"); // Fetch total jobs
 
     Promise.all([fetchUserData, fetchTotalJobs])
       .then(([userResponse, jobsResponse]) => {

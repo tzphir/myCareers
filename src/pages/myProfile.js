@@ -40,7 +40,7 @@ const MyProfile = () => {
   const fetchPersonalInfo = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/Users/${localStorage.getItem("id")}`
+        `https://mycareers-backend.onrender.com/Users/${localStorage.getItem("id")}`
       );
       setPersonalInfo(response.data);
     } catch (error) {
@@ -52,7 +52,7 @@ const MyProfile = () => {
 
     const fetchPersonalPostings = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/JobPostings`);
+        const response = await axios.get(`https://mycareers-backend.onrender.com/JobPostings`);
         setPostings(response.data);
       } catch (error) {
         console.error("Error fetching personal info:", error);
@@ -82,7 +82,7 @@ const MyProfile = () => {
   
       try {
         await axios.post(
-          `http://localhost:8000/Users/${personalInfo._id}/documents`,
+          `https://mycareers-backend.onrender.com/Users/${personalInfo._id}/documents`,
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
@@ -90,7 +90,7 @@ const MyProfile = () => {
         );
   
         const updatedResponse = await axios.get(
-          `http://localhost:8000/Users/${localStorage.getItem("id")}`
+          `https://mycareers-backend.onrender.com/Users/${localStorage.getItem("id")}`
         );
         setPersonalInfo(updatedResponse.data);
         alert(`${documentType} uploaded successfully!`);
@@ -114,7 +114,7 @@ const MyProfile = () => {
       try {
         const documentsPromises = filteredDocuments.map(async (doc) => {
           const response = await axios.get(
-            `http://localhost:8000/Users/${personalInfo._id}/documents/${doc.id}`,
+            `https://mycareers-backend.onrender.com/Users/${personalInfo._id}/documents/${doc.id}`,
             { responseType: "blob" }
           );
           const fileUrl = URL.createObjectURL(response.data);
@@ -137,7 +137,7 @@ const MyProfile = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:8000/Users/${personalInfo._id}`,
+        `https://mycareers-backend.onrender.com/Users/${personalInfo._id}`,
         personalInfo
       );
       setPersonalInfoChanged(false); // Hide submit button after successful update

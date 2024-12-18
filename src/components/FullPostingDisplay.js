@@ -21,7 +21,7 @@ const FullPostingDisplay = ( {  selectedPost, isStarred, userJobPostings, setUse
 
     const handleApply = async () => {
         try{
-            await axios.post(`http://localhost:8000/Users/${localStorage.getItem("id")}/jobPostings`,req);
+            await axios.post(`https://mycareers-backend.onrender.com/Users/${localStorage.getItem("id")}/jobPostings`,req);
             setHasApplied(true);
             setUserJobPostings([...userJobPostings, selectedPost._id]);
 

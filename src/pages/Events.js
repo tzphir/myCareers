@@ -29,7 +29,7 @@ const Events = () => {
         // Fetch all events
         const fetchAllEvents = async () => {
             try {
-                const result = await axios.get("http://localhost:8000/events");
+                const result = await axios.get("https://mycareers-backend.onrender.com/events");
                 setEvents(result.data);
                 setFilteredEvents(result.data); //sets filtered events to all events initially 
             } catch (err) {
@@ -40,7 +40,7 @@ const Events = () => {
         fetchAllEvents();
 
         // Fetch user data by ID
-        axios.get(`http://localhost:8000/Users/${id}`)
+        axios.get(`https://mycareers-backend.onrender.com/Users/${id}`)
             .then(response => {
                 const fetchedUserData = response.data;
                 setUserData(fetchedUserData);
@@ -52,7 +52,7 @@ const Events = () => {
                 const fetchUserEvents = async () => {
                     try {
                         const eventPromises = eventIds.map(eventId =>
-                            axios.get(`http://localhost:8000/events/${eventId}`)
+                            axios.get(`https://mycareers-backend.onrender.com/events/${eventId}`)
                         );
                         const eventResponses = await Promise.all(eventPromises);
                         const userEvents = eventResponses.map(response => response.data);
@@ -110,7 +110,7 @@ const Events = () => {
 
         const handleRegister = async () => {
             try {
-                const response = await axios.post(`http://localhost:8000/Users/${id}/events`, { eventId: event._id });
+                const response = await axios.post(`https://mycareers-backend.onrender.com/Users/${id}/events`, { eventId: event._id });
                 if (response.status === 201) {
                     setUserEvents((prevEvents) => {
                         return [...prevEvents, event];
