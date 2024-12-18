@@ -1,3 +1,5 @@
+//Thomas
+
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js';
 
