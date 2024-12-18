@@ -137,7 +137,7 @@ const Postings = () => {
     setSelectedPost(selectedPost);
 
     // redirect to full job posting when screen is small(otherwise not that intuitive)
-    if (window.innerWidth <= 900 && fullPostRef.current) {
+    if (window.innerWidth <= 700 && fullPostRef.current) {
       fullPostRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
