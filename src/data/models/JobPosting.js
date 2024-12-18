@@ -1,3 +1,5 @@
+//Shushi
+
 const { mongoose } = require('mongoose');
 
 const jobPostingSchema = new mongoose.Schema({
