@@ -1,3 +1,9 @@
+.line {
+
+    display:none;
+
+}
+
 .postings-page{
     display: flex;
     align-items: start;
