@@ -1,3 +1,5 @@
+//Marie-Christine, Shushi, Thomas
+
 import React, { useState, useEffect, useRef } from 'react';
 import FilterWindow from '../components/FilterWindowJobs';
 import '../styles/Postings.css';
