@@ -1,3 +1,4 @@
+//Marie-Christine
 
 import { useEffect, useState } from 'react';
 import Logo from '../assets/mock_company_logo.jpeg';
